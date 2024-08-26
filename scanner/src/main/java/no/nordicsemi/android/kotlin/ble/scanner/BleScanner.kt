@@ -38,6 +38,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
+import android.os.ParcelUuid
 import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
@@ -51,6 +52,7 @@ import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanFilter
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResult
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResultData
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScannerSettings
+import no.nordicsemi.android.kotlin.ble.core.scanner.FilteredServiceUuid
 import no.nordicsemi.android.kotlin.ble.mock.MockDevices
 import no.nordicsemi.android.kotlin.ble.scanner.errors.ScanFailedError
 import no.nordicsemi.android.kotlin.ble.scanner.errors.ScanningFailedException
@@ -89,7 +91,9 @@ class BleScanner(
      */
     @RequiresPermission(allOf = [Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT])
     fun scan(
-        filters: List<BleScanFilter> = emptyList(),
+//        filters: List<BleScanFilter> = emptyList(),
+        filters: List<BleScanFilter> = listOf(BleScanFilter(null, null, null, null, null, null, null, FilteredServiceUuid(
+            ParcelUuid.fromString("00001333-0000-1000-8000-00805f9b34fb")))),
         settings: BleScannerSettings = BleScannerSettings(),
     ): Flow<BleScanResult> = callbackFlow {
         launch {

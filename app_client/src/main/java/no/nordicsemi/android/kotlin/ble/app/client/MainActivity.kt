@@ -45,7 +45,7 @@ import no.nordicsemi.android.common.theme.NordicTheme
 class MainActivity : NordicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//
+
         setContent {
             NordicTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
