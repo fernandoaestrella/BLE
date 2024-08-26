@@ -31,6 +31,7 @@
 
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -55,6 +56,7 @@ fun LazyListScope.DeviceListItems(
 ) {
     val bondedDevices = devices.bonded
     val discoveredDevices = devices.notBonded
+    Log.i("BLE", "Discovered devices: ${discoveredDevices.toString()}")
 
     if (bondedDevices.isNotEmpty()) {
         item {
@@ -72,7 +74,7 @@ fun LazyListScope.DeviceListItems(
     if (discoveredDevices.isNotEmpty()) {
         item {
             Text(
-                text = stringResource(id = R.string.discovered_devices),
+                text = stringResource(id = R.string.discovered_devices) + " (${discoveredDevices.get(0).toString()})",
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
