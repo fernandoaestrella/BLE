@@ -1,0 +1,26 @@
+# Project exclude paths
+/.gradle/
+/app_client/build/
+/app_client/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/client/build/
+/client/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/client-android/build/
+/client-android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/client-api/build/
+/client-api/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/client-mock/build/
+/client-mock/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/core/build/
+/core/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/mock/build/
+/mock/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/server/build/
+/server/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/server-android/build/
+/server-android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/server-api/build/
+/server-api/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/server-mock/build/
+/server-mock/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/uiscanner/build/
+/uiscanner/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blinky Mock</string>
+
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="device">Device</string>
+    <string name="device_name">Device: %s</string>
+    <string name="name">Name: %s</string>
+    <string name="address">Address: %s</string>
+
+    <string name="button">Button: %s</string>
+    <string name="turn_led">Turn LED</string>
+
+    <string name="scanner_title">Scanner</string>
+    <string name="bonded_devices">Bonded devices</string>
+    <string name="discovered_devices">Discovered devices</string>
+
+    <string name="led_state">Led state: %s</string>
+
+    <string name="blinky_button">Button</string>
+    <string name="blinky_button_description">The button state</string>
+    <string name="blinky_button_on">ON</string>
+    <string name="blinky_button_off">OFF</string>
+
+    <string name="led">LED</string>
+    <string name="led_description">Switch to toggle the LED</string>
+</resources>
