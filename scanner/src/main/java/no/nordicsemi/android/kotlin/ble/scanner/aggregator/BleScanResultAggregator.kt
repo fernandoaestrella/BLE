@@ -31,6 +31,7 @@
 
 package no.nordicsemi.android.kotlin.ble.scanner.aggregator
 
+import android.util.Log
 import no.nordicsemi.android.kotlin.ble.core.ServerDevice
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResult
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResultData
@@ -55,6 +56,7 @@ class BleScanResultAggregator {
      */
     fun aggregate(scanItem: BleScanResult): List<BleScanResults> {
         val data = scanItem.data
+        Log.i("BLE", "data: " + data.toString())
         if (data != null) {
             devices[scanItem.device] = (devices[scanItem.device] ?: emptyList()) + data
         } else {
