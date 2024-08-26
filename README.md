@@ -1,3 +1,8 @@
+Files modified
+BleScanResultAggregator.kt
+BleAdvertiserOreo.kt
+DeviceListItems.kt
+
 # Kotlin BLE Library for Android
 
 The library simplifies usage of Android Bluetooth Low Energy on Android. It is a wrapper around
