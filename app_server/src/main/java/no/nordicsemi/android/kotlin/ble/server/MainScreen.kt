@@ -293,7 +293,7 @@ fun MainScreen() {
                                 }
                             }
                         }
-//                        What color of your clothing occupies the most space BELOW your hips?
+//                        What color of your clothing occupies the most space BELOW your hips??
                         Text(stringResource(id = R.string.user_description_question_7))
 
                         val choices_question_7 = stringToChoices(stringResource(id = R.string.user_description_question_7_options))
