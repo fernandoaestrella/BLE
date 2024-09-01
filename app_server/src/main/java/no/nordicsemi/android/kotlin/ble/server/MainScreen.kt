@@ -116,6 +116,7 @@ fun MainScreen() {
 
                         Text(stringResource(id = R.string.intro))
 
+                        // Uses 14 bits
                         displayStateLevels(viewModel)
 
                         Spacer(modifier = Modifier.size(16.dp))
@@ -127,6 +128,7 @@ fun MainScreen() {
                         var userIsMan by remember { mutableStateOf(false) }
 
 //                        Do you look like a man?
+//                        Uses 1 bit, 15 used so far
                         Row()
                         {
                             OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -137,11 +139,13 @@ fun MainScreen() {
                                 Text(stringResource(id = R.string.user_description_question_1))
                                 Checkbox(
                                     checked = userIsMan,
-                                    onCheckedChange = { userIsMan = it; viewModel.updateUserStatus(7, userIsMan); viewModel.printState()  }
+                                    onCheckedChange = { userIsMan = it; viewModel.updateUserState(14, userIsMan); viewModel.printState()  }
                                 )
                             }
                         }
 
+//                        Gender specific questions
+//                        Uses 3 bits, 18 used so far
                         if (userIsMan) {
 //                            Are you taller than [median height for apparent gender]?
                             Row()
@@ -154,7 +158,7 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_2_man))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(8, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(15, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
@@ -170,7 +174,7 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_3_man))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(9, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(16, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
@@ -186,7 +190,7 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_4_man))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(10, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(17, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
@@ -204,7 +208,7 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_2_woman))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(8, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(15, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
@@ -220,7 +224,7 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_3_woman))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(9, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(16, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
@@ -236,13 +240,14 @@ fun MainScreen() {
                                     Text(stringResource(id = R.string.user_description_question_4_woman))
                                     Checkbox(
                                         checked = isChecked,
-                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(10, isChecked); viewModel.printState()  }
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserState(17, isChecked); viewModel.printState()  }
                                     )
                                 }
                             }
                         }
 
 //                        Are you wearing glasses?
+//                        Uses 1 bit, 19 used so far
                         Row()
                         {
                             OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -253,21 +258,15 @@ fun MainScreen() {
                                 Text(stringResource(id = R.string.user_description_question_5))
                                 Checkbox(
                                     checked = isChecked,
-                                    onCheckedChange = { isChecked = it; viewModel.updateUserStatus(11, isChecked); viewModel.printState()  }
+                                    onCheckedChange = { isChecked = it; viewModel.updateUserState(18, isChecked); viewModel.printState()  }
                                 )
                             }
                         }
 
                         var radioSelection by remember { mutableStateOf(false) }
-//                        val radioSelection = remember { mutableStateOf(0) }
-//                        RadioButton(
-//                            onClick = {
-//                                radioIisChecked = !radioIisChecked
-//                            },
-//                            selected = radioIisChecked
-//                        )
 
 //                        What color of your clothing occupies the most space ABOVE your hips?
+//                        Uses 5 bits, 24 used so far
                         Text(stringResource(id = R.string.user_description_question_6))
                         val choices_question_6 = stringToChoices(stringResource(id = R.string.user_description_question_6_options))
                         val (selectedOption_question_6, onOptionSelected_question_6) = remember { mutableStateOf(choices_question_6[1] ) }
@@ -286,7 +285,8 @@ fun MainScreen() {
                                 ) {
                                     RadioButton(
                                         selected = (choice == selectedOption_question_6),
-                                        onClick = { onOptionSelected_question_6(choice) }
+                                        onClick = { onOptionSelected_question_6(choice);
+                                            viewModel.updateClothing(6, choices_question_6.indexOf(choice))}
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(text = choice.text)
@@ -294,6 +294,8 @@ fun MainScreen() {
                             }
                         }
 //                        What color of your clothing occupies the most space BELOW your hips??
+//                        Uses 4 bits, 28 used so far
+
                         Text(stringResource(id = R.string.user_description_question_7))
 
                         val choices_question_7 = stringToChoices(stringResource(id = R.string.user_description_question_7_options))

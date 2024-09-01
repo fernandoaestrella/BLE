@@ -69,7 +69,6 @@ import no.nordicsemi.android.kotlin.ble.server.main.service.ServerBleGattService
 import no.nordicsemi.android.kotlin.ble.server.main.service.ServerBleGattServiceType
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.experimental.or
 
 object BlinkySpecifications {
@@ -241,8 +240,24 @@ class ServerViewModel @Inject constructor(
         Log.d("ServerViewModel", "UserState: $userState")
     }
 
-    fun updateUserStatus(index: Int, state: Boolean) {
+    fun updateUserState(index: Int, state: Boolean) {
         userState.set(index, state)
+    }
+
+    fun intToBitArray(value: Int): List<Boolean> {
+        val binaryString = Integer.toBinaryString(value)
+        val last5Bits = binaryString.takeLast(5)
+        return last5Bits.map { it == '1' }
+    }
+
+    fun updateClothing(questionIndex: Int, answer: Int) {
+        if (questionIndex == 6) {
+            intToBitArray(answer).forEachIndexed { index, value ->
+                updateUserState(19 + index, value)
+            }
+        } else if (questionIndex == 7) {
+            updateUserState(questionIndex, answer == 1)
+        }
     }
 
 }

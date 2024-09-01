@@ -1,6 +1,5 @@
 package no.nordicsemi.android.kotlin.ble.server
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
@@ -34,7 +33,7 @@ fun UserDescription(index: Int, viewModel: ServerViewModel, userIsMan: Boolean):
             Text(stringResource(id = R.string.user_description_question_1))
             Checkbox(
                 checked = isChecked,
-                onCheckedChange = { isChecked = it; viewModel.updateUserStatus(index, isChecked); viewModel.printState()  }
+                onCheckedChange = { isChecked = it; viewModel.updateUserState(index, isChecked); viewModel.printState()  }
             )
         }
     }

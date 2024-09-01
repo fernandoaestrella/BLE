@@ -2,9 +2,7 @@ package no.nordicsemi.android.kotlin.ble.server
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -49,7 +47,7 @@ fun LevelStatus(index: Int, viewModel: ServerViewModel) {
                 Text(stateStrings.get(index * 2))
                 Checkbox(
                     checked = isChecked,
-                    onCheckedChange = { isChecked = it; viewModel.updateUserStatus(index * 2, isChecked); viewModel.printState()  }
+                    onCheckedChange = { isChecked = it; viewModel.updateUserState(index * 2, isChecked); viewModel.printState()  }
                 )
             }
         }
@@ -66,7 +64,7 @@ fun LevelStatus(index: Int, viewModel: ServerViewModel) {
                 Text(stateStrings.get(index * 2 + 1))
                 Checkbox(
                     checked = isChecked,
-                    onCheckedChange = { isChecked = it; viewModel.updateUserStatus(index * 2 + 1, isChecked); viewModel.printState() }
+                    onCheckedChange = { isChecked = it; viewModel.updateUserState(index * 2 + 1, isChecked); viewModel.printState() }
                 )
             }
         }
