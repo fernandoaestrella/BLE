@@ -33,6 +33,10 @@ plugins {
     alias(libs.plugins.nordic.library)
     alias(libs.plugins.nordic.kotlin.android)
     alias(libs.plugins.nordic.nexus.android)
+
+    // My plugins
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.nordic.hilt) apply false
 }
 
 group = "no.nordicsemi.android.kotlin.ble"
@@ -52,7 +56,7 @@ android {
     namespace = "no.nordicsemi.android.kotlin.ble.advertiser"
     defaultConfig {
         minSdk = 21
-        targetSdk = 29
+        //targetSdk = 29
     }
 }
 
@@ -62,4 +66,17 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.core)
+
+    // My dependencies
+    implementation(libs.hilt.android)
+//    kapt(libs.hilt.compiler)
+
+//    implementation 'com.google.dagger:hilt-android:2.48.1';
+//    kapt 'com.google.dagger:hilt-compiler:2.48.1';
+//    // ViewModel
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'  
+//
+//    // Fragment
+//    implementation 'androidx.fragment:fragment-ktx:1.5.6'  
+
 }

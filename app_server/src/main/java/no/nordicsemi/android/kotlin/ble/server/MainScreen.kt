@@ -31,20 +31,31 @@
 
 package no.nordicsemi.android.kotlin.ble.server
 
+import android.widget.ScrollView
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat.ScrollAxis
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import no.nordicsemi.android.common.permissions.ble.RequireBluetooth
@@ -68,8 +79,25 @@ fun MainScreen() {
                 RequireLocation {
                     val viewModel = hiltViewModel<ServerViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
+                    val scrollState = ScrollState(initial = 0)
 
-                    Column {
+                    Column(
+                        modifier = Modifier
+//                                .fillMaxSize()
+                            .verticalScroll(state = scrollState)
+                    ) {
+                        Spacer(modifier = Modifier.size(16.dp))
+
+                        Text(stringResource(id = R.string.intro))
+
+                        LevelStatus(6, viewModel)
+                        LevelStatus(5, viewModel)
+                        LevelStatus(4, viewModel)
+                        LevelStatus(3, viewModel)
+                        LevelStatus(2, viewModel)
+                        LevelStatus(1, viewModel)
+                        LevelStatus(0, viewModel)
+
                         Spacer(modifier = Modifier.size(16.dp))
 
                         AdvertiseView(state = state, viewModel = viewModel)

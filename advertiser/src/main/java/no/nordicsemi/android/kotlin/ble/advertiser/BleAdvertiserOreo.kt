@@ -77,14 +77,17 @@ internal class BleAdvertiserOreo(
 //            .setServiceData(serviceUuid, customPayload) // Replace with your service UUID and payload
 //            .build()
 //
-//        val advertiseData = config.advertiseData
+        val advertiseData = config.advertiseData
 //        val advertiseData = config.advertiseData//?.serviceData?.first()?.data
-        val byteArray = "sadhguru".toByteArray()
-        val uuidString = "00001333-0000-1000-8000-00805f9b34fb"
-        val parcelUuid = ParcelUuid(UUID.fromString(uuidString))
-        val serviceData = ServiceData(parcelUuid,DataByteArray(byteArray))
-//        val myServiceData = List<ServiceData>(1, ServiceData(parcelUuid, DataByteArray(byteArray), null)
-        val advertiseData = BleAdvertisingData(parcelUuid,true, true, emptyList(), listOf(serviceData))
+
+        // Working way to advertise from here
+//        val byteArray = "sadhguru".toByteArray()
+//        val uuidString = "00001333-0000-1000-8000-00805f9b34fb"
+//        val parcelUuid = ParcelUuid(UUID.fromString(uuidString))
+//        val serviceData = ServiceData(parcelUuid,DataByteArray(byteArray))
+////        val myServiceData = List<ServiceData>(1, ServiceData(parcelUuid, DataByteArray(byteArray), null)
+//        val advertiseData = BleAdvertisingData(parcelUuid,true, true, emptyList(), listOf(serviceData))
+
         val scanResponseData = config.scanResponseData
 
         val callback = BleAdvertisingSetCallback {

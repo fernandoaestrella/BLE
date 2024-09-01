@@ -32,6 +32,13 @@ fun AdvertiseView(state: ServerState, viewModel: ServerViewModel) {
 
             Spacer(modifier = Modifier.size(8.dp))
 
+            Text(
+                text = stringResource(id = R.string.advertisement_state, state.isAdvertising.toDisplayString()),
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            Spacer(modifier = Modifier.size(8.dp))
+
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val icon = if (state.isAdvertising) {
                     painterResource(id = R.drawable.ic_advertisements)

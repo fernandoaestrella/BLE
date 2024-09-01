@@ -48,6 +48,10 @@ plugins {
     alias(libs.plugins.nordic.feature) apply false
     alias(libs.plugins.nordic.nexus.android) apply false
     alias(libs.plugins.nordic.kotlin.android) apply false
+
+    //my plugins
+//    alias(com.google.dagger.hilt.android) apply false
+//    id '' version '2.48.1'
 }
 
 val skip = listOf(

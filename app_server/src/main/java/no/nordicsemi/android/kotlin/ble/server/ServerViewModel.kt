@@ -45,7 +45,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
@@ -58,6 +57,7 @@ import no.nordicsemi.android.kotlin.ble.advertiser.callback.OnAdvertisingSetStop
 import no.nordicsemi.android.kotlin.ble.core.advertiser.BleAdvertisingConfig
 import no.nordicsemi.android.kotlin.ble.core.advertiser.BleAdvertisingData
 import no.nordicsemi.android.kotlin.ble.core.advertiser.BleAdvertisingSettings
+import no.nordicsemi.android.kotlin.ble.core.advertiser.ServiceData
 import no.nordicsemi.android.kotlin.ble.core.data.BleGattPermission
 import no.nordicsemi.android.kotlin.ble.core.data.BleGattProperty
 import no.nordicsemi.android.kotlin.ble.server.main.ServerBleGatt
@@ -69,6 +69,8 @@ import no.nordicsemi.android.kotlin.ble.server.main.service.ServerBleGattService
 import no.nordicsemi.android.kotlin.ble.server.main.service.ServerBleGattServiceType
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+import kotlin.experimental.or
 
 object BlinkySpecifications {
     /** Nordic Blinky Service UUID. */
@@ -102,6 +104,30 @@ class ServerViewModel @Inject constructor(
 
     private var advertisementJob: Job? = null
 
+    // My variables
+//    private var userState = ArrayList<Boolean>(14)
+    private var userState = arrayListOf<Boolean>(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+
+    fun booleanListToByteArray(booleanList: List<Boolean>): ByteArray {
+        val byteArraySize = (booleanList.size + 7) / 8
+        val byteArray = ByteArray(byteArraySize)
+
+        var byteIndex = 0
+        var bitIndex = 0
+        for (booleanValue in booleanList) {
+            if (booleanValue) {
+                byteArray[byteIndex] = byteArray[byteIndex] or ((1 shl (7 - bitIndex)).toByte())
+            }
+            bitIndex++
+            if (bitIndex == 8) {
+                bitIndex = 0
+                byteIndex++
+            }
+        }
+
+        return byteArray
+    }
+
     fun advertise() {
         advertisementJob = viewModelScope.launch {
             //Define led characteristic
@@ -128,6 +154,15 @@ class ServerViewModel @Inject constructor(
 
             val server = ServerBleGatt.create(context, viewModelScope, serviceConfig)
 
+            // My custom payload
+//            val byteArray = "sadhguru".toByteArray()
+            val byteArray = booleanListToByteArray(userState)
+            val uuidString = "00001333-0000-1000-8000-00805f9b34fb"
+            val parcelUuid = ParcelUuid(UUID.fromString(uuidString))
+            val serviceData = ServiceData(parcelUuid, DataByteArray(byteArray))
+            //val advertiseData = BleAdvertisingData(parcelUuid,true, true, emptyList(), listOf(serviceData))
+
+
             val advertiser = BleAdvertiser.create(context)
             val advertiserConfig = BleAdvertisingConfig(
                 settings = BleAdvertisingSettings(
@@ -135,10 +170,16 @@ class ServerViewModel @Inject constructor(
                     legacyMode = true,
                     scannable = true
                 ),
+//                advertiseData = BleAdvertisingData(
+//                    ParcelUuid(BlinkySpecifications.UUID_SERVICE_DEVICE), //Advertise main service uuid.
+//                    includeDeviceName = true,
+//                )
                 advertiseData = BleAdvertisingData(
-                    ParcelUuid(BlinkySpecifications.UUID_SERVICE_DEVICE), //Advertise main service uuid.
-                    includeDeviceName = true,
-                )
+                    parcelUuid,
+                    true,
+                    true,
+                    emptyList(),
+                    listOf(serviceData))
             )
 
             advertiser.advertise(advertiserConfig) //Start advertising
@@ -193,5 +234,14 @@ class ServerViewModel @Inject constructor(
             DataByteArray.from(0x00)
         }
         buttonCharacteristic?.setValueAndNotifyClient(value)
+    }
+
+    // My functions
+    fun printState() {
+        Log.d("ServerViewModel", "UserState: $userState")
+    }
+
+    fun updateUserStatus(index: Int, state: Boolean) {
+        userState.set(index, state)
     }
 }
