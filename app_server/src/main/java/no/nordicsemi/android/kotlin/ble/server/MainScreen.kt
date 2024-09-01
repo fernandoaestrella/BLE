@@ -31,21 +31,23 @@
 
 package no.nordicsemi.android.kotlin.ble.server
 
-import android.widget.ScrollView
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,13 +59,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.view.ViewCompat.ScrollAxis
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import no.nordicsemi.android.common.permissions.ble.RequireBluetooth
 import no.nordicsemi.android.common.permissions.ble.RequireLocation
 import no.nordicsemi.android.common.ui.view.NordicAppBar
 import no.nordicsemi.android.kotlin.ble.app.server.R
+
+data class Choice(
+    val text: String,
+    var isSelected: Boolean = false
+)
+
+fun stringToChoices(string: String): List<Choice> {
+    val choicesList = mutableListOf<Choice>()
+    val stringList = string.split(",")
+
+    for (choiceString in stringList) {
+        choicesList.add(Choice(text = choiceString.trim()))
+    }
+
+    return choicesList.toList()
+}
+
+
+@Composable
+fun MultipleChoiceSelector(input: String, radioSelection: Boolean) {
+    val choices = stringToChoices(input)
+//    MultipleChoice(choices, radioSelection)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,21 +116,7 @@ fun MainScreen() {
 
                         Text(stringResource(id = R.string.intro))
 
-                        LevelStatus(0, viewModel)
-                        LevelStatus(1, viewModel)
-                        LevelStatus(2, viewModel)
-                        LevelStatus(3, viewModel)
-                        LevelStatus(4, viewModel)
-                        LevelStatus(5, viewModel)
-                        LevelStatus(6, viewModel)
-
-//                        LevelStatus(6, viewModel)
-//                        LevelStatus(5, viewModel)
-//                        LevelStatus(4, viewModel)
-//                        LevelStatus(3, viewModel)
-//                        LevelStatus(2, viewModel)
-//                        LevelStatus(1, viewModel)
-//                        LevelStatus(0, viewModel)
+                        displayStateLevels(viewModel)
 
                         Spacer(modifier = Modifier.size(16.dp))
 
@@ -116,6 +126,7 @@ fun MainScreen() {
 
                         var userIsMan by remember { mutableStateOf(false) }
 
+//                        Do you look like a man?
                         Row()
                         {
                             OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -132,6 +143,7 @@ fun MainScreen() {
                         }
 
                         if (userIsMan) {
+//                            Are you taller than [median height for apparent gender]?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -147,6 +159,7 @@ fun MainScreen() {
                                 }
                             }
 
+//                            Are you older than [median age for apparent gender]?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -162,6 +175,7 @@ fun MainScreen() {
                                 }
                             }
 
+//                            Do you have facial hair?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -176,7 +190,10 @@ fun MainScreen() {
                                     )
                                 }
                             }
-                        } else {
+                        } 
+                        else 
+                        {
+//                        Are you taller than [median height for apparent gender]?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -192,6 +209,7 @@ fun MainScreen() {
                                 }
                             }
 
+//                            Are you older than [median age for apparent gender]?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -207,6 +225,7 @@ fun MainScreen() {
                                 }
                             }
 
+//                            Does your hair reach below your shoulder?
                             Row()
                             {
                                 OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -223,6 +242,7 @@ fun MainScreen() {
                             }
                         }
 
+//                        Are you wearing glasses?
                         Row()
                         {
                             OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
@@ -237,8 +257,69 @@ fun MainScreen() {
                                 )
                             }
                         }
-//                        UserDescription(1, viewModel, userIsMan)
-//                        UserDescription(1, viewModel, userIsMan)
+
+                        var radioSelection by remember { mutableStateOf(false) }
+//                        val radioSelection = remember { mutableStateOf(0) }
+//                        RadioButton(
+//                            onClick = {
+//                                radioIisChecked = !radioIisChecked
+//                            },
+//                            selected = radioIisChecked
+//                        )
+
+//                        What color of your clothing occupies the most space ABOVE your hips?
+                        Text(stringResource(id = R.string.user_description_question_6))
+                        val choices_question_6 = stringToChoices(stringResource(id = R.string.user_description_question_6_options))
+                        val (selectedOption_question_6, onOptionSelected_question_6) = remember { mutableStateOf(choices_question_6[1] ) }
+                        Column {
+                            choices_question_6.forEach { choice ->
+                                Row(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .selectable(
+                                            selected = (choice == selectedOption_question_6),
+                                            onClick = {
+                                                onOptionSelected_question_6(choice)
+                                            }
+                                        )
+                                        .padding(horizontal = 16.dp)
+                                ) {
+                                    RadioButton(
+                                        selected = (choice == selectedOption_question_6),
+                                        onClick = { onOptionSelected_question_6(choice) }
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(text = choice.text)
+                                }
+                            }
+                        }
+//                        What color of your clothing occupies the most space BELOW your hips?
+                        Text(stringResource(id = R.string.user_description_question_7))
+
+                        val choices_question_7 = stringToChoices(stringResource(id = R.string.user_description_question_7_options))
+                        val (selectedOption_question_7, onOptionSelected_question_7) = remember { mutableStateOf(choices_question_7[1] ) }
+                        Column {
+                            choices_question_7.forEach { choice ->
+                                Row(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .selectable(
+                                            selected = (choice == selectedOption_question_7),
+                                            onClick = {
+                                                onOptionSelected_question_7(choice)
+                                            }
+                                        )
+                                        .padding(horizontal = 16.dp)
+                                ) {
+                                    RadioButton(
+                                        selected = (choice == selectedOption_question_7),
+                                        onClick = { onOptionSelected_question_7(choice) }
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(text = choice.text)
+                                }
+                            }
+                        }
 
                         Spacer(modifier = Modifier.size(16.dp))
 
@@ -274,4 +355,15 @@ fun MainScreen() {
             }
         }
     }
+}
+
+@Composable
+fun displayStateLevels(viewModel: ServerViewModel) {
+    LevelStatus(0, viewModel)
+    LevelStatus(1, viewModel)
+    LevelStatus(2, viewModel)
+    LevelStatus(3, viewModel)
+    LevelStatus(4, viewModel)
+    LevelStatus(5, viewModel)
+    LevelStatus(6, viewModel)
 }

@@ -89,7 +89,9 @@ What color of your clothing occupies the most space BELOW your hips?
     <string name="user_description_question_4_woman">Does your hair reach below your shoulder?</string>">
     <string name="user_description_question_5">Are you wearing glasses?</string>">
     <string name="user_description_question_6">What color of your clothing occupies the most space ABOVE your hips?</string>">
+    <string name="user_description_question_6_options">white,black,gray,brown,red,green,blue,purple,orange,yellow,none (oooh yeah!)</string>">
     <string name="user_description_question_7">What color of your clothing occupies the most space BELOW your hips?</string>">
+    <string name="user_description_question_7_options">white,black,gray,brown,blue,none of the above (i.e. other colors),none (woohoo! go you!)</string>">
     <string name="button">Button</string>
     <string name="stop">Stop Advertising</string>
     <string name="advertise">Advertise</string>
