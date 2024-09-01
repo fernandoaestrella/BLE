@@ -57,11 +57,17 @@ What color of your clothing occupies the most space BELOW your hips?
 <resources>
     <string name="app_name">Uncover your deepest desires</string>
     <string name="characteristics">Characteristics</string>
-    <string name="intro">Welcome! Please indicate what you can supply, and what you need help with, below.\nIf you can supply a level\'s need, check the button on the left\nIf you need a level supplied, mark the button on the right</string>
-    <string name="request">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer"</string>
-    <string name="call_to_action">Now you can take one of the actions below (you can scroll horizontally)</string>">
-    <string name="match_request_1">Request Basic Need</string>">
-    <string name="match_supply_1">Provide Basic Need</string>">
+    <string name="intro">Welcome! Please indicate what you can supply, and what you need help with, below.\nIf you can supply a level\'s need, tap the checkbox on the left.\nIf you need a level supplied, tap the checkbox on the right.</string>
+    <string name="user_description">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer"</string>
+    <string name="call_to_action">Now send it out to the world and wait for someone to approach you!</string>">
+    <string name="about">About this app\n\nWe hope this app reminds you of the magic that is already out there in the world. As you use it, we invite you to allow yourself to:
+        - Receive help from someone you may not have considered that could enrich your life
+- See your life in many more dimensions than just survival and pleasure
+- Be clear about your deeper desires instead of being pushed by expectations
+- Blur the lines between giving and receiving help, which may help discover a deeper reality than the apparent separation we experience
+    - Fulfill different needs than the ones you have already covered (i.e. don\'t continuously fulfill the same one) </string>">
+    <string name="match_request_1">Request Survival Need</string>">
+    <string name="match_supply_1">Provide Survival Need</string>">
     <string name="match_request_2">Join Game</string>">
     <string name="match_supply_2">Suggest Game</string>">
     <string name="match_request_3">Start Big Project</string>">
@@ -74,8 +80,18 @@ What color of your clothing occupies the most space BELOW your hips?
     <string name="match_supply_6">Dispel Darkness</string>">
     <string name="match_request_7">Realize Oneness</string>">
     <string name="match_supply_7">Realize Oneness</string>">
+    <string name="user_description_question_1">Do you look like a man?</string>">
+    <string name="user_description_question_2_man">Are you taller than 5 feet 9 inches (175 cm)?</string>">
+    <string name="user_description_question_2_woman">Are you taller than 5 feet 4 inches (162 cm)?</string>">
+    <string name="user_description_question_3_man">Are you older than 30.3 years?</string>">
+    <string name="user_description_question_3_woman">Are you older than 31.8 years?</string>">
+    <string name="user_description_question_4_man">Do you have facial hair?</string>">
+    <string name="user_description_question_4_woman">Does your hair reach below your shoulder?</string>">
+    <string name="user_description_question_5">Are you wearing glasses?</string>">
+    <string name="user_description_question_6">What color of your clothing occupies the most space ABOVE your hips?</string>">
+    <string name="user_description_question_7">What color of your clothing occupies the most space BELOW your hips?</string>">
     <string name="button">Button</string>
-    <string name="stop">Stop</string>
+    <string name="stop">Stop Advertising</string>
     <string name="advertise">Advertise</string>
     <string name="advertisement_state">Advertisement state: %s</string>
     <string name="led_state">Led state: %s</string>

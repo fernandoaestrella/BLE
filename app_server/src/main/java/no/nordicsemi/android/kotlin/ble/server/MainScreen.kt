@@ -41,6 +41,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -53,6 +54,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat.ScrollAxis
@@ -90,21 +92,183 @@ fun MainScreen() {
 
                         Text(stringResource(id = R.string.intro))
 
-                        LevelStatus(6, viewModel)
-                        LevelStatus(5, viewModel)
-                        LevelStatus(4, viewModel)
-                        LevelStatus(3, viewModel)
-                        LevelStatus(2, viewModel)
-                        LevelStatus(1, viewModel)
                         LevelStatus(0, viewModel)
+                        LevelStatus(1, viewModel)
+                        LevelStatus(2, viewModel)
+                        LevelStatus(3, viewModel)
+                        LevelStatus(4, viewModel)
+                        LevelStatus(5, viewModel)
+                        LevelStatus(6, viewModel)
+
+//                        LevelStatus(6, viewModel)
+//                        LevelStatus(5, viewModel)
+//                        LevelStatus(4, viewModel)
+//                        LevelStatus(3, viewModel)
+//                        LevelStatus(2, viewModel)
+//                        LevelStatus(1, viewModel)
+//                        LevelStatus(0, viewModel)
 
                         Spacer(modifier = Modifier.size(16.dp))
 
-                        AdvertiseView(state = state, viewModel = viewModel)
+                        Text(stringResource(id = R.string.user_description))
 
                         Spacer(modifier = Modifier.size(16.dp))
 
-                        StateView(state = state, viewModel = viewModel)
+                        var userIsMan by remember { mutableStateOf(false) }
+
+                        Row()
+                        {
+                            OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                shape = RectangleShape
+                            ) {
+//                                var isChecked by remember { mutableStateOf(false) }
+
+                                Text(stringResource(id = R.string.user_description_question_1))
+                                Checkbox(
+                                    checked = userIsMan,
+                                    onCheckedChange = { userIsMan = it; viewModel.updateUserStatus(7, userIsMan); viewModel.printState()  }
+                                )
+                            }
+                        }
+
+                        if (userIsMan) {
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_2_man))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(8, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_3_man))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(9, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_4_man))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(10, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+                        } else {
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_2_woman))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(8, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_3_woman))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(9, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+
+                            Row()
+                            {
+                                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                    shape = RectangleShape
+                                ) {
+                                    var isChecked by remember { mutableStateOf(false) }
+
+                                    Text(stringResource(id = R.string.user_description_question_4_woman))
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange = { isChecked = it; viewModel.updateUserStatus(10, isChecked); viewModel.printState()  }
+                                    )
+                                }
+                            }
+                        }
+
+                        Row()
+                        {
+                            OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                                shape = RectangleShape
+                            ) {
+                                var isChecked by remember { mutableStateOf(false) }
+
+                                Text(stringResource(id = R.string.user_description_question_5))
+                                Checkbox(
+                                    checked = isChecked,
+                                    onCheckedChange = { isChecked = it; viewModel.updateUserStatus(11, isChecked); viewModel.printState()  }
+                                )
+                            }
+                        }
+//                        UserDescription(1, viewModel, userIsMan)
+//                        UserDescription(1, viewModel, userIsMan)
+
+                        Spacer(modifier = Modifier.size(16.dp))
+
+                        Text(stringResource(id = R.string.call_to_action))
+
+                        if (state.isAdvertising) {
+                            Button(
+                                onClick = { viewModel.stopAdvertise() },
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            ) {
+                                Text(stringResource(id = R.string.stop))
+                            }
+                        } else {
+                            Button(
+                                onClick = { viewModel.advertise() },
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            ) {
+                                Text(stringResource(id = R.string.advertise))
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.size(16.dp))
+
+                        Text(stringResource(id = R.string.about))
+
+//                        AdvertiseView(state = state, viewModel = viewModel)
+
+//                        Spacer(modifier = Modifier.size(16.dp))
+//
+//                        StateView(state = state, viewModel = viewModel)
                     }
                 }
             }

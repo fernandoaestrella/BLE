@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.app.server.R
@@ -41,7 +42,8 @@ fun LevelStatus(index: Int, viewModel: ServerViewModel) {
 //        Request
         Column {
 //            OutlinedCard() {
-                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp)) {
+                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                    shape = RectangleShape) {
                 var isChecked by remember { mutableStateOf(false) }
 
                 Text(stateStrings.get(index * 2))
@@ -57,7 +59,8 @@ fun LevelStatus(index: Int, viewModel: ServerViewModel) {
 //        Supply
         Column {
 //            OutlinedCard() {
-                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp)) {
+                OutlinedCard(modifier = Modifier.padding(horizontal = 2.dp),
+                    shape = RectangleShape) {
                 var isChecked by remember { mutableStateOf(false) }
 
                 Text(stateStrings.get(index * 2 + 1))

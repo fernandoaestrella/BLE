@@ -244,4 +244,5 @@ class ServerViewModel @Inject constructor(
     fun updateUserStatus(index: Int, state: Boolean) {
         userState.set(index, state)
     }
+
 }
