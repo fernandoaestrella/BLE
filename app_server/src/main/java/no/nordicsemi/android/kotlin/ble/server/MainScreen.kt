@@ -266,7 +266,7 @@ fun MainScreen() {
                         var radioSelection by remember { mutableStateOf(false) }
 
 //                        What color of your clothing occupies the most space ABOVE your hips?
-//                        Uses 5 bits, 24 used so far
+//                        Uses 4 bits, 23 used so far
                         Text(stringResource(id = R.string.user_description_question_6))
                         val choices_question_6 = stringToChoices(stringResource(id = R.string.user_description_question_6_options))
                         val (selectedOption_question_6, onOptionSelected_question_6) = remember { mutableStateOf(choices_question_6[1] ) }
@@ -294,7 +294,7 @@ fun MainScreen() {
                             }
                         }
 //                        What color of your clothing occupies the most space BELOW your hips??
-//                        Uses 4 bits, 28 used so far
+//                        Uses 3 bits, 26 used so far
 
                         Text(stringResource(id = R.string.user_description_question_7))
 
@@ -315,7 +315,8 @@ fun MainScreen() {
                                 ) {
                                     RadioButton(
                                         selected = (choice == selectedOption_question_7),
-                                        onClick = { onOptionSelected_question_7(choice) }
+                                        onClick = { onOptionSelected_question_7(choice);
+                                            viewModel.updateClothing(7, choices_question_7.indexOf(choice)) }
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(text = choice.text)

@@ -105,7 +105,7 @@ class ServerViewModel @Inject constructor(
 
     // My variables
 //    private var userState = ArrayList<Boolean>(14)
-    private var userState = arrayListOf<Boolean>(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+    private var userState = arrayListOf<Boolean>(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
 
     fun booleanListToByteArray(booleanList: List<Boolean>): ByteArray {
         val byteArraySize = (booleanList.size + 7) / 8
@@ -244,20 +244,29 @@ class ServerViewModel @Inject constructor(
         userState.set(index, state)
     }
 
-    fun intToBitArray(value: Int): List<Boolean> {
-        val binaryString = Integer.toBinaryString(value)
-        val last5Bits = binaryString.takeLast(5)
-        return last5Bits.map { it == '1' }
+    fun intToBitArray(value: Int, amount: Int): List<Boolean> {
+        var binaryString = Integer.toBinaryString(value)
+        while (binaryString.length < amount) {
+            binaryString = "0".plus(binaryString)
+        }
+        Log.d("ServerViewModel", "binaryString: $binaryString")
+        val lastBits = binaryString.takeLast(amount)
+        Log.d("ServerViewModel", "lastBits: $lastBits")
+        return lastBits.map { it == '1' }
     }
 
     fun updateClothing(questionIndex: Int, answer: Int) {
         if (questionIndex == 6) {
-            intToBitArray(answer).forEachIndexed { index, value ->
+            intToBitArray(answer, 4).forEachIndexed { index, value ->
                 updateUserState(19 + index, value)
             }
         } else if (questionIndex == 7) {
-            updateUserState(questionIndex, answer == 1)
+            intToBitArray(answer, 3).forEachIndexed { index, value ->
+                updateUserState(23 + index, value)
+            }
         }
+
+        printState()
     }
 
 }
