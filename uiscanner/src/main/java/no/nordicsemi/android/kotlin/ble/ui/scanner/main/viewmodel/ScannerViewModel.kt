@@ -74,6 +74,10 @@ internal class ScannerViewModel @Inject constructor(
         relaunchScanning()
     }
 
+    fun stopScanning() {
+        currentJob?.cancel()
+    }
+
     private fun relaunchScanning() {
         currentJob?.cancel()
         val aggregator = BleScanResultAggregator()

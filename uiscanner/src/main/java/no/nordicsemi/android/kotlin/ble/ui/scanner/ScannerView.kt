@@ -36,6 +36,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -55,6 +56,7 @@ import no.nordicsemi.android.common.permissions.ble.RequireBluetooth
 import no.nordicsemi.android.common.permissions.ble.RequireLocation
 import no.nordicsemi.android.common.ui.R
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
+//import no.nordicsemi.android.kotlin.ble.server.ServerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DeviceListItem
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DevicesListView
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
@@ -79,6 +81,8 @@ fun ScannerView(
             onChanged = { onScanningStateChanged(it) }
         ) { isLocationRequiredAndDisabled ->
             val viewModel = hiltViewModel<ScannerViewModel>()
+//            val serverViewModel = hiltViewModel<ServerViewModel>()
+
             LaunchedEffect(key1 = Unit) {
                 print("Launch effect")
                 viewModel.setFilters(filters)
@@ -102,6 +106,9 @@ fun ScannerView(
                     )
                 }
 
+                Button(onClick = { viewModel.stopScanning()}) {
+//                    Text("Stop Scanning")
+                }
                 PullToRefreshBox(
                     isRefreshing = state is ScanningState.Loading,
                     onRefresh = {

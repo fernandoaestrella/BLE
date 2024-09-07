@@ -40,6 +40,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -105,7 +106,8 @@ fun MainScreen() {
                 RequireLocation {
                     val viewModel = hiltViewModel<ServerViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
-                    val scrollState = ScrollState(initial = 0)
+//                    val scrollState = ScrollState(initial = 0, )
+                    val scrollState = rememberScrollState()
 
                     Column(
                         modifier = Modifier
@@ -269,7 +271,7 @@ fun MainScreen() {
 //                        Uses 4 bits, 23 used so far
                         Text(stringResource(id = R.string.user_description_question_6))
                         val choices_question_6 = stringToChoices(stringResource(id = R.string.user_description_question_6_options))
-                        val (selectedOption_question_6, onOptionSelected_question_6) = remember { mutableStateOf(choices_question_6[1] ) }
+                        val (selectedOption_question_6, onOptionSelected_question_6) = remember { mutableStateOf(choices_question_6[0] ) }
                         Column {
                             choices_question_6.forEach { choice ->
                                 Row(
@@ -299,7 +301,7 @@ fun MainScreen() {
                         Text(stringResource(id = R.string.user_description_question_7))
 
                         val choices_question_7 = stringToChoices(stringResource(id = R.string.user_description_question_7_options))
-                        val (selectedOption_question_7, onOptionSelected_question_7) = remember { mutableStateOf(choices_question_7[1] ) }
+                        val (selectedOption_question_7, onOptionSelected_question_7) = remember { mutableStateOf(choices_question_7[0] ) }
                         Column {
                             choices_question_7.forEach { choice ->
                                 Row(
