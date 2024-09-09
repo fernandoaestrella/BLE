@@ -76,4 +76,12 @@
     <string name="device_connecting">Connecting…</string>
     <string name="device_explanation">The mobile is trying to connect to peripheral device.</string>
     <string name="device_please_wait">Please wait…</string>
+    <string name="scan_input_user_state">Hi!\n
+    Before using this app, please do the following:\n
+    1. Open the advertising app\n
+    2. Answer all the questions\n
+    3. Tap on \"Advertise\"\n
+    4. Tap on \"Stop Advertising\"\n
+    5. Write down the text in the line that starts with \"(0x)\", under the \"Advertise\" button\n
+    6. Input that text in the form below\n</string>
 </resources>

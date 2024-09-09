@@ -106,6 +106,7 @@ class ServerViewModel @Inject constructor(
     // My variables
 //    private var userState = ArrayList<Boolean>(14)
     private var userState = arrayListOf<Boolean>(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+    var userStateDataByteArray = DataByteArray(byteArrayOf(0))
 
     fun booleanListToByteArray(booleanList: List<Boolean>): ByteArray {
         val byteArraySize = (booleanList.size + 7) / 8
@@ -155,10 +156,10 @@ class ServerViewModel @Inject constructor(
 
             // My custom payload
 //            val byteArray = "sadhguru".toByteArray()
-            val byteArray = booleanListToByteArray(userState)
+            userStateDataByteArray = DataByteArray(booleanListToByteArray(userState))
             val uuidString = "00001333-0000-1000-8000-00805f9b34fb"
             val parcelUuid = ParcelUuid(UUID.fromString(uuidString))
-            val serviceData = ServiceData(parcelUuid, DataByteArray(byteArray))
+            val serviceData = ServiceData(parcelUuid, userStateDataByteArray)
             //val advertiseData = BleAdvertisingData(parcelUuid,true, true, emptyList(), listOf(serviceData))
 
 
@@ -242,6 +243,12 @@ class ServerViewModel @Inject constructor(
 
     fun updateUserState(index: Int, state: Boolean) {
         userState.set(index, state)
+
+        if (index == 14) {
+            userState.set(15, false)
+            userState.set(16, false)
+            userState.set(17, false)
+        }
     }
 
     fun intToBitArray(value: Int, amount: Int): List<Boolean> {

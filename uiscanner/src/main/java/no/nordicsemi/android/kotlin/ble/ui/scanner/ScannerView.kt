@@ -39,6 +39,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -48,6 +50,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -105,6 +108,17 @@ fun ScannerView(
                         shape = filterShape,
                     )
                 }
+
+                Text("""Hi!\n
+                Before using this app, please do the following:\n
+                1. Open the advertising app\n
+                        2. Answer all the questions\n
+                        3. Tap on \"Advertise\"\n
+                4. Tap on \"Stop Advertising\"\n
+                5. Write down the text in the line that starts with \"(0x)\", under the \"Advertise\" button\n
+                6. Input that text in the form below\n""")
+
+                TextField("(0x)",{})
 
                 Button(onClick = { viewModel.stopScanning()}) {
 //                    Text("Stop Scanning")
