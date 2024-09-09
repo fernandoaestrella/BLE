@@ -46,6 +46,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import no.nordicsemi.android.kotlin.ble.core.data.util.DataByteArray
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 import no.nordicsemi.android.kotlin.ble.scanner.aggregator.BleScanResultAggregator
 import no.nordicsemi.android.kotlin.ble.scanner.errors.ScanFailedError
@@ -69,6 +70,9 @@ internal class ScannerViewModel @Inject constructor(
 
     private val _state = MutableStateFlow<ScanningState>(ScanningState.Loading)
     val state = _state.asStateFlow()
+
+//    My variables
+    var inputUserStateDataByteArray: DataByteArray = DataByteArray()
 
     init {
         relaunchScanning()

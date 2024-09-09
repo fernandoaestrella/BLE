@@ -30,4 +30,5 @@
 
     <string name="led">LED</string>
     <string name="led_description">Switch to toggle the LED</string>
+
 </resources>

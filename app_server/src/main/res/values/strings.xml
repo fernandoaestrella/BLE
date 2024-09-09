@@ -55,17 +55,17 @@ What color of your clothing occupies the most space ABOVE your hips?
 What color of your clothing occupies the most space BELOW your hips?
 -->
 <resources>
-    <string name="app_name">Uncover your deepest desires</string>
+    <string name="app_name">Uncover your deepest desires (Advertiser app)</string>
     <string name="characteristics">Characteristics</string>
     <string name="intro">Welcome! We all have different needs we need to supply. This is an app to help you more easily fulfill them with the people already around you that you might not have considered could help you, or that you could help. Please indicate what you can supply, and what you need help with, below.\nIf you need a level supplied, tap the checkbox on the left.\nIf you can supply a level\'s need, tap the checkbox on the right.</string>
-    <string name="user_description">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer."</string>
-    <string name="call_to_action">Now send it out to the world and wait for someone to approach you!\n(they should be using the receiver app)\nIf you make a change after you had started advertising, stop and start advertising.</string>">
+    <string name="user_description">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer. If an answer is \"yes\", check the box. If it is \"no\", leave the box unchecked."</string>
+    <string name="call_to_action">Now send it out to the world and wait for someone to approach you!\n(they should be using the receiver app)\nIf you make a change to your information after you had started advertising, stop and start advertising.</string>">
     <string name="about">About this app\n\nWe hope this app reminds you of the magic that is already out there in the world. As you use it, we invite you to allow yourself to:
-        \n- Receive help from someone you may not have considered that could enrich your life
-        \n- See your life in many more dimensions than just survival and pleasure
-\n- Fulfill different needs than the ones you have already covered (i.e. don\'t continuously fulfill the same one)
-        \n- Be clear about your deeper desires instead of being pushed by expectations
-\n- Blur the lines between giving and receiving help, which may help discover a deeper reality than the apparent separation we experience
+        \n- Receive help from someone you may not have considered that could enrich your life.
+        \n- See your life in many more dimensions than just survival and pleasure.
+\n- Fulfill different needs than the ones you have already covered (i.e. don\'t continuously fulfill the same one/s).
+        \n- Be clear about your deeper desires instead of being pushed by expectations.
+\n- Blur the lines between giving and receiving help, which may help discover a deeper reality than the apparent separation we experience. In other words, be open to what you might receive when you feel you are giving, and open yourself to noticing the flavor your life takes when you feel grateful for the help you receive.
         \nEnjoy!
         </string>">
     <string name="match_request_1">Request Survival Need</string>">
@@ -102,4 +102,6 @@ What color of your clothing occupies the most space BELOW your hips?
     <string name="button_state">Button state: %s</string>
     <string name="state_on">ON</string>
     <string name="state_off">OFF</string>
+    <string name="user_state_intro">The line below this paragraph shows how this software is representing the data you have input (your requests and the description of how you look). It starts with \"(0x)\". If you want to scan for matches (receive matches), instead of advertising your data (outputting your data), please write down the text after (0x) and input it in the companion scanning app, and start scanning. We should aim for having roughly half the people advertising and half scanning at any given moment in time. This will be made easier to use in future versions of this app. Only a person scanning can receive matches from people advertising, so people can alternate scanning and advertising after some time. The data below only gets updated when you start advertising, so you can advertise shortly if you want to update it. If you see this character \"0\", it is the number zero, not the letter O.\n</string>
+
 </resources>
