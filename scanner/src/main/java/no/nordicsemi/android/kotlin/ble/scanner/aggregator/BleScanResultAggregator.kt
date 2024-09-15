@@ -57,7 +57,7 @@ class BleScanResultAggregator {
     fun aggregate(scanItem: BleScanResult): List<BleScanResults> {
         val data = scanItem.data
 
-        Log.i("BLE", "data: " + data.toString())//
+//        Log.i("BLE", "data: " + data.toString())//
         if (data != null) {
             devices[scanItem.device] = (devices[scanItem.device] ?: emptyList()) + data
         } else {

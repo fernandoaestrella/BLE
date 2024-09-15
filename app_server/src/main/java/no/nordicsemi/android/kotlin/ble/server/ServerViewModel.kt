@@ -256,9 +256,7 @@ class ServerViewModel @Inject constructor(
         while (binaryString.length < amount) {
             binaryString = "0".plus(binaryString)
         }
-        Log.d("ServerViewModel", "binaryString: $binaryString")
         val lastBits = binaryString.takeLast(amount)
-        Log.d("ServerViewModel", "lastBits: $lastBits")
         return lastBits.map { it == '1' }
     }
 
