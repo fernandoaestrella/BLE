@@ -31,7 +31,6 @@
 
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -43,17 +42,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 import no.nordicsemi.android.kotlin.ble.ui.scanner.R
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 
 @Suppress("FunctionName")
-fun LazyListScope.DeviceListItems(
+internal fun LazyListScope.DeviceListItems(
     devices: ScanningState.DevicesDiscovered,
     onClick: (BleScanResults) -> Unit,
     deviceView: @Composable (BleScanResults) -> Unit,
+    viewModel: ScannerViewModel
 ) {
     val bondedDevices = devices.bonded
     val discoveredDevices = devices.notBonded
@@ -67,7 +67,7 @@ fun LazyListScope.DeviceListItems(
             )
         }
         items(bondedDevices.size) {
-            ClickableDeviceItem(bondedDevices[it], onClick, deviceView)
+            ClickableDeviceItem(bondedDevices[it], onClick, deviceView, viewModel)
         }
     }
 
@@ -81,23 +81,23 @@ fun LazyListScope.DeviceListItems(
         }
 
         items(discoveredDevices.size) {
-            ClickableDeviceItem(discoveredDevices[it], onClick, deviceView)
+            ClickableDeviceItem(discoveredDevices[it], onClick, deviceView, viewModel)
         }
     }
 }
 
-//fun iterateBits(byteArray: ByteArray) {
-//    for (byte in byteArray) {
-//        for (bitIndex in 0..7) {
-//            val bit = (byte shr bitIndex) and 1 != 0
-//            println("Bit $bitIndex: $bit")
-//        }
-//    }
-//}
+internal fun iterateBits(byteArray: ByteArray, viewmodel: ScannerViewModel) {
+    for (byte in byteArray) {
+        for (bitIndex in 0..7) {
+            val bit = (byte.toInt() shr bitIndex) and 1 != 0
+            println("Bit $bitIndex: $bit")
+        }
+    }
+}
 
 fun hexStringToByteArray(hexString: String): ByteArray {
     val byteArray = ByteArray(hexString.length / 2)
-    for (i in 0 until hexString.length step 2) {
+    for (i in hexString.indices step 2) {
         val highNibble = Character.digit(hexString[i], 16) shl 4
         val lowNibble = Character.digit(hexString[i + 1], 16)
         byteArray[i / 2] = (highNibble or lowNibble).toByte()
@@ -114,16 +114,16 @@ private fun ClickableDeviceItem(
     device: BleScanResults,
     onClick: (BleScanResults) -> Unit,
     deviceView: @Composable (BleScanResults) -> Unit,
+    viewmodel: ScannerViewModel
 ) {
 
 
     if (device.scanResult.isNotEmpty()) {
-//        Text(text = byteArrayToHexString(hexStringToByteArray("50000")))
-        Text(text = byteArrayToHexString(hexStringToByteArray("ffffffff")))
-        Text(text = byteArrayToHexString(hexStringToByteArray("12345678")))
-        Text(text = byteArrayToHexString(hexStringToByteArray("abcdef09")))
-        Text(text = byteArrayToHexString(hexStringToByteArray("00000000")))
-        Text(text = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x)").substringBefore("}").replace(":","").lowercase())
+        val userDataString = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x) ").substringBefore("}").replace(":","")
+
+        Text(text = "User Data: " + userDataString)
+
+        iterateBits(hexStringToByteArray(userDataString), viewmodel)
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))

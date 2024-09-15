@@ -43,16 +43,19 @@ import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.ScanEmptyView
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.ScanErrorView
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 
 @Composable
-fun DevicesListView(
+internal fun DevicesListView(
     isLocationRequiredAndDisabled: Boolean,
     state: ScanningState,
     onClick: (BleScanResults) -> Unit,
+    viewModel: ScannerViewModel,
     modifier: Modifier = Modifier,
     deviceItem: @Composable (BleScanResults) -> Unit = {
         DeviceListItem(it.advertisedName ?: it.device.name, it.device.address)
     },
+
 ) {
     LazyColumn(
         modifier = modifier,
@@ -64,58 +67,58 @@ fun DevicesListView(
                 if (state.isEmpty()) {
                     item { ScanEmptyView(isLocationRequiredAndDisabled) }
                 } else {
-                    DeviceListItems(state, onClick, deviceItem)
+                    DeviceListItems(state, onClick, deviceItem, viewModel)
                 }
             }
             is ScanningState.Error -> item { ScanErrorView(state.errorCode) }
         }
     }
 }
-
-@Preview(showBackground = true, name = "Location required")
-@Composable
-private fun DeviceListView_Preview_LocationRequired() {
-    MaterialTheme {
-        DevicesListView(
-            isLocationRequiredAndDisabled = true,
-            state = ScanningState.Loading,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DeviceListView_Preview_LocationNotRequired() {
-    MaterialTheme {
-        DevicesListView(
-            isLocationRequiredAndDisabled = false,
-            state = ScanningState.Loading,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DeviceListView_Preview_Error() {
-    MaterialTheme {
-        DevicesListView(
-            isLocationRequiredAndDisabled = true,
-            state = ScanningState.Error(1),
-            onClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DeviceListView_Preview_Empty() {
-    MaterialTheme {
-        DevicesListView(
-            isLocationRequiredAndDisabled = true,
-            state = ScanningState.DevicesDiscovered(emptyList()),
-            onClick = {}
-        )
-    }
-}
+//
+//@Preview(showBackground = true, name = "Location required")
+//@Composable
+//private fun DeviceListView_Preview_LocationRequired() {
+//    MaterialTheme {
+//        DevicesListView(
+//            isLocationRequiredAndDisabled = true,
+//            state = ScanningState.Loading,
+//            onClick = {}
+//        )
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//private fun DeviceListView_Preview_LocationNotRequired() {
+//    MaterialTheme {
+//        DevicesListView(
+//            isLocationRequiredAndDisabled = false,
+//            state = ScanningState.Loading,
+//            onClick = {}
+//        )
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//private fun DeviceListView_Preview_Error() {
+//    MaterialTheme {
+//        DevicesListView(
+//            isLocationRequiredAndDisabled = true,
+//            state = ScanningState.Error(1),
+//            onClick = {}
+//        )
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//private fun DeviceListView_Preview_Empty() {
+//    MaterialTheme {
+//        DevicesListView(
+//            isLocationRequiredAndDisabled = true,
+//            state = ScanningState.DevicesDiscovered(emptyList()),
+//            onClick = {}
+//        )
+//    }
+//}
