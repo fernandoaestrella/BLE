@@ -85,11 +85,13 @@ fun HexTextField(
     TextField(
         value = value,
         onValueChange = { newValue ->
-            val cleanedValue = newValue.filter { it.isDigit() || it in 'A'..'F' || it in 'a'..'f' }.uppercase()
+            val cleanedValue = newValue.filter { it.isLetterOrDigit() }.uppercase()
             if (cleanedValue.length <= 8) {
                 onValueChange(cleanedValue)
             }
+            Log.d("HexTextField", "onValueChange: $cleanedValue")
         },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         modifier = modifier.fillMaxWidth()
     )
 }
@@ -153,8 +155,6 @@ fun ScannerView(
                     onValueChange = setHexValue
                 )
 
-                Text("Hex Value: $hexValue")
-
                 Button(onClick = { viewModel.stopScanning()}) {
                     Text("Stop Scanning")
                 }
@@ -190,8 +190,11 @@ fun ScannerView(
 //                                    val deviceName =
 //                                        scanResult.device.name ?: scanResult.advertisedName
 //                                    val rssi = scanResult.highestRssi
-                                },
-                                viewModel = viewModel
+                                    println("Scan Record: ${scanResult.scanResult}")
+                                    if (scanResult.scanResult.isNotEmpty()) {
+                                        println("User Data: ${scanResult.scanResult[0].scanRecord?.serviceData?.values.toString()}}")
+                                    }
+                                }
                             )
 
                         }
