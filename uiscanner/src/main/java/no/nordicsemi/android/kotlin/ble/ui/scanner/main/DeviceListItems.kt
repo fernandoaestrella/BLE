@@ -43,6 +43,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
@@ -56,7 +57,6 @@ fun LazyListScope.DeviceListItems(
 ) {
     val bondedDevices = devices.bonded
     val discoveredDevices = devices.notBonded
-    Log.i("BLE", "Discovered devices: ${discoveredDevices.toString()}")
 
     if (bondedDevices.isNotEmpty()) {
         item {
@@ -86,17 +86,52 @@ fun LazyListScope.DeviceListItems(
     }
 }
 
+//fun iterateBits(byteArray: ByteArray) {
+//    for (byte in byteArray) {
+//        for (bitIndex in 0..7) {
+//            val bit = (byte shr bitIndex) and 1 != 0
+//            println("Bit $bitIndex: $bit")
+//        }
+//    }
+//}
+
+fun hexStringToByteArray(hexString: String): ByteArray {
+    val byteArray = ByteArray(hexString.length / 2)
+    for (i in 0 until hexString.length step 2) {
+        val highNibble = Character.digit(hexString[i], 16) shl 4
+        val lowNibble = Character.digit(hexString[i + 1], 16)
+        byteArray[i / 2] = (highNibble or lowNibble).toByte()
+    }
+    return byteArray
+}
+
+fun byteArrayToHexString(byteArray: ByteArray): String {
+    return byteArray.joinToString("") { it.toString(16).padStart(2, '0') }
+}
+
 @Composable
 private fun ClickableDeviceItem(
     device: BleScanResults,
     onClick: (BleScanResults) -> Unit,
     deviceView: @Composable (BleScanResults) -> Unit,
 ) {
+
+
+    if (device.scanResult.isNotEmpty()) {
+//        Text(text = byteArrayToHexString(hexStringToByteArray("50000")))
+        Text(text = byteArrayToHexString(hexStringToByteArray("ffffffff")))
+        Text(text = byteArrayToHexString(hexStringToByteArray("12345678")))
+        Text(text = byteArrayToHexString(hexStringToByteArray("abcdef09")))
+        Text(text = byteArrayToHexString(hexStringToByteArray("00000000")))
+        Text(text = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x)").substringBefore("}").replace(":","").lowercase())
+    }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))
         .clickable { onClick(device) }
         .padding(8.dp)
     ) {
+//        Text(text = device.scanResult[0].scanRecord?.serviceData.toString())
+
         deviceView(device)
     }
 }
