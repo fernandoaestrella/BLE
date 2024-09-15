@@ -71,6 +71,7 @@ nordicPlugins = "2.3"
 dokkaPlugin = "1.9.20"
 googleServicesPlugins = "4.4.2"
 firebaseCrashlyticsPlugins = "3.0.2"
+roomKtx = "2.6.1"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -204,6 +205,7 @@ nordic-permissions-nfc = { group = "no.nordicsemi.android.common", name = "permi
 nordic-permissions-ble = { group = "no.nordicsemi.android.common", name = "permissions-ble", version.ref = "nordic-common" }
 nordic-permissions-internet = { group = "no.nordicsemi.android.common", name = "permissions-internet", version.ref = "nordic-common" }
 nordic-permissions-wifi = { group = "no.nordicsemi.android.common", name = "permissions-wifi", version.ref = "nordic-common" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]
 nordic-application = { id = "no.nordicsemi.android.plugin.application", version.ref = "nordicPlugins" }

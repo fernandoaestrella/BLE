@@ -31,6 +31,7 @@
 
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -144,4 +145,6 @@ internal class ScannerViewModel @Inject constructor(
     fun refresh() {
         relaunchScanning()
     }
+
+
 }
