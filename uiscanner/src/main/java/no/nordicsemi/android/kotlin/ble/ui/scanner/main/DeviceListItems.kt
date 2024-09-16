@@ -86,13 +86,44 @@ internal fun LazyListScope.DeviceListItems(
     }
 }
 
-internal fun iterateBits(byteArray: ByteArray, viewmodel: ScannerViewModel) {
-    for (byte in byteArray) {
+internal fun iterateBits(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): Int {
+    val myUserDataByteArray = viewModel.getUserData()
+    var myUserByteIndex = 0
+    var matchesCount = 0
+
+    for (otherUserByte in otherUserDataByteArray) {
         for (bitIndex in 0..7) {
-            val bit = (byte.toInt() shr bitIndex) and 1 != 0
-            println("Bit $bitIndex: $bit")
+            // In order to only look at the first 14 bits
+            if (myUserByteIndex < 3 || (myUserByteIndex == 4 && bitIndex < 2)) {
+                // If we are now looking at any bit placed in an even position (0, 2, 4, 6)
+                if (bitIndex % 2 == 0) {
+                    // If this user's bit is 1
+                    if ((myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0) {
+                        // Compare whether the next bit in the other user's data is 1
+                        if ((otherUserByte.toInt() shr (bitIndex + 1)) and 1 != 0) {
+                            matchesCount++
+                        }
+                    }
+                // Else, if we are looking at a bit placed in an odd position (1, 3, 5, 7)
+                } else {
+                    // If this user's bit is 1
+                    if ((myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0) {
+                        // Check whether the previous bit in the other user's data is 1
+                        if ((otherUserByte.toInt() shr (bitIndex - 1)) and 1 != 0) {
+                            matchesCount++
+                        }
+                    }
+                }
+                val myUserBit = (myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0
+                val otherUserBit = (otherUserByte.toInt() shr bitIndex) and 1 != 0
+                println("Bit $bitIndex: $otherUserBit")
+            }
         }
+
+        myUserByteIndex++
     }
+
+    return matchesCount
 }
 
 fun hexStringToByteArray(hexString: String): ByteArray {
@@ -114,7 +145,7 @@ private fun ClickableDeviceItem(
     device: BleScanResults,
     onClick: (BleScanResults) -> Unit,
     deviceView: @Composable (BleScanResults) -> Unit,
-    viewmodel: ScannerViewModel
+    viewModel: ScannerViewModel
 ) {
 
 
@@ -123,7 +154,7 @@ private fun ClickableDeviceItem(
 
         Text(text = "User Data: " + userDataString)
 
-        iterateBits(hexStringToByteArray(userDataString), viewmodel)
+        Text(text = "Matches Count: " + iterateBits(hexStringToByteArray(userDataString), viewModel).toString())
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))

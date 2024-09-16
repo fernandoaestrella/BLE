@@ -53,6 +53,7 @@ import no.nordicsemi.android.kotlin.ble.scanner.aggregator.BleScanResultAggregat
 import no.nordicsemi.android.kotlin.ble.scanner.errors.ScanFailedError
 import no.nordicsemi.android.kotlin.ble.scanner.errors.ScanningFailedException
 import no.nordicsemi.android.kotlin.ble.ui.scanner.Filter
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.hexStringToByteArray
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScannerRepository
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.ScanFilterState
@@ -63,6 +64,7 @@ internal class ScannerViewModel @Inject constructor(
     private val scannerRepository: ScannerRepository,
 ) : ViewModel() {
     private var filters: List<Filter> = emptyList()
+    private var myUserData: ByteArray = hexStringToByteArray("FFFFFFFF")
 
     private val _filterConfig = MutableStateFlow<List<ScanFilterState>>(emptyList())
     val filterConfig = _filterConfig.asStateFlow()
@@ -146,5 +148,16 @@ internal class ScannerViewModel @Inject constructor(
         relaunchScanning()
     }
 
+    fun getUserData(): ByteArray {
+        Log.i("user data returned","getUserData: $myUserData")
+        return myUserData
+
+    }
+
+    fun setUserData(userData: ByteArray) {
+        Log.i("user data entered","setUserData: $userData")
+
+        myUserData = userData
+    }
 
 }

@@ -72,15 +72,18 @@ import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 //import no.nordicsemi.android.kotlin.ble.server.ServerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DeviceListItem
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DevicesListView
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.hexStringToByteArray
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.FilterView
 
 @Composable
-fun HexTextField(
+internal fun HexTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ScannerViewModel,
+    setUserDataRecorded: (Boolean) -> Unit = {}
 ) {
     TextField(
         value = value,
@@ -88,6 +91,12 @@ fun HexTextField(
             val cleanedValue = newValue.filter { it.isDigit() || it in 'A'..'F' || it in 'a'..'f' }.uppercase()
             if (cleanedValue.length <= 8) {
                 onValueChange(cleanedValue)
+            }
+            if (cleanedValue.length == 8) {
+                viewModel.setUserData(hexStringToByteArray(cleanedValue))
+                setUserDataRecorded(true)
+            } else {
+                setUserDataRecorded(false)
             }
         },
         modifier = modifier.fillMaxWidth()
@@ -147,13 +156,17 @@ fun ScannerView(
                 6. Input that text in the form below""")
 
                 val (hexValue, setHexValue) = remember { mutableStateOf("00000000") }
+                val (userDataRecorded, setUserDataRecorded) = remember { mutableStateOf(false) }
 
                 HexTextField(
                     value = hexValue,
-                    onValueChange = setHexValue
+                    onValueChange = setHexValue,
+                    viewModel = viewModel,
+                    setUserDataRecorded = setUserDataRecorded
                 )
 
                 Text("Hex Value: $hexValue")
+                Text("User Data Recorded: $userDataRecorded")
 
                 Button(onClick = { viewModel.stopScanning()}) {
                     Text("Stop Scanning")
