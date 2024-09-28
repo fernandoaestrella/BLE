@@ -31,6 +31,7 @@
 
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -74,7 +75,7 @@ internal fun LazyListScope.DeviceListItems(
     if (discoveredDevices.isNotEmpty()) {
         item {
             Text(
-                text = stringResource(id = R.string.discovered_devices) + " (${discoveredDevices.get(0).toString()})",
+                text = stringResource(id = R.string.discovered_devices),
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
@@ -86,7 +87,7 @@ internal fun LazyListScope.DeviceListItems(
     }
 }
 
-internal fun iterateBits(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): Int {
+internal fun countMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): Int {
     val myUserDataByteArray = viewModel.getUserData()
     var myUserByteIndex = 0
     var matchesCount = 0
@@ -94,7 +95,7 @@ internal fun iterateBits(otherUserDataByteArray: ByteArray, viewModel: ScannerVi
     for (otherUserByte in otherUserDataByteArray) {
         for (bitIndex in 0..7) {
             // In order to only look at the first 14 bits
-            if (myUserByteIndex < 3 || (myUserByteIndex == 4 && bitIndex < 2)) {
+            if (myUserByteIndex == 0 || (myUserByteIndex == 1 && bitIndex < 6)) {
                 // If we are now looking at any bit placed in an even position (0, 2, 4, 6)
                 if (bitIndex % 2 == 0) {
                     // If this user's bit is 1
@@ -114,9 +115,6 @@ internal fun iterateBits(otherUserDataByteArray: ByteArray, viewModel: ScannerVi
                         }
                     }
                 }
-                val myUserBit = (myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0
-                val otherUserBit = (otherUserByte.toInt() shr bitIndex) and 1 != 0
-                println("Bit $bitIndex: $otherUserBit")
             }
         }
 
@@ -140,6 +138,20 @@ fun byteArrayToHexString(byteArray: ByteArray): String {
     return byteArray.joinToString("") { it.toString(16).padStart(2, '0') }
 }
 
+fun byteArrayToBinaryString(byteArray: ByteArray): String {
+
+    val booleanString = StringBuilder()
+    for (byte in byteArray) {
+        for (bitIndex in 7 downTo 0) {
+            val bit = (byte.toInt() shr bitIndex) and 1 != 0
+            booleanString.append(if (bit) '1' else '0')
+        }
+    }
+    return booleanString.toString()
+
+//    return byteArray.joinToString("") { it.toString(2).padStart(8, '0') }
+}
+
 @Composable
 private fun ClickableDeviceItem(
     device: BleScanResults,
@@ -152,9 +164,11 @@ private fun ClickableDeviceItem(
     if (device.scanResult.isNotEmpty()) {
         val userDataString = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x) ").substringBefore("}").replace(":","")
 
-        Text(text = "User Data: " + userDataString)
+        Log.d("progression", "hexstring" + userDataString + "\nbytearray: " + byteArrayToBinaryString(hexStringToByteArray(userDataString)) + "\noutput user description: " + outputUserDescription(hexStringToByteArray(userDataString)))
+        Text(text = "With this user, you have this many matches: " + countMatches(hexStringToByteArray(userDataString), viewModel).toString() + " out of 14")
+        Text(text = "This user looks like this: \n" + outputUserDescription(hexStringToByteArray(userDataString)))
+        Text(text = "User Data: $userDataString")
 
-        Text(text = "Matches Count: " + iterateBits(hexStringToByteArray(userDataString), viewModel).toString())
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))
@@ -165,4 +179,121 @@ private fun ClickableDeviceItem(
 
         deviceView(device)
     }
+}
+
+fun byteArrayToBitArray(byteArray: ByteArray): List<Boolean> {
+    val bitArray = mutableListOf<Boolean>()
+    // Convert each byte to a bit array maintaining the order of the bits inside the bytes
+    for (bitChar in byteArrayToBinaryString(byteArray)) {
+        if (bitChar == '1') {
+            bitArray.add(true)
+        } else {
+            bitArray.add(false)
+        }
+    }
+    return bitArray
+}
+
+fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
+    var outputString = ""
+    var otherUserLooksLikeMan = false
+    // creates an array of bits from the input array
+    val bitArray = byteArrayToBitArray(otherUserDataByteArray)
+    var bitIndex = 0
+
+    Log.d("outputUserDescription", "bitArray: $bitArray")
+    for (bit in bitArray) {
+        when (bitIndex) {
+            14 -> {
+                // If this user's bit is 1
+                if (bit) {
+                    otherUserLooksLikeMan = true
+                    outputString += "Man"
+                } else {
+                    outputString += "Woman"
+                }
+
+                outputString += "\n"
+            }
+            15 -> {
+                // if the other user looks like a man
+                if (otherUserLooksLikeMan) {
+                    // If the other user's bit is true
+                    if (bit) {
+                        outputString += "Taller than 5 feet 9 inches (175 cm)"
+                    } else {
+                        outputString += "Shorter than 5 feet 9 inches (175 cm)"
+                    }
+                    // Else if the other user looks like a woman
+                } else {
+                    // If the other user's bit is true
+                    if (bit) {
+                        outputString += "Taller than 5 feet 4 inches (162 cm)"
+                    } else {
+                        outputString += "Shorter than 5 feet 4 inches (162 cm)"
+                    }
+                }
+
+                outputString += "\n"
+            }
+            16 -> {
+                if (otherUserLooksLikeMan) {
+                    // If the other user's bit is 1
+                    if (bit) {
+                        outputString += "Older than 30.3 years"
+                    } else {
+                        outputString += "Younger than 30.3 years"
+                    }
+                    // Else if the other user looks like a woman
+                } else {
+                    if (bit) {
+                        outputString += "Older than 31.8 years"
+                    } else {
+                        outputString += "Younger than 31.8 years"
+                    }
+                }
+
+                outputString += "\n"
+            }
+            17 -> {
+                if (otherUserLooksLikeMan) {
+                    if (bit) {
+                        outputString += "Has facial hair"
+                    } else {
+                        outputString += "Does not have facial hair"
+                    }
+                    // Else if the other user looks like a woman
+                } else {
+                    if (bit) {
+                        outputString += "Hair reaches below shoulder"
+                    } else {
+                        outputString += "Hair does not reach below shoulder"
+                    }
+                }
+
+                outputString += "\n"
+            }
+            18 -> {
+                if (bit) {
+                    outputString += "Wearing glasses"
+                } else {
+                    outputString += "Not wearing glasses"
+                }
+
+                outputString += "\n"
+            }
+        }
+
+        // Represents next 4 bits as an int
+
+        val otherUserTopColor = mutableListOf<Boolean>()
+//
+//        if (bitIndex == 19)
+//        otherUserTopColor.add(bit)
+
+        bitIndex++
+    }
+
+//    Log.d("outputUserDescription", "outputString: $outputString")
+    return outputString
 }

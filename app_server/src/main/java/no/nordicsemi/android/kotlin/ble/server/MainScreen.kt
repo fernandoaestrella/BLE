@@ -282,7 +282,8 @@ fun MainScreen() {
                                         .selectable(
                                             selected = (choice == selectedOption_question_6),
                                             onClick = {
-                                                onOptionSelected_question_6(choice)
+                                                onOptionSelected_question_6(choice);
+                                                viewModel.updateClothing(6, choices_question_6.indexOf(choice))
                                             }
                                         )
                                         .padding(horizontal = 16.dp)
@@ -312,7 +313,8 @@ fun MainScreen() {
                                         .selectable(
                                             selected = (choice == selectedOption_question_7),
                                             onClick = {
-                                                onOptionSelected_question_7(choice)
+                                                onOptionSelected_question_7(choice);
+                                                viewModel.updateClothing(7, choices_question_7.indexOf(choice))
                                             }
                                         )
                                         .padding(horizontal = 16.dp)
@@ -348,6 +350,7 @@ fun MainScreen() {
                             }
                         }
 
+                        Text("you sent: ${viewModel.getUserState()}")
                         Spacer(modifier = Modifier.size(16.dp))
 
                         Text(stringResource(id = R.string.user_state_intro) + "\n" + viewModel.userStateDataByteArray.toString())

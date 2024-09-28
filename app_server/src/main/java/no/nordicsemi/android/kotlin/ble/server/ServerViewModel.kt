@@ -238,7 +238,10 @@ class ServerViewModel @Inject constructor(
 
     // My functions
     fun printState() {
-        Log.d("ServerViewModel", "UserState: $userState")
+        Log.d("printState", "userState: $userState")
+    }
+    fun getUserState(): String {
+        return userState.toString()
     }
 
     fun updateUserState(index: Int, state: Boolean) {
@@ -252,6 +255,7 @@ class ServerViewModel @Inject constructor(
     }
 
     fun intToBitArray(value: Int, amount: Int): List<Boolean> {
+        // Sending binary numbers so they can be read from left to right (as usual in this side of the world) in the binary array
         var binaryString = Integer.toBinaryString(value)
         while (binaryString.length < amount) {
             binaryString = "0".plus(binaryString)

@@ -149,13 +149,13 @@ internal class ScannerViewModel @Inject constructor(
     }
 
     fun getUserData(): ByteArray {
-        Log.i("user data returned","getUserData: $myUserData")
+
         return myUserData
 
     }
 
     fun setUserData(userData: ByteArray) {
-        Log.i("user data entered","setUserData: $userData")
+
 
         myUserData = userData
     }
