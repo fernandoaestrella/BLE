@@ -88,37 +88,30 @@ internal fun LazyListScope.DeviceListItems(
 }
 
 internal fun countMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): Int {
-    val myUserDataByteArray = viewModel.getUserData()
-    var myUserByteIndex = 0
+    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData())
+    val otherUserDataBinaryString = byteArrayToBinaryString(otherUserDataByteArray)
     var matchesCount = 0
+    var bitIndex = 0
 
-    for (otherUserByte in otherUserDataByteArray) {
-        for (bitIndex in 0..7) {
-            // In order to only look at the first 14 bits
-            if (myUserByteIndex == 0 || (myUserByteIndex == 1 && bitIndex < 6)) {
-                // If we are now looking at any bit placed in an even position (0, 2, 4, 6)
-                if (bitIndex % 2 == 0) {
-                    // If this user's bit is 1
-                    if ((myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0) {
-                        // Compare whether the next bit in the other user's data is 1
-                        if ((otherUserByte.toInt() shr (bitIndex + 1)) and 1 != 0) {
-                            matchesCount++
-                        }
-                    }
-                // Else, if we are looking at a bit placed in an odd position (1, 3, 5, 7)
-                } else {
-                    // If this user's bit is 1
-                    if ((myUserDataByteArray[myUserByteIndex].toInt() shr bitIndex) and 1 != 0) {
-                        // Check whether the previous bit in the other user's data is 1
-                        if ((otherUserByte.toInt() shr (bitIndex - 1)) and 1 != 0) {
-                            matchesCount++
-                        }
-                    }
+    for (otherUserBitChar in otherUserDataBinaryString) {
+        // In order to only look at the first 14 bits
+        if (bitIndex < 14) {
+            // If we are now looking at any bit placed in an even position (0, 2, 4, 6)
+            if (bitIndex % 2 == 0) {
+                // If this user's bit is 1 and the other user's next bit is 1
+                if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex + 1] == '1') {
+                    matchesCount++
+                }
+            // Else, if we are looking at a bit placed in an odd position (1, 3, 5, 7)
+            } else {
+                // If this user's bit is 1 and the other user's previous bit is 1
+                if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex - 1] == '1') {
+                    matchesCount++
                 }
             }
         }
 
-        myUserByteIndex++
+        bitIndex++
     }
 
     return matchesCount

@@ -64,7 +64,8 @@ internal class ScannerViewModel @Inject constructor(
     private val scannerRepository: ScannerRepository,
 ) : ViewModel() {
     private var filters: List<Filter> = emptyList()
-    private var myUserData: ByteArray = hexStringToByteArray("FFFFFFFF")
+//    private var myUserData: ByteArray = hexStringToByteArray("FFFFFFFF")
+    private var myUserData: ByteArray = hexStringToByteArray("00000000")
 
     private val _filterConfig = MutableStateFlow<List<ScanFilterState>>(emptyList())
     val filterConfig = _filterConfig.asStateFlow()
