@@ -39,18 +39,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
-import no.nordicsemi.android.kotlin.ble.ui.scanner.R
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
+
+val needsList = listOf("Provide Survival Need", "Suggest Game", "Help Someone Succeed", "Listen to someone", "Uncover a Hidden Truth", "Dispel Darkness", "Realize Oneness")
+
 
 @Suppress("FunctionName")
 internal fun LazyListScope.DeviceListItems(
@@ -148,6 +148,36 @@ fun byteArrayToBinaryString(byteArray: ByteArray): String {
 //    return byteArray.joinToString("") { it.toString(2).padStart(8, '0') }
 }
 
+internal fun describeMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): String {
+    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData())
+    val otherUserDataBinaryString = byteArrayToBinaryString(otherUserDataByteArray)
+    var matchAnalysis = ""
+    var bitIndex = 0
+
+    for (otherUserBitChar in otherUserDataBinaryString) {
+        // In order to only look at the first 14 bits
+        if (bitIndex < 14) {
+            // If we are now looking at any bit placed in an even position (0, 2, 4, 6)
+            if (bitIndex % 2 == 0) {
+                // If this user's bit is 1 and the other user's next bit is 1. This means this user is requesting something that the other user can provide
+                if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex + 1] == '1') {
+                    matchAnalysis += "They can " + needsList[bitIndex / 2] + " for you! "
+                }
+                // Else, if we are looking at a bit placed in an odd position (1, 3, 5, 7). This means this user can provide something the other user is requesting
+            } else {
+                // If this user's bit is 1 and the other user's previous bit is 1
+                if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex - 1] == '1') {
+                    matchAnalysis += "You can " + needsList[bitIndex / 2] + " for them! "
+                }
+            }
+        }
+
+        bitIndex++
+    }
+
+    return matchAnalysis
+}
+
 @Composable
 private fun ClickableDeviceItem(
     device: BleScanResults,
@@ -178,6 +208,10 @@ private fun ClickableDeviceItem(
         Column (modifier = Modifier.background(color)) {
             Text(text = "With this user, you have this many matches: $matchCount out of 14", color = textColor)
             Text(text = "This user looks like this: \n" + outputUserDescription(hexStringToByteArray(userDataString)), color = textColor)
+            if (matchCount > 0) {
+                // Describe matches
+                Text(text = "You match in the following manner:\n" + describeMatches(hexStringToByteArray(userDataString), viewModel), color = textColor)
+            }
             Text(text = "User Data: $userDataString", color = textColor)
         }
     }
