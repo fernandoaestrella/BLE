@@ -32,8 +32,10 @@
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,6 +44,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
@@ -59,26 +62,26 @@ internal fun LazyListScope.DeviceListItems(
     val bondedDevices = devices.bonded
     val discoveredDevices = devices.notBonded
 
-    if (bondedDevices.isNotEmpty()) {
-        item {
-            Text(
-                text = stringResource(id = R.string.bonded_devices),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
-            )
-        }
-        items(bondedDevices.size) {
-            ClickableDeviceItem(bondedDevices[it], onClick, deviceView, viewModel)
-        }
-    }
+//    if (bondedDevices.isNotEmpty()) {
+//        item {
+//            Text(
+//                text = stringResource(id = R.string.bonded_devices),
+//                style = MaterialTheme.typography.titleSmall,
+//                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
+//            )
+//        }
+//        items(bondedDevices.size) {
+//            ClickableDeviceItem(bondedDevices[it], onClick, deviceView, viewModel)
+//        }
+//    }
 
     if (discoveredDevices.isNotEmpty()) {
         item {
-            Text(
-                text = stringResource(id = R.string.discovered_devices),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
-            )
+//            Text(
+//                text = stringResource(id = R.string.discovered_devices),
+//                style = MaterialTheme.typography.titleSmall,
+//                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
+//            )
         }
 
         items(discoveredDevices.size) {
@@ -156,12 +159,27 @@ private fun ClickableDeviceItem(
 
     if (device.scanResult.isNotEmpty()) {
         val userDataString = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x) ").substringBefore("}").replace(":","")
+        val matchCount = countMatches(hexStringToByteArray(userDataString), viewModel)
 
         Log.d("progression", "hexstring" + userDataString + "\nbytearray: " + byteArrayToBinaryString(hexStringToByteArray(userDataString)) + "\noutput user description: " + outputUserDescription(hexStringToByteArray(userDataString)))
-        Text(text = "With this user, you have this many matches: " + countMatches(hexStringToByteArray(userDataString), viewModel).toString() + " out of 14")
-        Text(text = "This user looks like this: \n" + outputUserDescription(hexStringToByteArray(userDataString)))
-        Text(text = "User Data: $userDataString")
+//        Column with a clear color background: green if matchCount is above 9, yellow if between 5 and 9, red if below 5
+        val color = when {
+            matchCount > 9 -> Color.Green
+            matchCount in 5..9 -> Color.Yellow
+            else -> Color.Red
+        }
 
+        // Changes text color to be black if matchCount is above 9, black if between 5 and 9, white if below 5
+        val textColor = when {
+            matchCount > 9 -> Color.Black
+            matchCount in 5..9 -> Color.Black
+            else -> Color.White
+        }
+        Column (modifier = Modifier.background(color)) {
+            Text(text = "With this user, you have this many matches: $matchCount out of 14", color = textColor)
+            Text(text = "This user looks like this: \n" + outputUserDescription(hexStringToByteArray(userDataString)), color = textColor)
+            Text(text = "User Data: $userDataString", color = textColor)
+        }
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))
@@ -170,7 +188,7 @@ private fun ClickableDeviceItem(
     ) {
 //        Text(text = device.scanResult[0].scanRecord?.serviceData.toString())
 
-        deviceView(device)
+//        deviceView(device)
     }
 }
 

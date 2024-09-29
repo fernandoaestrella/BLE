@@ -125,7 +125,7 @@ fun ScannerView(
 
             LaunchedEffect(key1 = Unit) {
                 print("Launch effect")
-                viewModel.setFilters(filters)
+                //viewModel.setFilters(filters)
             }
 
             val state by viewModel.state.collectAsStateWithLifecycle(ScanningState.Loading)
@@ -168,9 +168,9 @@ fun ScannerView(
                 Text("Hex Value: $hexValue")
                 Text("User Data Recorded: $userDataRecorded")
 
-                Button(onClick = { viewModel.stopScanning()}) {
-                    Text("Stop Scanning")
-                }
+//                Button(onClick = { viewModel.stopScanning()}) {
+//                    Text("Stop Scanning")
+//                }
 
                 // Print BleScanResults based on the current state
                 if (state is ScanningState.DevicesDiscovered) {
@@ -179,6 +179,25 @@ fun ScannerView(
                         text = "Scan Results:",
                         style = MaterialTheme.typography.headlineSmall
                     )
+
+                    DevicesListView(
+                        isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
+                        state = state,
+                        modifier = Modifier.fillMaxSize(),
+                        onClick = {
+                            onResult(it)
+                        },
+                        deviceItem = { scanResult ->
+                            deviceItem(scanResult) // Use the existing deviceItem composable
+
+                            // Extract and print specific information from BleScanResult (Optional)
+//                                    val deviceName =
+//                                        scanResult.device.name ?: scanResult.advertisedName
+//                                    val rssi = scanResult.highestRssi
+                        },
+                        viewModel = viewModel
+                    )
+
                     PullToRefreshBox(
                         isRefreshing = state is ScanningState.Loading,
                         onRefresh = {
@@ -189,23 +208,7 @@ fun ScannerView(
                         },
                         state = pullRefreshState,
                         content = {
-                            DevicesListView(
-                                isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
-                                state = state,
-                                modifier = Modifier.fillMaxSize(),
-                                onClick = {
-                                    onResult(it)
-                                },
-                                deviceItem = { scanResult ->
-                                    deviceItem(scanResult) // Use the existing deviceItem composable
 
-                                    // Extract and print specific information from BleScanResult (Optional)
-//                                    val deviceName =
-//                                        scanResult.device.name ?: scanResult.advertisedName
-//                                    val rssi = scanResult.highestRssi
-                                },
-                                viewModel = viewModel
-                            )
 
                         }
                     )
