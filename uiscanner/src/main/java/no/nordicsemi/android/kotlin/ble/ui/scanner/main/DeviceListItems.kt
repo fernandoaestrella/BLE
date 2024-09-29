@@ -189,31 +189,8 @@ private fun ClickableDeviceItem(
 
     if (device.scanResult.isNotEmpty()) {
         val userDataString = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x) ").substringBefore("}").replace(":","")
-        val matchCount = countMatches(hexStringToByteArray(userDataString), viewModel)
 
-        Log.d("progression", "hexstring" + userDataString + "\nbytearray: " + byteArrayToBinaryString(hexStringToByteArray(userDataString)) + "\noutput user description: " + outputUserDescription(hexStringToByteArray(userDataString)))
-//        Column with a clear color background: green if matchCount is above 9, yellow if between 5 and 9, red if below 5
-        val color = when {
-            matchCount > 9 -> Color.Green
-            matchCount in 5..9 -> Color.Yellow
-            else -> Color.Red
-        }
-
-        // Changes text color to be black if matchCount is above 9, black if between 5 and 9, white if below 5
-        val textColor = when {
-            matchCount > 9 -> Color.Black
-            matchCount in 5..9 -> Color.Black
-            else -> Color.White
-        }
-        Column (modifier = Modifier.background(color)) {
-            Text(text = "With this user, you have this many matches: $matchCount out of 14", color = textColor)
-            Text(text = "This user looks like this: \n" + outputUserDescription(hexStringToByteArray(userDataString)), color = textColor)
-            if (matchCount > 0) {
-                // Describe matches
-                Text(text = "You match in the following manner:\n" + describeMatches(hexStringToByteArray(userDataString), viewModel), color = textColor)
-            }
-            Text(text = "User Data: $userDataString", color = textColor)
-        }
+        matchDescription(userDataString, viewModel)
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))
@@ -223,6 +200,62 @@ private fun ClickableDeviceItem(
 //        Text(text = device.scanResult[0].scanRecord?.serviceData.toString())
 
 //        deviceView(device)
+    }
+}
+
+@Composable
+internal fun matchDescription(
+    otherUserDataString: String,
+    viewModel: ScannerViewModel
+) {
+    val matchCount = countMatches(hexStringToByteArray(otherUserDataString), viewModel)
+
+    Log.d(
+        "progression",
+        "hexstring" + otherUserDataString + "\nbytearray: " + byteArrayToBinaryString(
+            hexStringToByteArray(otherUserDataString)
+        ) + "\noutput user description: " + outputUserDescription(
+            hexStringToByteArray(
+                otherUserDataString
+            )
+        )
+    )
+//        Column with a clear color background for each scan: green if matchCount is above 9, yellow if between 5 and 9, red if below 5
+    val color = when {
+        matchCount > 9 -> Color.Green
+        matchCount in 5..9 -> Color.Yellow
+        else -> Color.Red
+    }
+
+    // Changes text color to be black if matchCount is above 9, black if between 5 and 9, white if below 5
+    val textColor = when {
+        matchCount > 9 -> Color.Black
+        matchCount in 5..9 -> Color.Black
+        else -> Color.White
+    }
+
+    Column(modifier = Modifier.background(color)) {
+        Text(
+            text = "With this user, you have this many matches: $matchCount out of 14",
+            color = textColor
+        )
+        Text(
+            text = "This user looks like this: \n" + outputUserDescription(
+                hexStringToByteArray(
+                    otherUserDataString
+                )
+            ), color = textColor
+        )
+        if (matchCount > 0) {
+            // Describe matches
+            Text(
+                text = "You match in the following manner:\n" + describeMatches(
+                    hexStringToByteArray(otherUserDataString),
+                    viewModel
+                ), color = textColor
+            )
+        }
+        Text(text = "User Data: $otherUserDataString", color = textColor)
     }
 }
 

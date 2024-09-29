@@ -31,19 +31,21 @@
 
 package no.nordicsemi.android.kotlin.ble.ui.scanner
 
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,28 +53,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.room.util.copy
-import kotlinx.coroutines.launch
 import no.nordicsemi.android.common.permissions.ble.RequireBluetooth
 import no.nordicsemi.android.common.permissions.ble.RequireLocation
 import no.nordicsemi.android.common.ui.R
-import no.nordicsemi.android.kotlin.ble.core.data.util.DataByteArray
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 //import no.nordicsemi.android.kotlin.ble.server.ServerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DeviceListItem
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DevicesListView
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.hexStringToByteArray
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.matchDescription
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.FilterView
@@ -103,6 +98,28 @@ internal fun HexTextField(
     )
 }
 
+@Composable
+fun Spoiler(
+    text: String,
+    expanded: Boolean = false,
+    onExpandedChange: (Boolean) -> Unit
+) {
+    Card(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Column {
+            Button(
+                onClick = { onExpandedChange(!expanded) }
+            ) {
+                Text(text = if (expanded) "Hide Info" else "Show Info")
+            }
+            if (expanded) {
+                Text(text = text)
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScannerView(
@@ -123,17 +140,29 @@ fun ScannerView(
             val viewModel = hiltViewModel<ScannerViewModel>()
 //            val serverViewModel = hiltViewModel<ServerViewModel>()
 
-            LaunchedEffect(key1 = Unit) {
-                print("Launch effect")
-                //viewModel.setFilters(filters)
-            }
-
             val state by viewModel.state.collectAsStateWithLifecycle(ScanningState.Loading)
             val config by viewModel.filterConfig.collectAsStateWithLifecycle()
             val pullRefreshState = rememberPullToRefreshState()
             val scope =  rememberCoroutineScope()
 
-            Column(modifier = Modifier.fillMaxSize()) {
+            val (thisUserHexValue, setThisUserHexValue) = remember { mutableStateOf("00000000") }
+            val (thisUserDataRecorded, setThisUserDataRecorded) = remember { mutableStateOf(false) }
+            val (otherUserHexValue, setOtherUserHexValue) = remember { mutableStateOf("00000000") }
+            val (otherUserDataRecorded, setOtherUserDataRecorded) = remember { mutableStateOf(false) }
+            val (expanded, setExpanded) = remember {mutableStateOf(false)}
+            val scrollState = rememberScrollState()
+
+            LaunchedEffect(key1 = Unit) {
+                print("Launch effect")
+                //viewModel.setFilters(filters)
+            }
+
+            // Scrollable column
+            Column(
+                modifier = Modifier
+//                                .fillMaxSize()
+                    .verticalScroll(state = scrollState)
+            ) {
                 if (filters.isNotEmpty()) {
                     FilterView(
                         state = config,
@@ -146,76 +175,96 @@ fun ScannerView(
                     )
                 }
 
-                Text("""Hi!
+                Column(modifier = Modifier.fillMaxSize()) {
+
+                    Spoiler(
+                        text = """Hi!
                 Before using this app, please do the following:
                 1. Open the advertising app
                 2. Answer all the questions
                 3. Tap on "Advertise"
                 4. Tap on "Stop Advertising"
                 5. Write down the text in the line that starts with "(0x)", under the "Advertise" button
-                6. Input that text in the form below""")
-
-                val (hexValue, setHexValue) = remember { mutableStateOf("00000000") }
-                val (userDataRecorded, setUserDataRecorded) = remember { mutableStateOf(false) }
+                6. Input that text in the form below""",
+                        expanded = expanded,
+//                        onExpandedChange = { expanded = it }
+                        onExpandedChange = { setExpanded(it) }
+                    )
+                }
 
                 HexTextField(
-                    value = hexValue,
-                    onValueChange = setHexValue,
+                    value = thisUserHexValue,
+                    onValueChange = setThisUserHexValue,
                     viewModel = viewModel,
-                    setUserDataRecorded = setUserDataRecorded
+                    setUserDataRecorded = setThisUserDataRecorded
                 )
 
-                Text("Hex Value: $hexValue")
-                Text("User Data Recorded: $userDataRecorded")
+                Text("Your Code: $thisUserHexValue")
+                Text("Your Code is Recorded: $thisUserDataRecorded")
+
+//                Text("\nYou can input your friend's code below and see how both of you match\n\nYour friend's Code:")
+//                HexTextField(
+//                    value = otherUserHexValue,
+//                    onValueChange = setOtherUserHexValue,
+//                    viewModel = viewModel,
+//                    setUserDataRecorded = setOtherUserDataRecorded
+//                )
+//                Text("Your friend's Code: $otherUserHexValue")
+//                Text("Your friend's Code is Recorded: $otherUserDataRecorded")
+//
+//                matchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
 
 //                Button(onClick = { viewModel.stopScanning()}) {
 //                    Text("Stop Scanning")
 //                }
+            }
 
-                // Print BleScanResults based on the current state
-                if (state is ScanningState.DevicesDiscovered) {
-                    val scanResults = (state as ScanningState.DevicesDiscovered)
-                    Text(
-                        text = "Scan Results:",
-                        style = MaterialTheme.typography.headlineSmall
-                    )
+            // Print BleScanResults based on the current state
+            if (state is ScanningState.DevicesDiscovered) {
+                val scanResults = (state as ScanningState.DevicesDiscovered)
+                Text(
+                    text = "Scan Results:",
+                    style = MaterialTheme.typography.headlineSmall
+                )
 
-                    DevicesListView(
-                        isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
-                        state = state,
-                        modifier = Modifier.fillMaxSize(),
-                        onClick = {
-                            onResult(it)
-                        },
-                        deviceItem = { scanResult ->
-                            deviceItem(scanResult) // Use the existing deviceItem composable
+                DevicesListView(
+                    isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
+                    state = state,
+                    modifier = Modifier.fillMaxSize(),
+                    onClick = {
+                        onResult(it)
+                    },
+                    deviceItem = { scanResult ->
+                        deviceItem(scanResult) // Use the existing deviceItem composable
 
-                            // Extract and print specific information from BleScanResult (Optional)
+                        // Extract and print specific information from BleScanResult (Optional)
 //                                    val deviceName =
 //                                        scanResult.device.name ?: scanResult.advertisedName
 //                                    val rssi = scanResult.highestRssi
-                        },
-                        viewModel = viewModel
-                    )
+                    },
+                    viewModel = viewModel
+                )
 
-                    PullToRefreshBox(
-                        isRefreshing = state is ScanningState.Loading,
-                        onRefresh = {
-                            viewModel.refresh()
-                            scope.launch {
-                                pullRefreshState.animateToHidden()
-                            }
-                        },
-                        state = pullRefreshState,
-                        content = {
+//                    PullToRefreshBox(
+//                        isRefreshing = state is ScanningState.Loading,
+//                        onRefresh = {
+//                            viewModel.refresh()
+//                            scope.launch {
+//                                pullRefreshState.animateToHidden()
+//                            }
+//                        },
+//                        state = pullRefreshState,
+//                        content = {
+//
+//
+//                        }
+//                    )
+            } else {
+                // Handle other states (Loading, Error) with appropriate messages
+                Text(text = "Scanning: ${state.toString()}")
+            }
 
 
-                        }
-                    )
-                } else {
-                    // Handle other states (Loading, Error) with appropriate messages
-                    Text(text = "Scanning: ${state.toString()}")
-                }
 
 //                PullToRefreshBox(
 //                    isRefreshing = state is ScanningState.Loading,
@@ -236,7 +285,6 @@ fun ScannerView(
 //                        )
 //                    }
 //                )
-            }
         }
     }
 }
