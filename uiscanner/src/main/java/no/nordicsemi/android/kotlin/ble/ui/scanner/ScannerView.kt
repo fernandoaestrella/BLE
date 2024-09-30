@@ -78,7 +78,8 @@ internal fun HexTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ScannerViewModel,
-    setUserDataRecorded: (Boolean) -> Unit = {}
+    setUserDataRecorded: (Boolean) -> Unit = {},
+    userIndex: Int = 0,
 ) {
     TextField(
         value = value,
@@ -88,7 +89,7 @@ internal fun HexTextField(
                 onValueChange(cleanedValue)
             }
             if (cleanedValue.length == 8) {
-                viewModel.setUserData(hexStringToByteArray(cleanedValue))
+                viewModel.setUserData(hexStringToByteArray(cleanedValue), userIndex)
                 setUserDataRecorded(true)
             } else {
                 setUserDataRecorded(false)
@@ -196,23 +197,28 @@ fun ScannerView(
                     value = thisUserHexValue,
                     onValueChange = setThisUserHexValue,
                     viewModel = viewModel,
-                    setUserDataRecorded = setThisUserDataRecorded
+                    setUserDataRecorded = setThisUserDataRecorded,
+                    userIndex = 0
                 )
 
                 Text("Your Code: $thisUserHexValue")
                 Text("Your Code is Recorded: $thisUserDataRecorded")
 
-//                Text("\nYou can input your friend's code below and see how both of you match\n\nYour friend's Code:")
-//                HexTextField(
-//                    value = otherUserHexValue,
-//                    onValueChange = setOtherUserHexValue,
-//                    viewModel = viewModel,
-//                    setUserDataRecorded = setOtherUserDataRecorded
-//                )
-//                Text("Your friend's Code: $otherUserHexValue")
-//                Text("Your friend's Code is Recorded: $otherUserDataRecorded")
-//
-//                matchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+                Text("\nYou can input your friend's code below and see how both of you match")
+                HexTextField(
+                    value = otherUserHexValue,
+                    onValueChange = setOtherUserHexValue,
+                    viewModel = viewModel,
+                    setUserDataRecorded = setOtherUserDataRecorded,
+                    userIndex = 1
+                )
+                Text("Your friend's Code: $otherUserHexValue")
+                Text("Your friend's Code is Recorded: $otherUserDataRecorded")
+
+                if (thisUserDataRecorded && otherUserDataRecorded) {
+                    Text(text = "Your match with your friend:")
+                    matchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+                }
 
 //                Button(onClick = { viewModel.stopScanning()}) {
 //                    Text("Stop Scanning")

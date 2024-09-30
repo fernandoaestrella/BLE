@@ -65,7 +65,7 @@ internal class ScannerViewModel @Inject constructor(
 ) : ViewModel() {
     private var filters: List<Filter> = emptyList()
 //    private var myUserData: ByteArray = hexStringToByteArray("FFFFFFFF")
-    private var myUserData: ByteArray = hexStringToByteArray("00000000")
+    private var myUserData: List<ByteArray> = listOf(hexStringToByteArray("00000000"), hexStringToByteArray("00000000"), hexStringToByteArray("00000000"))
 
     private val _filterConfig = MutableStateFlow<List<ScanFilterState>>(emptyList())
     val filterConfig = _filterConfig.asStateFlow()
@@ -149,16 +149,14 @@ internal class ScannerViewModel @Inject constructor(
         relaunchScanning()
     }
 
-    fun getUserData(): ByteArray {
-
-        return myUserData
-
+    fun getUserData(index: Int): ByteArray {
+        return myUserData[index]
     }
 
-    fun setUserData(userData: ByteArray) {
-
-
-        myUserData = userData
+    fun setUserData(userData: ByteArray, index: Int) {
+        // Update myUserData in the index location
+        myUserData = myUserData.toMutableList().apply {
+            this[index] = userData
+        }
     }
-
 }

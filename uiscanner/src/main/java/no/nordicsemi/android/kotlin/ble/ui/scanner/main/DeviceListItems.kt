@@ -91,7 +91,7 @@ internal fun LazyListScope.DeviceListItems(
 }
 
 internal fun countMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): Int {
-    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData())
+    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData(0))
     val otherUserDataBinaryString = byteArrayToBinaryString(otherUserDataByteArray)
     var matchesCount = 0
     var bitIndex = 0
@@ -149,7 +149,7 @@ fun byteArrayToBinaryString(byteArray: ByteArray): String {
 }
 
 internal fun describeMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): String {
-    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData())
+    val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData(0))
     val otherUserDataBinaryString = byteArrayToBinaryString(otherUserDataByteArray)
     var matchAnalysis = ""
     var bitIndex = 0
