@@ -67,7 +67,7 @@ import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DeviceListItem
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.DevicesListView
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.hexStringToByteArray
-import no.nordicsemi.android.kotlin.ble.ui.scanner.main.matchDescription
+import no.nordicsemi.android.kotlin.ble.ui.scanner.main.MatchDescription
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.ui.scanner.view.internal.FilterView
@@ -217,7 +217,7 @@ fun ScannerView(
 
                 if (thisUserDataRecorded && otherUserDataRecorded) {
                     Text(text = "Your match with your friend:")
-                    matchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+                    MatchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
                 }
 
 //                Button(onClick = { viewModel.stopScanning()}) {

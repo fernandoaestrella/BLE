@@ -32,6 +32,7 @@
 package no.nordicsemi.android.kotlin.ble.ui.scanner.main
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -44,9 +45,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
+import no.nordicsemi.android.kotlin.ble.ui.scanner.R
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 
 val needsList = listOf("Provide Survival Need", "Suggest Game", "Help Someone Succeed", "Listen to someone", "Uncover a Hidden Truth", "Dispel Darkness", "Realize Oneness")
@@ -190,7 +194,7 @@ private fun ClickableDeviceItem(
     if (device.scanResult.isNotEmpty()) {
         val userDataString = device.scanResult[0].scanRecord?.serviceData.toString().substringAfter("=(0x) ").substringBefore("}").replace(":","")
 
-        matchDescription(userDataString, viewModel)
+        MatchDescription(userDataString, viewModel)
     }
     Box(modifier = Modifier
         .clip(RoundedCornerShape(10.dp))
@@ -204,7 +208,7 @@ private fun ClickableDeviceItem(
 }
 
 @Composable
-internal fun matchDescription(
+internal fun MatchDescription(
     otherUserDataString: String,
     viewModel: ScannerViewModel
 ) {
@@ -240,12 +244,20 @@ internal fun matchDescription(
             color = textColor
         )
         Text(
-            text = "This user looks like this: \n" + outputUserDescription(
+            text = "This user looks like this:\n",
+            color = textColor
+        )
+        outputVisualUserDescription(otherUserDataByteArray = hexStringToByteArray(
+            otherUserDataString
+        ))
+        Text(
+            text = outputUserDescription(
                 hexStringToByteArray(
                     otherUserDataString
                 )
             ), color = textColor
         )
+
         if (matchCount > 0) {
             // Describe matches
             Text(
@@ -270,6 +282,110 @@ fun byteArrayToBitArray(byteArray: ByteArray): List<Boolean> {
         }
     }
     return bitArray
+}
+
+@Composable
+private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit {
+    val image_male = painterResource(R.drawable.male)
+    val image_female = painterResource(R.drawable.female)
+    var image_gender: Painter? = null
+
+    var otherUserLooksLikeMan = false
+    // creates an array of bits from the input array
+    val bitArray = byteArrayToBitArray(otherUserDataByteArray)
+    var bitIndex = 0
+
+    Log.d("outputUserDescription", "bitArray: $bitArray")
+    for (bit in bitArray) {
+        when (bitIndex) {
+            14 -> {
+                // If this user's bit is 1
+                if (bit) {
+                    otherUserLooksLikeMan = true
+                    image_gender = image_male
+                } else {
+                    image_gender = image_female
+                }
+            }
+//            15 -> {
+//                // if the other user looks like a man
+//                if (otherUserLooksLikeMan) {
+//                    // If the other user's bit is true
+//                    if (bit) {
+//                        outputString += "Taller than 5 feet 9 inches (175 cm)"
+//                    } else {
+//                        outputString += "Shorter than 5 feet 9 inches (175 cm)"
+//                    }
+//                    // Else if the other user looks like a woman
+//                } else {
+//                    // If the other user's bit is true
+//                    if (bit) {
+//                        outputString += "Taller than 5 feet 4 inches (162 cm)"
+//                    } else {
+//                        outputString += "Shorter than 5 feet 4 inches (162 cm)"
+//                    }
+//                }
+//
+//                outputString += "\n"
+//            }
+//            16 -> {
+//                if (otherUserLooksLikeMan) {
+//                    // If the other user's bit is 1
+//                    if (bit) {
+//                        outputString += "Older than 30.3 years"
+//                    } else {
+//                        outputString += "Younger than 30.3 years"
+//                    }
+//                    // Else if the other user looks like a woman
+//                } else {
+//                    if (bit) {
+//                        outputString += "Older than 31.8 years"
+//                    } else {
+//                        outputString += "Younger than 31.8 years"
+//                    }
+//                }
+//
+//                outputString += "\n"
+//            }
+//            17 -> {
+//                if (otherUserLooksLikeMan) {
+//                    if (bit) {
+//                        outputString += "Has facial hair"
+//                    } else {
+//                        outputString += "Does not have facial hair"
+//                    }
+//                    // Else if the other user looks like a woman
+//                } else {
+//                    if (bit) {
+//                        outputString += "Hair reaches below shoulder"
+//                    } else {
+//                        outputString += "Hair does not reach below shoulder"
+//                    }
+//                }
+//
+//                outputString += "\n"
+//            }
+//            18 -> {
+//                if (bit) {
+//                    outputString += "Wearing glasses"
+//                } else {
+//                    outputString += "Not wearing glasses"
+//                }
+//
+//                outputString += "\n"
+//            }
+        }
+
+        bitIndex++
+    }
+
+    if (image_gender != null) {
+        Image(
+            painter = image_gender,
+            contentDescription = null
+        )
+    }
+
 }
 
 fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
