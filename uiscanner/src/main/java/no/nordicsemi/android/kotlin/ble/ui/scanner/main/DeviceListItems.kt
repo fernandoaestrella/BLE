@@ -216,16 +216,16 @@ internal fun MatchDescription(
 ) {
     val matchCount = countMatches(hexStringToByteArray(otherUserDataString), viewModel)
 
-    Log.d(
-        "progression",
-        "hexstring" + otherUserDataString + "\nbytearray: " + byteArrayToBinaryString(
-            hexStringToByteArray(otherUserDataString)
-        ) + "\noutput user description: " + outputUserDescription(
-            hexStringToByteArray(
-                otherUserDataString
-            )
-        )
-    )
+//    Log.d(
+//        "progression",
+//        "hexstring" + otherUserDataString + "\nbytearray: " + byteArrayToBinaryString(
+//            hexStringToByteArray(otherUserDataString)
+//        ) + "\noutput user description: " + outputUserDescription(
+//            hexStringToByteArray(
+//                otherUserDataString
+//            )
+//        )
+//    )
 //        Column with a clear color background for each scan: green if matchCount is above 9, yellow if between 5 and 9, red if below 5
     val color = when {
         matchCount > 9 -> Color.Green
@@ -307,6 +307,8 @@ private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit
     var image_hair_male: Painter? = null
     var image_hair_female: Painter? = null
     var image_glasses: Painter? = null
+    var image_top_color: Painter? = null
+    var image_bottom_color: Painter? = null
 
     var otherUserLooksLikeMan = false
     // creates an array of bits from the input array
@@ -367,6 +369,46 @@ private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit
         bitIndex++
     }
 
+    // Represents next 4 bits as an int
+    val otherUserTopColorBitArray = mutableListOf<Boolean>(bitArray[19], bitArray[20], bitArray[21], bitArray[22])
+
+    //    Convert bit array to integer
+    var otherUserTopColorInt = convertBitArrayToInt(otherUserTopColorBitArray)
+
+//    Convert integer to color
+    when (otherUserTopColorInt) {
+        0 -> image_top_color = painterResource(R.drawable.top_none)
+        1 -> image_top_color = painterResource(R.drawable.top_white)
+        2 -> image_top_color = painterResource(R.drawable.top_black)
+        3 -> image_top_color = painterResource(R.drawable.top_gray)
+        4 -> image_top_color = painterResource(R.drawable.top_brown)
+        5 -> image_top_color = painterResource(R.drawable.top_red)
+        6 -> image_top_color = painterResource(R.drawable.top_green)
+        7 -> image_top_color = painterResource(R.drawable.top_blue)
+        8 -> image_top_color = painterResource(R.drawable.top_purple)
+        9 -> image_top_color = painterResource(R.drawable.top_orange)
+        10 -> image_top_color = painterResource(R.drawable.top_yellow)
+        else -> {}
+    }
+
+    // Represent next 3 bit as a boolean array
+    val otherUserBottomColorBitArray = mutableListOf<Boolean>(bitArray[23], bitArray[24], bitArray[25])
+
+    // Convert bit array to integer
+    var otherUserBottomColorInt = convertBitArrayToInt(otherUserBottomColorBitArray)
+
+    // Convert integer to color
+    when (otherUserBottomColorInt) {
+        0 -> image_bottom_color = painterResource(R.drawable.bottom_none)
+        1 -> image_bottom_color = painterResource(R.drawable.bottom_white)
+        2 -> image_bottom_color = painterResource(R.drawable.bottom_black)
+        3 -> image_bottom_color = painterResource(R.drawable.bottom_gray)
+        4 -> image_bottom_color = painterResource(R.drawable.bottom_brown)
+        5 -> image_bottom_color = painterResource(R.drawable.bottom_blue)
+        6 -> image_bottom_color = painterResource(R.drawable.bottom_other)
+        else -> {}
+    }
+
     if (image_gender != null) {
         Row() {
             Image(
@@ -396,6 +438,18 @@ private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit
                 painter = image_glasses!!,
                 contentDescription = null
             )
+            if (image_top_color != null) {
+                Image(
+                    painter = image_top_color!!,
+                    contentDescription = null
+                )
+            }
+            if (image_bottom_color != null) {
+                Image(
+                    painter = image_bottom_color!!,
+                    contentDescription = null
+                )
+            }
         }
     }
 }
@@ -498,7 +552,7 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     //    Convert bit array to integer
     var otherUserTopColorInt = convertBitArrayToInt(otherUserTopColorBitArray)
 
-    outputString += "Top Color: $otherUserTopColorInt "
+    outputString += "Top Color: "
 //    Convert integer to color
     when (otherUserTopColorInt) {
         0 -> outputString += "None\n"
@@ -512,6 +566,7 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
         8 -> outputString += "Purple\n"
         9 -> outputString += "Orange\n"
         10 -> outputString += "Yellow\n"
+        else -> outputString += "Wrong code. Make sure to copy a code from the companion advertiser app\n"
     }
 
     // Represent next 3 bit as a boolean array
@@ -520,7 +575,7 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     // Convert bit array to integer
     var otherUserBottomColorInt = convertBitArrayToInt(otherUserBottomColorBitArray)
 
-    outputString += "Bottom Color: $otherUserBottomColorInt "
+    outputString += "Bottom Color: "
     // Convert integer to color
     when (otherUserBottomColorInt) {
         0 -> outputString += "None\n"
@@ -530,6 +585,7 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
         4 -> outputString += "Brown\n"
         5 -> outputString += "Blue\n"
         6 -> outputString += "Undefined\n"
+        else -> outputString += "Wrong code. Make sure to copy a code from the companion advertiser app\n"
     }
 
 //    Log.d("outputUserDescription", "outputString: $outputString")
@@ -541,7 +597,6 @@ private fun convertBitArrayToInt(inputBitArray: MutableList<Boolean>): Int {
     for (i in inputBitArray.size - 1 downTo 0) {
         if (inputBitArray[i]) {
             outputInt += (2.0).pow(inputBitArray.size - 1 - i).toInt()
-            Log.d("convertBitArrayToInt", "outputInt: $outputInt")
         }
     }
     return outputInt
