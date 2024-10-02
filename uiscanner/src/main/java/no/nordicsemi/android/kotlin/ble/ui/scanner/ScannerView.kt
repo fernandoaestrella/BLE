@@ -259,20 +259,26 @@ private fun FriendMatching(
     otherUserDataRecorded: Boolean,
     thisUserDataRecorded: Boolean
 ) {
-    Text("You can input your friend's code below and see how both of you match")
-    HexTextField(
-        value = otherUserHexValue,
-        onValueChange = setOtherUserHexValue,
-        viewModel = viewModel,
-        setUserDataRecorded = setOtherUserDataRecorded,
-        userIndex = 1
-    )
-    Text("Your friend's Code: $otherUserHexValue")
-    Text("Your friend's Code is Recorded: $otherUserDataRecorded")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(state = rememberScrollState())
+    ) {
+        Text("You can input your friend's code below and see how both of you match")
+        HexTextField(
+            value = otherUserHexValue,
+            onValueChange = setOtherUserHexValue,
+            viewModel = viewModel,
+            setUserDataRecorded = setOtherUserDataRecorded,
+            userIndex = 1
+        )
+        Text("Your friend's Code: $otherUserHexValue")
+        Text("Your friend's Code is Recorded: $otherUserDataRecorded")
 
-    if (thisUserDataRecorded && otherUserDataRecorded) {
-        Text(text = "Your match with your friend:")
-        MatchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+        if (thisUserDataRecorded && otherUserDataRecorded) {
+            Text(text = "Your match with your friend:")
+            MatchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+        }
     }
 }
 
