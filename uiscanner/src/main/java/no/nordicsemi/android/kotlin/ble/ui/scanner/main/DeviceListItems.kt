@@ -37,6 +37,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -288,7 +289,23 @@ fun byteArrayToBitArray(byteArray: ByteArray): List<Boolean> {
 private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit {
     val image_male = painterResource(R.drawable.male)
     val image_female = painterResource(R.drawable.female)
+    val image_small = painterResource(R.drawable.small)
+    val image_tall = painterResource(R.drawable.tall)
+    val image_young = painterResource(R.drawable.young)
+    val image_old = painterResource(R.drawable.old)
+    val image_hair_male_shaved = painterResource(R.drawable.male_shaved)
+    val image_hair_male_bearded = painterResource(R.drawable.male_bearded)
+    val image_hair_female_short = painterResource(R.drawable.short_hair)
+    val image_hair_female_long = painterResource(R.drawable.long_hair)
+    val image_no_glasses = painterResource(R.drawable.no_glasses)
+    val image_has_glasses = painterResource(R.drawable.glasses)
+
     var image_gender: Painter? = null
+    var image_height: Painter? = null
+    var image_age: Painter? = null
+    var image_hair_male: Painter? = null
+    var image_hair_female: Painter? = null
+    var image_glasses: Painter? = null
 
     var otherUserLooksLikeMan = false
     // creates an array of bits from the input array
@@ -307,85 +324,79 @@ private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit
                     image_gender = image_female
                 }
             }
-//            15 -> {
-//                // if the other user looks like a man
-//                if (otherUserLooksLikeMan) {
-//                    // If the other user's bit is true
-//                    if (bit) {
-//                        outputString += "Taller than 5 feet 9 inches (175 cm)"
-//                    } else {
-//                        outputString += "Shorter than 5 feet 9 inches (175 cm)"
-//                    }
-//                    // Else if the other user looks like a woman
-//                } else {
-//                    // If the other user's bit is true
-//                    if (bit) {
-//                        outputString += "Taller than 5 feet 4 inches (162 cm)"
-//                    } else {
-//                        outputString += "Shorter than 5 feet 4 inches (162 cm)"
-//                    }
-//                }
-//
-//                outputString += "\n"
-//            }
-//            16 -> {
-//                if (otherUserLooksLikeMan) {
-//                    // If the other user's bit is 1
-//                    if (bit) {
-//                        outputString += "Older than 30.3 years"
-//                    } else {
-//                        outputString += "Younger than 30.3 years"
-//                    }
-//                    // Else if the other user looks like a woman
-//                } else {
-//                    if (bit) {
-//                        outputString += "Older than 31.8 years"
-//                    } else {
-//                        outputString += "Younger than 31.8 years"
-//                    }
-//                }
-//
-//                outputString += "\n"
-//            }
-//            17 -> {
-//                if (otherUserLooksLikeMan) {
-//                    if (bit) {
-//                        outputString += "Has facial hair"
-//                    } else {
-//                        outputString += "Does not have facial hair"
-//                    }
-//                    // Else if the other user looks like a woman
-//                } else {
-//                    if (bit) {
-//                        outputString += "Hair reaches below shoulder"
-//                    } else {
-//                        outputString += "Hair does not reach below shoulder"
-//                    }
-//                }
-//
-//                outputString += "\n"
-//            }
-//            18 -> {
-//                if (bit) {
-//                    outputString += "Wearing glasses"
-//                } else {
-//                    outputString += "Not wearing glasses"
-//                }
-//
-//                outputString += "\n"
-//            }
+            15 -> {
+                if (bit) {
+                    image_height = image_tall
+                } else {
+                    image_height = image_small
+                }
+            }
+            16 -> {
+                if (bit) {
+                    image_age = image_old
+                } else {
+                    image_age = image_young
+                }
+            }
+            17 -> {
+                if (otherUserLooksLikeMan) {
+                    if (bit) {
+                        image_hair_male = image_hair_male_bearded
+                    } else {
+                        image_hair_male = image_hair_male_shaved
+                    }
+                    // Else if the other user looks like a woman
+                } else {
+                    if (bit) {
+                        image_hair_female = image_hair_female_long
+                    } else {
+                        image_hair_female = image_hair_female_short
+                    }
+                }
+            }
+            18 -> {
+                if (bit) {
+                    image_glasses = image_has_glasses
+                } else {
+                    image_glasses = image_no_glasses
+                }
+            }
         }
 
         bitIndex++
     }
 
     if (image_gender != null) {
-        Image(
-            painter = image_gender,
-            contentDescription = null
-        )
+        Row() {
+            Image(
+                painter = image_gender,
+                contentDescription = null
+            )
+            Image(
+                painter = image_height!!,
+                contentDescription = null
+            )
+            Image(
+                painter = image_age!!,
+                contentDescription = null
+            )
+            if (otherUserLooksLikeMan) {
+                Image(
+                    painter = image_hair_male!!,
+                    contentDescription = null
+                )
+            } else {
+                Image(
+                    painter = image_hair_female!!,
+                    contentDescription = null
+                )
+            }
+            Image(
+                painter = image_glasses!!,
+                contentDescription = null
+            )
+        }
     }
-
 }
 
 fun outputUserDescription(otherUserDataByteArray: ByteArray): String {

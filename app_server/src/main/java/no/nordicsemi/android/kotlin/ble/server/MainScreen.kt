@@ -44,6 +44,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -51,6 +52,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -91,6 +93,29 @@ fun MultipleChoiceSelector(input: String, radioSelection: Boolean) {
 //    MultipleChoice(choices, radioSelection)
 }
 
+@Composable
+fun Spoiler(
+    text: String,
+    title: String = "",
+    expanded: Boolean = false,
+    onExpandedChange: (Boolean) -> Unit
+) {
+    Card(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Column {
+            Button(
+                onClick = { onExpandedChange(!expanded) }
+            ) {
+                Text(text = if (expanded) "Hide $title" else "Show $title")
+            }
+            if (expanded) {
+                Text(text = text)
+            }
+        }
+    }
+}
+
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,6 +135,8 @@ fun MainScreen() {
                     val state by viewModel.state.collectAsStateWithLifecycle()
 //                    val scrollState = ScrollState(initial = 0, )
                     val scrollState = rememberScrollState()
+                    val (expandedIntro, setExpandedIntro) = remember {mutableStateOf(false)}
+                    val (expandedAbout, setExpandedAbout) = remember {mutableStateOf(false)}
 
                     Column(
                         modifier = Modifier
@@ -118,7 +145,13 @@ fun MainScreen() {
                     ) {
                         Spacer(modifier = Modifier.size(16.dp))
 
-                        Text(stringResource(id = R.string.intro))
+                        Spoiler(
+                            text = stringResource(id = R.string.intro),
+                            title = "Intro",
+                            expanded = expandedIntro,
+//                        onExpandedChange = { expandedIntro = it }
+                            onExpandedChange = { setExpandedIntro(it) }
+                        )
 
                         // Uses 14 bits
                         displayStateLevels(viewModel)
@@ -283,7 +316,10 @@ fun MainScreen() {
                                             selected = (choice == selectedOption_question_6),
                                             onClick = {
                                                 onOptionSelected_question_6(choice);
-                                                viewModel.updateClothing(6, choices_question_6.indexOf(choice))
+                                                viewModel.updateClothing(
+                                                    6,
+                                                    choices_question_6.indexOf(choice)
+                                                )
                                             }
                                         )
                                         .padding(horizontal = 16.dp)
@@ -314,7 +350,10 @@ fun MainScreen() {
                                             selected = (choice == selectedOption_question_7),
                                             onClick = {
                                                 onOptionSelected_question_7(choice);
-                                                viewModel.updateClothing(7, choices_question_7.indexOf(choice))
+                                                viewModel.updateClothing(
+                                                    7,
+                                                    choices_question_7.indexOf(choice)
+                                                )
                                             }
                                         )
                                         .padding(horizontal = 16.dp)
@@ -337,27 +376,41 @@ fun MainScreen() {
                         if (state.isAdvertising) {
                             Button(
                                 onClick = { viewModel.stopAdvertise() },
-                                modifier = Modifier.padding(horizontal = 8.dp)
+                                modifier = Modifier.padding(horizontal = 8.dp).fillMaxWidth()
                             ) {
                                 Text(stringResource(id = R.string.stop))
                             }
                         } else {
                             Button(
                                 onClick = { viewModel.advertise() },
-                                modifier = Modifier.padding(horizontal = 8.dp)
+                                modifier = Modifier.padding(horizontal = 8.dp).fillMaxWidth()
                             ) {
                                 Text(stringResource(id = R.string.advertise))
                             }
                         }
 
-                        Text("you sent: ${viewModel.getUserState()}")
+//                        Text("you sent: ${viewModel.getUserState()}")
                         Spacer(modifier = Modifier.size(16.dp))
 
-                        Text(stringResource(id = R.string.user_state_intro) + "\n" + viewModel.userStateDataByteArray.toString())
+                        Text(stringResource(id = R.string.user_state_intro))
+//                        Text Input field
+                        TextField(
+                            value = viewModel.userStateDataByteArray.toString().replace(":","").replace("(0x) ", ""),
+                            onValueChange = { },
+                            label = { Text("Your Code") }
+                        )
+
 
                         Spacer(modifier = Modifier.size(16.dp))
 
-                        Text(stringResource(id = R.string.about))
+                        Spoiler(
+                            text = stringResource(id = R.string.about),
+                            title = "About",
+                            expanded = expandedAbout,
+//                        onExpandedChange = { expandedIntro = it }
+                            onExpandedChange = { setExpandedAbout(it) }
+                        )
+
 
 //                        AdvertiseView(state = state, viewModel = viewModel)
 
