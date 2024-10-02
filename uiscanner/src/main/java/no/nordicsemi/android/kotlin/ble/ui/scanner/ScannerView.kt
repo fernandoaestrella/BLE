@@ -44,6 +44,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -53,6 +55,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
@@ -121,6 +124,7 @@ fun Spoiler(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScannerView(
@@ -153,124 +157,75 @@ fun ScannerView(
             val (expanded, setExpanded) = remember {mutableStateOf(false)}
             val scrollState = rememberScrollState()
 
+            var tabIndex by remember { mutableStateOf(0) }
+            val tabs = listOf("Other User Matching", "Friend Matching")
+
             LaunchedEffect(key1 = Unit) {
                 print("Launch effect")
                 //viewModel.setFilters(filters)
             }
 
-            // Scrollable column
-            Column(
-                modifier = Modifier
-//                                .fillMaxSize()
-                    .verticalScroll(state = scrollState)
-            ) {
-                if (filters.isNotEmpty()) {
-                    FilterView(
-                        state = config,
-                        onChanged = { viewModel.toggleFilter(it) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(colorResource(id = R.color.appBarColor))
-                            .padding(horizontal = 16.dp),
-                        shape = filterShape,
-                    )
-                }
+            if (filters.isNotEmpty()) {
+                FilterView(
+                    state = config,
+                    onChanged = { viewModel.toggleFilter(it) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colorResource(id = R.color.appBarColor))
+                        .padding(horizontal = 16.dp),
+                    shape = filterShape,
+                )
+            }
 
-                Column(modifier = Modifier.fillMaxSize()) {
-
-                    Spoiler(
-                        text = """Hi!
-                Before using this app, please do the following:
-                1. Open the advertising app
-                2. Answer all the questions
-                3. Tap on "Advertise"
-                4. Tap on "Stop Advertising"
-                5. Write down the text in the line that starts with "(0x)", under the "Advertise" button
-                6. Input that text in the form below""",
-                        expanded = expanded,
+            Spoiler(
+                text = """Hi!
+        Before using this app, please do the following:
+        1. Open the advertising app
+        2. Answer all the questions
+        3. Tap on "Advertise"
+        4. Tap on "Stop Advertising"
+        5. Write down the text in the line that starts with "(0x)", under the "Advertise" button
+        6. Input that text in the form below""",
+                expanded = expanded,
 //                        onExpandedChange = { expanded = it }
-                        onExpandedChange = { setExpanded(it) }
+                onExpandedChange = { setExpanded(it) }
+            )
+
+            HexTextField(
+                value = thisUserHexValue,
+                onValueChange = setThisUserHexValue,
+                viewModel = viewModel,
+                setUserDataRecorded = setThisUserDataRecorded,
+                userIndex = 0
+            )
+
+            Text("Your Code: $thisUserHexValue")
+            Text("Your Code is Recorded: $thisUserDataRecorded")
+
+//                Tab Row
+            TabRow(selectedTabIndex = tabIndex) {
+                tabs.forEachIndexed { index, title ->
+                    Tab(text = { Text(title) },
+                        selected = tabIndex == index,
+                        onClick = { tabIndex = index }
                     )
                 }
-
-                HexTextField(
-                    value = thisUserHexValue,
-                    onValueChange = setThisUserHexValue,
-                    viewModel = viewModel,
-                    setUserDataRecorded = setThisUserDataRecorded,
-                    userIndex = 0
+            }
+            when (tabIndex) {
+                0 -> otherUserMatching(state, isLocationRequiredAndDisabled, onResult, deviceItem, viewModel)
+                1 -> FriendMatching(
+                    otherUserHexValue,
+                    setOtherUserHexValue,
+                    viewModel,
+                    setOtherUserDataRecorded,
+                    otherUserDataRecorded,
+                    thisUserDataRecorded
                 )
-
-                Text("Your Code: $thisUserHexValue")
-                Text("Your Code is Recorded: $thisUserDataRecorded")
-
-                Text("\nYou can input your friend's code below and see how both of you match")
-                HexTextField(
-                    value = otherUserHexValue,
-                    onValueChange = setOtherUserHexValue,
-                    viewModel = viewModel,
-                    setUserDataRecorded = setOtherUserDataRecorded,
-                    userIndex = 1
-                )
-                Text("Your friend's Code: $otherUserHexValue")
-                Text("Your friend's Code is Recorded: $otherUserDataRecorded")
-
-                if (thisUserDataRecorded && otherUserDataRecorded) {
-                    Text(text = "Your match with your friend:")
-                    MatchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
-                }
+            }
 
 //                Button(onClick = { viewModel.stopScanning()}) {
 //                    Text("Stop Scanning")
 //                }
-            }
-
-            // Print BleScanResults based on the current state
-            if (state is ScanningState.DevicesDiscovered) {
-                val scanResults = (state as ScanningState.DevicesDiscovered)
-                Text(
-                    text = "Scan Results:",
-                    style = MaterialTheme.typography.headlineSmall
-                )
-
-                DevicesListView(
-                    isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
-                    state = state,
-                    modifier = Modifier.fillMaxSize(),
-                    onClick = {
-                        onResult(it)
-                    },
-                    deviceItem = { scanResult ->
-                        deviceItem(scanResult) // Use the existing deviceItem composable
-
-                        // Extract and print specific information from BleScanResult (Optional)
-//                                    val deviceName =
-//                                        scanResult.device.name ?: scanResult.advertisedName
-//                                    val rssi = scanResult.highestRssi
-                    },
-                    viewModel = viewModel
-                )
-
-//                    PullToRefreshBox(
-//                        isRefreshing = state is ScanningState.Loading,
-//                        onRefresh = {
-//                            viewModel.refresh()
-//                            scope.launch {
-//                                pullRefreshState.animateToHidden()
-//                            }
-//                        },
-//                        state = pullRefreshState,
-//                        content = {
-//
-//
-//                        }
-//                    )
-            } else {
-                // Handle other states (Loading, Error) with appropriate messages
-                Text(text = "Scanning: ${state.toString()}")
-            }
-
-
 
 //                PullToRefreshBox(
 //                    isRefreshing = state is ScanningState.Loading,
@@ -292,5 +247,85 @@ fun ScannerView(
 //                    }
 //                )
         }
+    }
+}
+
+@Composable
+private fun FriendMatching(
+    otherUserHexValue: String,
+    setOtherUserHexValue: (String) -> Unit,
+    viewModel: ScannerViewModel,
+    setOtherUserDataRecorded: (Boolean) -> Unit,
+    otherUserDataRecorded: Boolean,
+    thisUserDataRecorded: Boolean
+) {
+    Text("You can input your friend's code below and see how both of you match")
+    HexTextField(
+        value = otherUserHexValue,
+        onValueChange = setOtherUserHexValue,
+        viewModel = viewModel,
+        setUserDataRecorded = setOtherUserDataRecorded,
+        userIndex = 1
+    )
+    Text("Your friend's Code: $otherUserHexValue")
+    Text("Your friend's Code is Recorded: $otherUserDataRecorded")
+
+    if (thisUserDataRecorded && otherUserDataRecorded) {
+        Text(text = "Your match with your friend:")
+        MatchDescription(otherUserDataString = otherUserHexValue, viewModel = viewModel)
+    }
+}
+
+@Composable
+private fun otherUserMatching(
+    state: ScanningState,
+    isLocationRequiredAndDisabled: Boolean,
+    onResult: (BleScanResults) -> Unit,
+    deviceItem: @Composable (BleScanResults) -> Unit,
+    viewModel: ScannerViewModel
+) {
+    // Print BleScanResults based on the current state
+    if (state is ScanningState.DevicesDiscovered) {
+        val scanResults = (state as ScanningState.DevicesDiscovered)
+        Text(
+            text = "Scan Results:",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        DevicesListView(
+            isLocationRequiredAndDisabled = isLocationRequiredAndDisabled,
+            state = state,
+            modifier = Modifier.fillMaxSize(),
+            onClick = {
+                onResult(it)
+            },
+            deviceItem = { scanResult ->
+                deviceItem(scanResult) // Use the existing deviceItem composable
+
+                // Extract and print specific information from BleScanResult (Optional)
+//                                    val deviceName =
+//                                        scanResult.device.name ?: scanResult.advertisedName
+//                                    val rssi = scanResult.highestRssi
+            },
+            viewModel = viewModel
+        )
+
+//                    PullToRefreshBox(
+//                        isRefreshing = state is ScanningState.Loading,
+//                        onRefresh = {
+//                            viewModel.refresh()
+//                            scope.launch {
+//                                pullRefreshState.animateToHidden()
+//                            }
+//                        },
+//                        state = pullRefreshState,
+//                        content = {
+//
+//
+//                        }
+//                    )
+    } else {
+        // Handle other states (Loading, Error) with appropriate messages
+        Text(text = "Scanning: ${state.toString()}")
     }
 }

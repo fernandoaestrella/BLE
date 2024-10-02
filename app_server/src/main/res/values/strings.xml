@@ -55,7 +55,7 @@ What color of your clothing occupies the most space ABOVE your hips?
 What color of your clothing occupies the most space BELOW your hips?
 -->
 <resources>
-    <string name="app_name">Uncover your deepest desires (Advertiser app)</string>
+    <string name="app_name">(Advertiser) Uncover your deepest desires</string>
     <string name="characteristics">Characteristics</string>
     <string name="intro">Welcome! We all have different needs we need to supply. This is an app to help you more easily fulfill them with the people already around you that you might not have considered could help you, or that you could help. Please indicate what you can supply, and what you need help with, below.\nIf you need a level supplied, tap the checkbox on the left.\nIf you can supply a level\'s need, tap the checkbox on the right.</string>
     <string name="user_description">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer. If an answer is \"yes\", check the box. If it is \"no\", leave the box unchecked."</string>

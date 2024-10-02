@@ -53,6 +53,7 @@ import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 import no.nordicsemi.android.kotlin.ble.ui.scanner.R
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
+import kotlin.math.pow
 
 val needsList = listOf("Provide Survival Need", "Suggest Game", "Help Someone Succeed", "Listen to someone", "Uncover a Hidden Truth", "Dispel Darkness", "Realize Oneness")
 
@@ -488,17 +489,60 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
                 outputString += "\n"
             }
         }
-
-        // Represents next 4 bits as an int
-
-        val otherUserTopColor = mutableListOf<Boolean>()
-//
-//        if (bitIndex == 19)
-//        otherUserTopColor.add(bit)
-
         bitIndex++
+    }
+
+    // Represents next 4 bits as an int
+    val otherUserTopColorBitArray = mutableListOf<Boolean>(bitArray[19], bitArray[20], bitArray[21], bitArray[22])
+
+    //    Convert bit array to integer
+    var otherUserTopColorInt = convertBitArrayToInt(otherUserTopColorBitArray)
+
+    outputString += "Top Color: $otherUserTopColorInt "
+//    Convert integer to color
+    when (otherUserTopColorInt) {
+        0 -> outputString += "None\n"
+        1 -> outputString += "White\n"
+        2 -> outputString += "Black\n"
+        3 -> outputString += "Gray\n"
+        4 -> outputString += "Brown\n"
+        5 -> outputString += "Red\n"
+        6 -> outputString += "Green\n"
+        7 -> outputString += "Blue\n"
+        8 -> outputString += "Purple\n"
+        9 -> outputString += "Orange\n"
+        10 -> outputString += "Yellow\n"
+    }
+
+    // Represent next 3 bit as a boolean array
+    val otherUserBottomColorBitArray = mutableListOf<Boolean>(bitArray[23], bitArray[24], bitArray[25])
+
+    // Convert bit array to integer
+    var otherUserBottomColorInt = convertBitArrayToInt(otherUserBottomColorBitArray)
+
+    outputString += "Bottom Color: $otherUserBottomColorInt "
+    // Convert integer to color
+    when (otherUserBottomColorInt) {
+        0 -> outputString += "None\n"
+        1 -> outputString += "White\n"
+        2 -> outputString += "Black\n"
+        3 -> outputString += "Gray\n"
+        4 -> outputString += "Brown\n"
+        5 -> outputString += "Blue\n"
+        6 -> outputString += "Undefined\n"
     }
 
 //    Log.d("outputUserDescription", "outputString: $outputString")
     return outputString
+}
+
+private fun convertBitArrayToInt(inputBitArray: MutableList<Boolean>): Int {
+    var outputInt = 0
+    for (i in inputBitArray.size - 1 downTo 0) {
+        if (inputBitArray[i]) {
+            outputInt += (2.0).pow(inputBitArray.size - 1 - i).toInt()
+            Log.d("convertBitArrayToInt", "outputInt: $outputInt")
+        }
+    }
+    return outputInt
 }
