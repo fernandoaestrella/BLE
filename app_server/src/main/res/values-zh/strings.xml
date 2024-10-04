@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">（广告商）发现你的最深欲望</string>
+    <string name="characteristics">特征</string>
+    <string name="intro">欢迎！我们都有不同的需求需要满足。这是一个应用程序，可以帮助您更容易地与周围的人实现这些需求，这些人您可能没有想过可以帮助您，或者您也可以帮助他们。请在下面说明您能提供什么和您需要帮助什么。
+如果需要提供级别，请点击左边的复选框。
+如果您可以提供某个级别的需求，请点击右边的复选框。</string>
+    <string name="user_description">下面的信息将用于在人群中识别您。不要过度思考您的答案，只需回答以便有人可以快速地从视觉上识别您。按顺序回答，因为问题会根据第一个答案而变化。如果答案是“是”，请选中该框。如果答案是“否”，请不要选中该框。</string>
+    <string name="call_to_action">现在将其发送到世界各地，等待有人接近您！
+（他们应该使用接收器应用程序）
+如果您在开始广告后更改了您的信息，请停止并重新开始广告。</string>
+    <string name="about">关于此应用程序
+
+我们希望这个应用程序能提醒您世界上已经存在的魔法。在使用它的过程中，我们邀请您让自己：
+    - 从可能没有考虑过可以丰富您生活的人那里获得帮助。
+    - 以更多维度的视角看待您的生活，不仅仅是生存和快乐。
+    - 满足不同于您已经满足的需求（例如，不要持续满足相同的需求）。
+    - 明确您的更深层次的愿望，而不是被期望所推动。
+    - 模糊给予和接受帮助之间的界限，这可能有助于发现比我们所经历的明显分离更深层次的现实。换句话说，要对您在给予时可能接收到的东西保持开放，并让自己注意到您在感激所接受的帮助时生活的味道。
+    享受！</string>
+    <string name="match_request_1">请求生存需求</string>
+    <string name="match_supply_1">提供生存需求</string>
+    <string name="match_request_2">加入游戏</string>
+    <string name="match_supply_2">建议游戏</string>
+    <string name="match_request_3">开始大项目</string>
+    <string name="match_supply_3">帮助某人成功</string>
+    <string name="match_request_4">面对你的恐惧</string>
+    <string name="match_supply_4">倾听某人</string>
+    <string name="match_request_5">表达你的真相</string>
+    <string name="match_supply_5">发现隐藏的真相</string>
+    <string name="match_request_6">找到清晰度</string>
+    <string name="match_supply_6">驱散黑暗</string>
+    <string name="match_request_7">意识到统一性</string>
+    <string name="match_supply_7">意识到统一性</string>
+    <string name="user_description_question_1">你看起来像个男人吗？</string>
+    <string name="user_description_question_2_man">你的身高超过175厘米吗？</string>
+    <string name="user_description_question_2_woman">你的身高超过162厘米吗？</string>
+    <string name="user_description_question_3_man">你超过30.3岁了吗？</string>
+    <string name="user_description_question_3_woman">你超过31.8岁了吗？</string>
+    <string name="user_description_question_4_man">你有胡子吗？</string>
+    <string name="user_description_question_4_woman">你的头发长度超过肩膀吗？</string>
+    <string name="user_description_question_5">你戴眼镜吗？</string>
+    <string name="user_description_question_6">你的衣服中哪个颜色在臀部上方占据了最大的空间？（选择最接近的颜色）（如果颜色大致相同，请选择最常见的颜色之一）</string>
+    <string name="user_description_question_6_options">无（哦耶！）、白色、黑色、灰色、棕色、红色、绿色、蓝色、紫色、橙色、黄色</string>
+    <string name="user_description_question_7">你的衣服中哪个颜色在臀部下方占据了最大的空间？（选择最接近的颜色）（如果颜色大致相同，请选择最常见的颜色之一）</string>
+    <string name="user_description_question_7_options">无（哇！）、白色、黑色、灰色、棕色、蓝色、其他（即其他颜色）</string>
+    <string name="button">按钮</string>
+    <string name="stop">停止广告</string>
+    <string name="advertise">发布</string>
+    <string name="advertisement_state">广告状态：%s</string>
+    <string name="led_state">LED状态：%s</string>
+    <string name="button_state">按钮状态：%s</string>
+    <string name="state_on">开启</string>
+    <string name="state_off">关闭</string>
+    <string name="user_state_intro">下面段落中的字段包含一个代码，显示了此软件如何表示您输入的数据（您的请求、优惠以及外貌描述）。它位于文本输入字段中，以便您可以轻松复制它。只需按住手指在代码上，然后选择“复制”。您也可以手动输入它。如果您想扫描匹配（接收匹配），而不是发布您的数据（输出您的数据），请复制下面的文本，将其输入到配套的扫描应用程序中，并让它扫描。我们应该努力使大约一半的人在任何给定时间进行广告，而另一半进行扫描。这将在该应用程序的未来版本中变得更加容易使用。只有扫描的人才能从广告的人那里收到匹配，因此人们可以在一段时间后交替扫描和广告。下面的数据仅在您开始广告时更新，因此如果您想更新它，可以立即广告。如果您看到这个字符“0”，它是数字零，而不是字母O。</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">(Advertiser) Uncover your deepest desires</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="intro">Welcome! We all have different needs we want to supply. This is an app to help you more easily fulfill them with the people already around you that you might not have considered could help you, or that you could help. Please indicate what you can supply, and what you need help with, below.\nTake a moment to really look into yourself to see what you need help with, and what you can offer on each level\nIf you need a level supplied, tap the checkbox on the left.\nIf you can supply a level\'s need, tap the checkbox on the right.</string>
+    <string name="user_description">The information below will serve to identify you in a crowd. Don\'t overthink your answers, just answer so that someone can visually identify you quickly. Answer in order, as the questions change based on the first answer. If an answer is \"yes\", check the box. If it is \"no\", leave the box unchecked."</string>
+    <string name="call_to_action">Now send it out to the world and wait for someone to approach you!\n(they should be using the receiver app)\nIf you make a change to your information after you had started advertising, stop and start advertising.</string>">
+    <string name="about">About this app\n\nWe hope this app reminds you of the magic that is already out there in the world. As you use it, we invite you to allow yourself to:
+        \n- Receive help from someone you may not have considered that could enrich your life.
+        \n- See your life in many more dimensions than just survival and pleasure.
+\n- Fulfill different needs than the ones you have already covered (i.e. don\'t continuously fulfill the same one/s).
+        \n- Be clear about your deeper desires instead of being pushed by expectations.
+\n- Blur the lines between giving and receiving help, which may help discover a deeper reality than the apparent separation we experience. In other words, be open to what you might receive when you feel you are giving, and open yourself to noticing the flavor your life takes when you feel grateful for the help you receive.
+        \nEnjoy!
+        </string>">
+    <string name="match_request_1">Request Survival Need</string>">
+    <string name="match_supply_1">Provide Survival Need</string>">
+    <string name="match_request_2">Join Game</string>">
+    <string name="match_supply_2">Suggest Game</string>">
+    <string name="match_request_3">Start Big Project</string>">
+    <string name="match_supply_3">Help Someone Succeed</string>">
+    <string name="match_request_4">Face Your Fears</string>">
+    <string name="match_supply_4">Listen to someone</string>">
+    <string name="match_request_5">Express Your Truth</string>">
+    <string name="match_supply_5">Uncover a Hidden Truth</string>">
+    <string name="match_request_6">Find Clarity</string>">
+    <string name="match_supply_6">Dispel Darkness</string>">
+    <string name="match_request_7">Realize Oneness</string>">
+    <string name="match_supply_7">Realize Oneness</string>">
+    <string name="user_description_question_1">Do you look like a man?</string>">
+    <string name="user_description_question_2_man">Are you taller than 5 feet 9 inches (175 cm)?</string>">
+    <string name="user_description_question_2_woman">Are you taller than 5 feet 4 inches (162 cm)?</string>">
+    <string name="user_description_question_3_man">Are you older than 30.3 years?</string>">
+    <string name="user_description_question_3_woman">Are you older than 31.8 years?</string>">
+    <string name="user_description_question_4_man">Do you have facial hair?</string>">
+    <string name="user_description_question_4_woman">Does your hair reach below your shoulder?</string>">
+    <string name="user_description_question_5">Are you wearing glasses?</string>">
+    <string name="user_description_question_6">What color of your clothing occupies the most space ABOVE your hips? (choose the closest color) (choose one of the most common colors if they roughly occupy the same space)</string>">
+    <string name="user_description_question_6_options">none (oooh yeah!),white,black,gray,brown,red,green,blue,purple,orange,yellow</string>">
+    <string name="user_description_question_7">What color of your clothing occupies the most space BELOW your hips? (choose the closest color) (choose one of the most common colors if they roughly occupy the same space)</string>">
+    <string name="user_description_question_7_options">none (woohoo! go you!),white,black,gray,brown,blue,none of the above (i.e. other colors)</string>">
+    <string name="button">Button</string>
+    <string name="stop">Stop Advertising</string>
+    <string name="advertise">Advertise</string>
+    <string name="advertisement_state">Advertisement state: %s</string>
+    <string name="led_state">Led state: %s</string>
+    <string name="button_state">Button state: %s</string>
+    <string name="state_on">ON</string>
+    <string name="state_off">OFF</string>
+    <string name="user_state_intro">The field below this paragraph has a code that shows how this software is representing the data you have input (your requests, offers and the description of how you look). It is inside a text input field, so that you can easily copy it. Just hold your finger over the code, and select "Copy". You can also type it. If you want to scan for matches (receive matches), instead of advertising your data (outputting your data), please copy the text below, input it in the companion scanning app, and let it scan. We should aim for having roughly half the people advertising and half scanning at any given moment in time. This will be made easier to use in future versions of this app. Only a person scanning can receive matches from people advertising, so people can alternate scanning and advertising after some time. The data below only gets updated when you start advertising, so you can advertise shortly if you want to update it. If you see this character \"0\", it is the number zero, not the letter O.\n</string>
+</resources>
