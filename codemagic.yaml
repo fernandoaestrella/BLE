@@ -9,7 +9,7 @@ workflows:
       java: 1.8
     cache:
       cache_paths:
-        - ~/.gradle/caches[^2^][2]
+        - ~/.gradle/caches
     triggering:
       events:
         - push
@@ -20,9 +20,10 @@ workflows:
           ./gradlew dependencies
       - name: Build APK
         script: |
-          ./gradlew assembleRelease artifacts:[^3^][3]
-      - build/**/outputs/**/*.apk[^4^][4][^5^][5]
+          ./gradlew assembleRelease
+    artifacts:
+      - build/**/outputs/**/*.apk
     publishing:
       email:
         recipients:
-          - your-email@example.com
+          - fernandoaestrella@gmail.com
