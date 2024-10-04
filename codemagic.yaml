@@ -15,6 +15,9 @@ workflows:
         - push
         - pull_request
     scripts:
+      - name: Set execute permissions for gradlew
+        script: |
+          chmod +x ./gradlew
       - name: Install dependencies
         script: |
           ./gradlew dependencies
