@@ -22,8 +22,7 @@ workflows:
           ./gradlew dependencies
       - name: Build APK
         script: |
-          ./gradlew assembleRelease
-    artifacts:[^3^][3]
+          ./gradlew assembleRelease artifacts:[^3^][3]
       - build/**/outputs/**/*.apk[^4^][4][^5^][5]
     publishing:
       email:
