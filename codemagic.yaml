@@ -7,8 +7,6 @@ workflows:
       flutter: stable
       xcode: latest
       java: 1.8
-      android:
-        ndk: r21d
     cache:
       cache_paths:
         - ~/.gradle/caches[^2^][2]
