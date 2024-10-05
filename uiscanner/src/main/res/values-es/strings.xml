@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="location">Ubicación</string>
+
+    <string name="filters">Filtros</string>
+    <string name="filter_uuid">Todos</string>
+    <string name="filter_nearby">Cercanos</string>
+    <string name="filter_name">Nombre</string>
+
+    <string name="device_no_name">Sin nombre</string>
+    <string name="bonded_devices">Dispositivos vinculados</string>
+    <string name="discovered_devices">Dispositivos descubiertos</string>
+
+    <string name="scan_failed">Error al escanear: %d.</string>
+    <string name="scanner_screen">Escáner</string>
+    <string name="scanner_error">Error de escaneo</string>
+    <string name="action_location_settings">Configuración de ubicación</string>
+    <string name="action_go_up">Atrás</string>
+
+    <string name="no_device_guide_title">¿NO VES TU DISPOSITIVO?</string>
+    <string name="no_device_guide_info">1. Asegúrate de que el dispositivo esté **encendido** y conectado a una fuente de alimentación.\n\n2. Asegúrate de que el firmware y SoftDevice adecuados estén flasheados.</string>
+    <string name="no_device_guide_location_info">3. La ubicación está desactivada. La mayoría de los teléfonos Android lo requieren para escanear dispositivos Bluetooth LE. Si estás seguro de que tu dispositivo está anunciando y no aparece aquí, haz clic en el botón de abajo para habilitar la ubicación.</string>
+
+    <string name="navigation_item_accessibility">Icono de retroceso de navegación de la barra de aplicaciones.</string>
+
+    <string name="bonding_in_progress">Vinculación en progreso. Sigue las instrucciones en la pantalla.</string>
+    <string name="bonding_success">Vinculación exitosa. Espera la redirección a la pantalla de perfil elegida.</string>
+    <string name="bonding_error">No podemos obtener datos del periférico sin vinculación. Vincula el dispositivo.</string>
+
+    <string name="device_disconnected">Desconectado</string>
+    <string name="device_reason_user">Dispositivo desconectado correctamente.</string>
+    <string name="device_reason_unknown">Dispositivo desconectado por una razón desconocida.</string>
+    <string name="device_reason_link_loss">Se ha perdido la señal del dispositivo.</string>
+    <string name="device_reason_missing_service">El dispositivo se desconectó porque faltan los servicios requeridos.</string>
+    <string name="device_reason_terminate_local_host">El dispositivo local inició la desconexión.</string>
+    <string name="device_reason_terminate_peer_user">El dispositivo remoto inició la desconexión correcta.</string>
+    <string name="device_reason_cancelled">Se canceló el intento de conexión.</string>
+    <string name="device_reason_timeout">Se agotó el tiempo de espera de la conexión.</string>
+
+    <string name="device_connecting">Conectando…</string>
+    <string name="device_explanation">El móvil está intentando conectarse al dispositivo periférico.</string>
+    <string name="device_please_wait">Por favor, espere…</string>
+    <string name="scan_input_user_state">¡Hola!\n
+  Antes de usar esta aplicación, haz lo siguiente:\n
+  1. Abre la aplicación de publicidad\n
+  2. Responde a todas las preguntas\n
+  3. Toca en "Publicar"\n
+  4. Toca en "Detener publicidad"\n
+  5. Escribe el texto de la línea que comienza con "(0x)", debajo del botón "Publicar"\n
+  6. Ingresa ese texto en el siguiente formulario\n</string>
+    <string name="info">¡Hola!\n        Antes de usar esta aplicación, haz lo siguiente:\n        1. Abre la aplicación de publicidad\n        2. Responde a todas las preguntas\n        3. Toca en "Publicar"\n        4. Toca en "Detener publicidad"\n        5. Escribe el texto de la línea que comienza con "(0x)", debajo del botón "Publicar"\n        6. Ingresa ese texto en el siguiente formulario\n</string>
+    <string name="other_user_matching">Coincidencia con otros usuarios</string>
+    <string name="friend_matching">Coincidencia de amigos</string>
+    <string name="your_code">"Tu código: "</string>
+    <string name="your_code_is_recorded">"Tu código está registrado: "</string>
+    <string name="frined_code_input_prompt">Puedes ingresar el código de tu amigo a continuación y ver cómo coinciden ambos</string>
+    <string name="your_friend_s_code">"Código de tu amigo: "</string>
+    <string name="your_friend_s_code_is_recorded">"El código de tu amigo está registrado: "</string>
+    <string name="your_match_with_your_friend">Tu coincidencia con tu amigo:</string>
+    <string name="scan_results">Resultados del escaneo:</string>
+    <string name="scanning">"Escaneando: "</string>
+    <string name="number_of_matches_with_other_user">"Con este usuario, tienes estas coincidencias: "</string>
+    <string name="out_of_14">" de 14"</string>
+    <string name="this_user_looks_like_this">Este usuario se ve así:\n</string>
+    <string name="match_intro">Coincides de la siguiente manera:\n</string>
+    <string name="man">Hombre</string>
+    <string name="woman">Mujer</string>
+    <string name="male_tall">Más alto que 175 cm</string>
+    <string name="male_short">Más bajo que 175 cm</string>
+    <string name="female_tall">Más alta que 162 cm</string>
+    <string name="female_short">Más baja que 162 cm</string>
+    <string name="male_old">Mayor de 30,3 años</string>
+    <string name="male_young">Menor de 30,3 años</string>
+    <string name="female_old">Mayor de 31,8 años</string>
+    <string name="female_young">Menor de 31,8 años</string>
+    <string name="male_has_facial_hair">Tiene barba</string>
+    <string name="male_does_not_have_facial_hair">No tiene barba</string>
+    <string name="female_long_hair">Pelo por debajo de los hombros</string>
+    <string name="female_short_hair">Pelo que no llega a los hombros</string>
+    <string name="wearing_glasses">Lleva gafas</string>
+    <string name="not_wearing_glasses">No lleva gafas</string>
+    <string name="top_color">"Color superior: "</string>
+    <string name="none">Ninguno\n</string>
+    <string name="white">Blanco\n</string>
+    <string name="black">Negro\n</string>
+    <string name="gray">Gris\n</string>
+    <string name="brown">Marrón\n</string>
+    <string name="red">Rojo\n</string>
+    <string name="green">Verde\n</string>
+    <string name="blue">Azul\n</string>
+    <string name="purple">Morado\n</string>
+    <string name="orange">Naranja\n</string>
+    <string name="yellow">Amarillo\n</string>
+    <string name="invalid_code">Código inválido. Asegúrate de copiar un código de la aplicación de publicidad complementaria\n</string>
+    <string name="bottom_color">Color inferior: </string>
+    <string name="undefined">Indefinido\n</string>
+    <string name="they_can">Pueden </string>
+    <string name="for_you"> para ti! </string>
+    <string name="you_can">Puedes </string>
+    <string name="for_them"> para ellos! </string>
+    <string name="match_request_1">Solicitar necesidad de supervivencia</string>
+    <string name="match_supply_1">Proporcionar necesidad de supervivencia</string>
+    <string name="match_request_2">Unirse a un juego</string>
+    <string name="match_supply_2">Sugerir juego</string>
+    <string name="match_request_3">Iniciar un gran proyecto</string>
+    <string name="match_supply_3">Ayudar a alguien a tener éxito</string>
+    <string name="match_request_4">Enfrentar los miedos</string>
+    <string name="match_supply_4">Escuchar a alguien</string>
+    <string name="match_request_5">Expresar tu verdad</string>
+    <string name="match_supply_5">Descubrir una verdad oculta</string>
+    <string name="match_request_6">Encontrar claridad</string>
+    <string name="match_supply_6">Disipar la oscuridad</string>
+    <string name="match_request_7">Darse cuenta de la unidad</string>
+    <string name="match_supply_7">Darse cuenta de la unidad</string>
+</resources>

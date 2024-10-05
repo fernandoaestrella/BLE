@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bluetooth">ब्लूटूथ</string>
+    <string name="location">स्थान</string>
+
+    <string name="filters">फ़िल्टर</string>
+    <string name="filter_uuid">सभी</string>
+    <string name="filter_nearby">निकटवर्ती</string>
+    <string name="filter_name">नाम</string>
+
+    <string name="device_no_name">नाम नहीं</string>
+    <string name="bonded_devices">बंधुआ डिवाइस</string>
+    <string name="discovered_devices">खोजे गए डिवाइस</string>
+
+    <string name="scan_failed">स्कैनिंग में त्रुटि %d के साथ विफल हो गया।</string>
+    <string name="scanner_screen">स्कैनर</string>
+    <string name="scanner_error">स्कैनिंग विफल</string>
+    <string name="action_location_settings">स्थान सेटिंग्स</string>
+    <string name="action_go_up">वापस</string>
+
+    <string name="no_device_guide_title">क्या आप अपना डिवाइस नहीं देख सकते?</string>
+    <string name="no_device_guide_info">1. सुनिश्चित करें कि डिवाइस चालू है और किसी पावर स्रोत से जुड़ा है।\n\n2. सुनिश्चित करें कि उचित फर्मवेयर और सॉफ्टडिवाइस फ्लैश किए गए हैं।</string>
+    <string name="no_device_guide_location_info">3. स्थान बंद है। अधिकांश Android फ़ोन ब्लूटूथ LE डिवाइस के लिए स्कैन करने के लिए इसकी आवश्यकता होती है। यदि आप सुनिश्चित हैं कि आपका डिवाइस विज्ञापन कर रहा है और यह यहां दिखाई नहीं देता है, तो स्थान सक्षम करने के लिए नीचे दिए गए बटन पर क्लिक करें।</string>
+
+    <string name="navigation_item_accessibility">ऐप बार नेविगेशन बैक आइकन।</string>
+
+    <string name="bonding_in_progress">बंधन प्रगति में है। कृपया स्क्रीन पर निर्देश का पालन करें।</string>
+    <string name="bonding_success">बंधन सफल। कृपया चुने गए प्रोफ़ाइल स्क्रीन पर रीडायरेक्ट होने की प्रतीक्षा करें।</string>
+    <string name="bonding_error">बंधन के बिना हम परिधीय से डेटा प्राप्त नहीं कर सकते हैं। कृपया डिवाइस को बांधें।</string>
+
+    <string name="device_disconnected">डिस्कनेक्ट</string>
+    <string name="device_reason_user">डिवाइस सफलतापूर्वक डिस्कनेक्ट हो गया।</string>
+    <string name="device_reason_unknown">अज्ञात कारण से डिवाइस डिस्कनेक्ट हो गया।</string>
+    <string name="device_reason_link_loss">डिवाइस सिग्नल खो गया है।</string>
+    <string name="device_reason_missing_service">डिवाइस डिस्कनेक्ट हो गया था, क्योंकि आवश्यक सेवाएं गायब हैं।</string>
+    <string name="device_reason_terminate_local_host">स्थानीय डिवाइस ने डिस्कनेक्ट शुरू किया।</string>
+    <string name="device_reason_terminate_peer_user">दूरस्थ डिवाइस ने सुंदर विच्छेद शुरू किया।</string>
+    <string name="device_reason_cancelled">कनेक्शन प्रयास रद्द कर दिया गया था।</string>
+    <string name="device_reason_timeout">कनेक्शन का समय समाप्त हो गया।</string>
+
+    <string name="device_connecting">कनेक्ट हो रहा है…</string>
+    <string name="device_explanation">मोबाइल परिधीय डिवाइस से कनेक्ट करने का प्रयास कर रहा है।</string>
+    <string name="device_please_wait">कृपया प्रतीक्षा करें…</string>
+    <string name="scan_input_user_state">नमस्ते!\n
+  इस ऐप का उपयोग करने से पहले, कृपया निम्न कार्य करें:\n
+  1. विज्ञापन ऐप खोलें\n
+  2. सभी प्रश्नों का उत्तर दें\n
+  3. "विज्ञापन" पर टैप करें\n
+  4. "विज्ञापन बंद करें" पर टैप करें\n
+  5. "विज्ञापन" बटन के नीचे "(0x)" से शुरू होने वाली पंक्ति में लिखें\n
+  6. नीचे दिए गए फॉर्म में उस टेक्स्ट को इनपुट करें\n</string>
+    <string name="info">नमस्ते!\n        इस ऐप का उपयोग करने से पहले, कृपया निम्न कार्य करें:\n        1. विज्ञापन ऐप खोलें\n        2. सभी प्रश्नों का उत्तर दें\n        3. "विज्ञापन" पर टैप करें\n        4. "विज्ञापन बंद करें" पर टैप करें\n        5. "विज्ञापन" बटन के नीचे "(0x)" से शुरू होने वाली पंक्ति में लिखें\n        6. नीचे दिए गए फॉर्म में उस टेक्स्ट को इनपुट करें\n</string>
+    <string name="other_user_matching">अन्य उपयोगकर्ता मिलान</string>
+    <string name="friend_matching">मित्र मिलान</string>
+    <string name="your_code">"आपका कोड: "</string>
+    <string name="your_code_is_recorded">"आपका कोड रिकॉर्ड किया गया है: "</string>
+    <string name="frined_code_input_prompt">आप नीचे अपने मित्र का कोड इनपुट कर सकते हैं और देख सकते हैं कि आप दोनों कैसे मेल खाते हैं</string>
+    <string name="your_friend_s_code">"आपके मित्र का कोड: "</string>
+    <string name="your_friend_s_code_is_recorded">"आपके मित्र का कोड रिकॉर्ड किया गया है: "</string>
+    <string name="your_match_with_your_friend">आपके दोस्त के साथ आपका मिलान:</string>
+    <string name="scan_results">स्कैन परिणाम:</string>
+    <string name="scanning">"स्कैनिंग: "</string>
+    <string name="number_of_matches_with_other_user">"इस उपयोगकर्ता के साथ, आपके पास इतने मिलान हैं: "</string>
+    <string name="out_of_14">" 14 में से"</string>
+    <string name="this_user_looks_like_this">यह उपयोगकर्ता इस तरह दिखता है:\n</string>
+    <string name="match_intro">आप निम्न प्रकार से मेल खाते हैं:\n</string>
+    <string name="man">पुरुष</string>
+    <string name="woman">महिला</string>
+    <string name="male_tall">5 फीट 9 इंच (175 सेमी) से अधिक लंबा</string>
+    <string name="male_short">5 फीट 9 इंच (175 सेमी) से छोटा</string>
+    <string name="female_tall">5 फीट 4 इंच (162 सेमी) से अधिक लंबा</string>
+    <string name="female_short">5 फीट 4 इंच (162 सेमी) से छोटा</string>
+    <string name="male_old">30.3 वर्ष से अधिक उम्र का</string>
+    <string name="male_young">30.3 वर्ष से कम उम्र का</string>
+    <string name="female_old">31.8 वर्ष से अधिक उम्र का</string>
+    <string name="female_young">31.8 वर्ष से कम उम्र का</string>
+    <string name="male_has_facial_hair">चेहरे पर बाल हैं</string>
+    <string name="male_does_not_have_facial_hair">चेहरे पर बाल नहीं हैं</string>
+    <string name="female_long_hair">बाल कंधे के नीचे तक पहुंचते हैं</string>
+    <string name="female_short_hair">बाल कंधे के नीचे तक नहीं पहुंचते</string>
+    <string name="wearing_glasses">चश्मा पहन रहा है</string>
+    <string name="not_wearing_glasses">चश्मा नहीं पहन रहा है</string>
+    <string name="top_color">"शीर्ष रंग: "</string>
+    <string name="none">कोई नहीं\n</string>
+    <string name="white">सफ़ेद\n</string>
+    <string name="black">काला\n</string>
+    <string name="gray">ग्रे\n</string>
+    <string name="brown">भूरा\n</string>
+    <string name="red">लाल\n</string>
+    <string name="green">हरा\n</string>
+    <string name="blue">नीला\n</string>
+    <string name="purple">बैंगनी\n</string>
+    <string name="orange">नारंगी\n</string>
+    <string name="yellow">पीला\n</string>
+    <string name="invalid_code">अमान्य कोड। साथी विज्ञापनदाता ऐप से कोड कॉपी करना सुनिश्चित करें\n</string>
+    <string name="bottom_color">"बॉटम कलर: "</string>
+    <string name="undefined">अपरिभाषित\n</string>
+    <string name="they_can">"वे कर सकते हैं "</string>
+    <string name="for_you">" आपके लिए! "</string>
+    <string name="you_can">"आप कर सकते हैं "</string>
+    <string name="for_them">" उनके लिए! "</string>
+    <string name="match_request_1">अस्तित्व की आवश्यकता का अनुरोध करें</string>
+    <string name="match_supply_1">अस्तित्व की आवश्यकता प्रदान करें</string>
+    <string name="match_request_2">गेम में शामिल हों</string>
+    <string name="match_supply_2">गेम का सुझाव दें</string>
+    <string name="match_request_3">बड़ी परियोजना शुरू करें</string>
+    <string name="match_supply_3">किसी को सफल होने में मदद करें</string>
+    <string name="match_request_4">अपने डर का सामना करें</string>
+    <string name="match_supply_4">किसी की सुनें</string>
+    <string name="match_request_5">अपना सच व्यक्त करें</string>
+    <string name="match_supply_5">एक छिपे हुए सच का पता लगाएं</string>
+    <string name="match_request_6">स्पष्टता खोजें</string>
+    <string name="match_supply_6">अंधकार को दूर करें</string>
+    <string name="match_request_7">एकता का एहसास करें</string>
+    <string name="match_supply_7">एकता का एहसास करें</string>
+</resources>

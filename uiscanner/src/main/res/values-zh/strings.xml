@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bluetooth">蓝牙</string>
+    <string name="location">位置</string>
+
+    <string name="filters">过滤器</string>
+    <string name="filter_uuid">全部</string>
+    <string name="filter_nearby">附近</string>
+    <string name="filter_name">名称</string>
+
+    <string name="device_no_name">无名</string>
+    <string name="bonded_devices">绑定设备</string>
+    <string name="discovered_devices">发现的设备</string>
+
+    <string name="scan_failed">扫描失败，错误代码 %d。</string>
+    <string name="scanner_screen">扫描仪</string>
+    <string name="scanner_error">扫描失败</string>
+    <string name="action_location_settings">位置设置</string>
+    <string name="action_go_up">返回</string>
+
+    <string name="no_device_guide_title">看不到您的设备吗？</string>
+    <string name="no_device_guide_info">1. 确保设备已 **打开** 并连接到电源。\n\n2. 确保已刷新适当的固件和 SoftDevice。</string>
+    <string name="no_device_guide_location_info">3. 位置已关闭。大多数 Android 手机需要它才能扫描 Bluetooth LE 设备。如果您确定您的设备正在广告中，但它没有显示在这里，请单击下面的按钮以启用位置。</string>
+
+    <string name="navigation_item_accessibility">应用栏导航返回图标。</string>
+
+    <string name="bonding_in_progress">正在绑定。请按照屏幕上的说明操作。</string>
+    <string name="bonding_success">绑定成功。请等待重定向到选择的配置文件屏幕。</string>
+    <string name="bonding_error">没有绑定就无法从外围设备获取数据。请绑定设备。</string>
+
+    <string name="device_disconnected">断开连接</string>
+    <string name="device_reason_user">设备已成功断开连接。</string>
+    <string name="device_reason_unknown">设备因未知原因断开连接。</string>
+    <string name="device_reason_link_loss">设备信号已丢失。</string>
+    <string name="device_reason_missing_service">设备断开连接，因为缺少所需的设备。</string>
+    <string name="device_reason_terminate_local_host">本地设备启动了断开连接。</string>
+    <string name="device_reason_terminate_peer_user">远程设备启动了优雅的断开连接。</string>
+    <string name="device_reason_cancelled">连接尝试已取消。</string>
+    <string name="device_reason_timeout">连接超时。</string>
+
+    <string name="device_connecting">正在连接…</string>
+    <string name="device_explanation">手机正在尝试连接到外围设备。</string>
+    <string name="device_please_wait">请稍候…</string>
+    <string name="scan_input_user_state">嗨！\n
+  在使用此应用程序之前，请执行以下操作：\n
+  1. 打开广告应用程序\n
+  2. 回答所有问题\n
+  3. 点击“广告”\n
+  4. 点击“停止广告”\n
+  5. 在“广告”按钮下，写下以“(0x)”开头的行中的文本\n
+  6. 在下面的表单中输入该文本\n</string>
+    <string name="info">嗨！\n        在使用此应用程序之前，请执行以下操作：\n        1. 打开广告应用程序\n        2. 回答所有问题\n        3. 点击“广告”\n        4. 点击“停止广告”\n        5. 在“广告”按钮下，写下以“(0x)”开头的行中的文本\n        6. 在下面的表单中输入该文本\n</string>
+    <string name="other_user_matching">与其他用户匹配</string>
+    <string name="friend_matching">朋友匹配</string>
+    <string name="your_code">您的代码：</string>
+    <string name="your_code_is_recorded">您的代码已记录：</string>
+    <string name="frined_code_input_prompt">您可以在下面输入您朋友的代码并查看你们两个的匹配情况</string>
+    <string name="your_friend_s_code">您朋友的代码：</string>
+    <string name="your_friend_s_code_is_recorded">您朋友的代码已记录：</string>
+    <string name="your_match_with_your_friend">您与朋友的匹配：</string>
+    <string name="scan_results">扫描结果：</string>
+    <string name="scanning">扫描中：</string>
+    <string name="number_of_matches_with_other_user">与该用户匹配： </string>
+    <string name="out_of_14">14 个中的</string>
+    <string name="this_user_looks_like_this">这个用户看起来像这样：</string>
+    <string name="match_intro">您以以下方式匹配：</string>
+    <string name="man">男性</string>
+    <string name="woman">女性</string>
+    <string name="male_tall">身高超过 5 英尺 9 英寸（175 厘米）</string>
+    <string name="male_short">身高低于 5 英尺 9 英寸（175 厘米）</string>
+    <string name="female_tall">身高超过 5 英尺 4 英寸（162 厘米）</string>
+    <string name="female_short">身高低于 5 英尺 4 英寸（162 厘米）</string>
+    <string name="male_old">年龄超过 30.3 岁</string>
+    <string name="male_young">年龄低于 30.3 岁</string>
+    <string name="female_old">年龄超过 31.8 岁</string>
+    <string name="female_young">年龄低于 31.8 岁</string>
+    <string name="male_has_facial_hair">有面部毛发</string>
+    <string name="male_does_not_have_facial_hair">没有面部毛发</string>
+    <string name="female_long_hair">头发长过肩膀</string>
+    <string name="female_short_hair">头发没有超过肩膀</string>
+    <string name="wearing_glasses">戴眼镜</string>
+    <string name="not_wearing_glasses">不戴眼镜</string>
+    <string name="top_color">"顶部颜色："</string>
+    <string name="none">无\n</string>
+    <string name="white">白色\n</string>
+    <string name="black">黑色\n</string>
+    <string name="gray">灰色\n</string>
+    <string name="brown">棕色\n</string>
+    <string name="red">红色\n</string>
+    <string name="green">绿色\n</string>
+    <string name="blue">蓝色\n</string>
+    <string name="purple">紫色\n</string>
+    <string name="orange">橙色\n</string>
+    <string name="yellow">黄色\n</string>
+    <string name="invalid_code">无效代码。确保从配套的广告商应用程序复制代码\n</string>
+    <string name="bottom_color">"底部颜色："</string>
+    <string name="undefined">未定义\n</string>
+    <string name="they_can">"他们可以 "</string>
+    <string name="for_you">" 为你！ "</string>
+    <string name="you_can">"你可以 "</string>
+    <string name="for_them">" 为他们！ "</string>
+    <string name="match_request_1">请求生存需求</string>
+    <string name="match_supply_1">提供生存需求</string>
+    <string name="match_request_2">加入游戏</string>
+    <string name="match_supply_2">建议游戏</string>
+    <string name="match_request_3">开始大项目</string>
+    <string name="match_supply_3">帮助某人成功</string><string name="match_request_4">面对你的恐惧</string>
+    <string name="match_supply_4">倾听某人</string>
+    <string name="match_request_5">表达你的真相</string>
+    <string name="match_supply_5">发现隐藏的真相</string>
+    <string name="match_request_6">找到清晰度</string>
+    <string name="match_supply_6">驱散黑暗</string>
+    <string name="match_request_7">意识到统一性</string>
+    <string name="match_supply_7">意识到统一性</string>
+</resources>
