@@ -12,46 +12,46 @@
     <string name="bonded_devices">Appareils liés</string>
     <string name="discovered_devices">Appareils découverts</string>
 
-    <string name="scan_failed">Échec du balayage avec l'erreur %d.</string>
+    <string name="scan_failed">Échec du balayage avec l\'erreur %d.</string>
     <string name="scanner_screen">Scanner</string>
     <string name="scanner_error">Échec du balayage</string>
     <string name="action_location_settings">Paramètres de localisation</string>
     <string name="action_go_up">Retour</string>
 
     <string name="no_device_guide_title">VOUS NE VOYEZ PAS VOTRE APPAREIL ?</string>
-    <string name="no_device_guide_info">1. Assurez-vous que l'appareil est **allumé** et connecté à une source d'alimentation.\n\n2. Assurez-vous que le firmware et le SoftDevice appropriés sont flashés.</string>
-    <string name="no_device_guide_location_info">3. La localisation est désactivée. La plupart des téléphones Android en ont besoin pour scanner les appareils Bluetooth LE. Si vous êtes sûr que votre appareil fait de la publicité et qu'il n'apparaît pas ici, cliquez sur le bouton ci-dessous pour activer la localisation.</string>
+    <string name="no_device_guide_info">1. Assurez-vous que l\'appareil est **allumé** et connecté à une source d\'alimentation.\n\n2. Assurez-vous que le firmware et le SoftDevice appropriés sont flashés.</string>
+    <string name="no_device_guide_location_info">3. La localisation est désactivée. La plupart des téléphones Android en ont besoin pour scanner les appareils Bluetooth LE. Si vous êtes sûr que votre appareil fait de la publicité et qu\'il n\'apparaît pas ici, cliquez sur le bouton ci-dessous pour activer la localisation.</string>
 
-    <string name="navigation_item_accessibility">Icône de retour de navigation de la barre d'application.</string>
+    <string name="navigation_item_accessibility">Icône de retour de navigation de la barre d\'application.</string>
 
-    <string name="bonding_in_progress">Association en cours. Veuillez suivre les instructions à l'écran.</string>
-    <string name="bonding_success">Association réussie. Veuillez patienter pendant la redirection vers l'écran de profil choisi.</string>
-    <string name="bonding_error">Nous ne pouvons pas obtenir de données de la périphérie sans association. Veuillez associer l'appareil.</string>
+    <string name="bonding_in_progress">Association en cours. Veuillez suivre les instructions à l\'écran.</string>
+    <string name="bonding_success">Association réussie. Veuillez patienter pendant la redirection vers l\'écran de profil choisi.</string>
+    <string name="bonding_error">Nous ne pouvons pas obtenir de données de la périphérie sans association. Veuillez associer l\'appareil.</string>
 
     <string name="device_disconnected">Déconnecté</string>
-    <string name="device_reason_user">L'appareil s'est déconnecté avec succès.</string>
-    <string name="device_reason_unknown">L'appareil s'est déconnecté pour une raison inconnue.</string>
-    <string name="device_reason_link_loss">Le signal de l'appareil a été perdu.</string>
-    <string name="device_reason_missing_service">L'appareil a été déconnecté car les services requis manquent.</string>
-    <string name="device_reason_terminate_local_host">L'appareil local a initié la déconnexion.</string>
-    <string name="device_reason_terminate_peer_user">L'appareil distant a initié une déconnexion correcte.</string>
+    <string name="device_reason_user">L\'appareil s\'est déconnecté avec succès.</string>
+    <string name="device_reason_unknown">L\'appareil s\'est déconnecté pour une raison inconnue.</string>
+    <string name="device_reason_link_loss">Le signal de l\'appareil a été perdu.</string>
+    <string name="device_reason_missing_service">L\'appareil a été déconnecté car les services requis manquent.</string>
+    <string name="device_reason_terminate_local_host">L\'appareil local a initié la déconnexion.</string>
+    <string name="device_reason_terminate_peer_user">L\'appareil distant a initié une déconnexion correcte.</string>
     <string name="device_reason_cancelled">La tentative de connexion a été annulée.</string>
     <string name="device_reason_timeout">Le délai de connexion a expiré.</string>
 
     <string name="device_connecting">Connexion en cours…</string>
-    <string name="device_explanation">Le mobile essaie de se connecter à l'appareil périphérique.</string>
+    <string name="device_explanation">Le mobile essaie de se connecter à l\'appareil périphérique.</string>
     <string name="device_please_wait">Veuillez patienter…</string>
     <string name="scan_input_user_state">Salut!\n
-    Avant d'utiliser cette application, veuillez effectuer les opérations suivantes:\n
-    1. Ouvrez l'application de publicité\n
+    Avant d\'utiliser cette application, veuillez effectuer les opérations suivantes:\n
+    1. Ouvrez l\'application de publicité\n
     2. Répondez à toutes les questions\n
     3. Appuyez sur "Publier"\n
     4. Appuyez sur "Arrêter la publicité"\n
     5. Notez le texte de la ligne qui commence par "(0x)", sous le bouton "Publier"\n
     6. Saisissez ce texte dans le formulaire ci-dessous\n</string>
-    <string name="info">Salut!\n        Avant d'utiliser cette application, veuillez effectuer les opérations suivantes:\n        1. Ouvrez l'application de publicité\n        2. Répondez à toutes les questions\n        3. Appuyez sur "Publier"\n        4. Appuyez sur "Arrêter la publicité"\n        5. Notez le texte de la ligne qui commence par "(0x)", sous le bouton "Publier"\n        6. Saisissez ce texte dans le formulaire ci-dessous\n</string>
-    <string name="other_user_matching">Correspondance avec d'autres utilisateurs</string>
-    <string name="friend_matching">Correspondance d'amis</string>
+    <string name="info">Salut!\n        Avant d\'utiliser cette application, veuillez effectuer les opérations suivantes:\n        1. Ouvrez l\'application de publicité\n        2. Répondez à toutes les questions\n        3. Appuyez sur "Publier"\n        4. Appuyez sur "Arrêter la publicité"\n        5. Notez le texte de la ligne qui commence par "(0x)", sous le bouton "Publier"\n        6. Saisissez ce texte dans le formulaire ci-dessous\n</string>
+    <string name="other_user_matching">Correspondance avec d\'autres utilisateurs</string>
+    <string name="friend_matching">Correspondance d\'amis</string>
     <string name="your_code">Votre code : </string>
     <string name="your_code_is_recorded">Votre code est enregistré : </string>
     <string name="frined_code_input_prompt">Vous pouvez saisir le code de votre ami ci-dessous et voir comment vous vous correspondez tous les deux</string>
@@ -75,7 +75,7 @@
     <string name="female_old">Plus de 31,8 ans</string>
     <string name="female_young">Moins de 31,8 ans</string>
     <string name="male_has_facial_hair">A de la barbe</string>
-    <string name="male_does_not_have_facial_hair">N'a pas de barbe</string>
+    <string name="male_does_not_have_facial_hair">N\'a pas de barbe</string>
     <string name="female_long_hair">Cheveux en dessous des épaules</string>
     <string name="female_short_hair">Cheveux ne descendant pas en dessous des épaules</string>
     <string name="wearing_glasses">Porte des lunettes</string>
@@ -92,7 +92,7 @@
     <string name="purple">Violet\n</string>
     <string name="orange">Orange\n</string>
     <string name="yellow">Jaune\n</string>
-    <string name="invalid_code">Code invalide. Assurez-vous de copier un code depuis l'application publicitaire compagnon\n</string>
+    <string name="invalid_code">Code invalide. Assurez-vous de copier un code depuis l\'application publicitaire compagnon\n</string>
     <string name="bottom_color">Couleur inférieure : </string>
     <string name="undefined">Indéfini\n</string>
     <string name="they_can">Ils peuvent </string>
@@ -104,13 +104,15 @@
     <string name="match_request_2">Rejoindre le jeu</string>
     <string name="match_supply_2">Suggérer un jeu</string>
     <string name="match_request_3">Lancer un grand projet</string>
-    <string name="match_supply_3">Aider quelqu'un à réussir</string>
+    <string name="match_supply_3">Aider quelqu\'un à réussir</string>
     <string name="match_request_4">Affronter vos peurs</string>
-    <string name="match_supply_4">Écouter quelqu'un</string>
+    <string name="match_supply_4">Écouter quelqu\'un</string>
     <string name="match_request_5">Exprimer votre vérité</string>
     <string name="match_supply_5">Découvrir une vérité cachée</string>
     <string name="match_request_6">Trouver la clarté</string>
     <string name="match_supply_6">Dissiper les ténèbres</string>
-    <string name="match_request_7">Réaliser l'unité</string>
-    <string name="match_supply_7">Réaliser l'unité</string>
+    <string name="match_request_7">Réaliser l\'unité</string>
+    <string name="match_supply_7">Réaliser l\'unité</string>
+    <string name="show_info">Afficher les informations</string>
+    <string name="hide_info">Masquer les informations</string>
 </resources>

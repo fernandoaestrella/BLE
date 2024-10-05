@@ -59,8 +59,8 @@
     <string name="your_code">Your Code: </string>
     <string name="your_code_is_recorded">Your Code is Recorded: </string>
     <string name="frined_code_input_prompt">You can input your friend\'s code below and see how both of you match</string>
-    <string name="your_friend_s_code">Your friend's Code: </string>
-    <string name="your_friend_s_code_is_recorded">Your friend's Code is Recorded: </string>
+    <string name="your_friend_s_code">Your friend\'s Code: </string>
+    <string name="your_friend_s_code_is_recorded">Your friend\'s Code is Recorded: </string>
     <string name="your_match_with_your_friend">Your match with your friend:</string>
     <string name="scan_results">Scan Results:</string>
     <string name="scanning">Scanning: </string>
@@ -117,4 +117,6 @@
     <string name="match_supply_6">Dispel Darkness</string>
     <string name="match_request_7">Realize Oneness</string>
     <string name="match_supply_7">Realize Oneness</string>
+    <string name="show_info">Show Info</string>
+    <string name="hide_info">Hide Info</string>
 </resources>

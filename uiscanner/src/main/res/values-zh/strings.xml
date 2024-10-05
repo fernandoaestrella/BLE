@@ -112,4 +112,6 @@
     <string name="match_supply_6">驱散黑暗</string>
     <string name="match_request_7">意识到统一性</string>
     <string name="match_supply_7">意识到统一性</string>
+    <string name="show_info">显示信息</string>
+    <string name="hide_info">隐藏信息</string>
 </resources>

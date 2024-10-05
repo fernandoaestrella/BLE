@@ -95,10 +95,10 @@
     <string name="invalid_code">Código inválido. Asegúrate de copiar un código de la aplicación de publicidad complementaria\n</string>
     <string name="bottom_color">Color inferior: </string>
     <string name="undefined">Indefinido\n</string>
-    <string name="they_can">Pueden </string>
-    <string name="for_you"> para ti! </string>
-    <string name="you_can">Puedes </string>
-    <string name="for_them"> para ellos! </string>
+    <string name="they_can">"Pueden "</string>
+    <string name="for_you">" para ti! "</string>
+    <string name="you_can">"Puedes "</string>
+    <string name="for_them">" para ellos! "</string>
     <string name="match_request_1">Solicitar necesidad de supervivencia</string>
     <string name="match_supply_1">Proporcionar necesidad de supervivencia</string>
     <string name="match_request_2">Unirse a un juego</string>
@@ -113,4 +113,6 @@
     <string name="match_supply_6">Disipar la oscuridad</string>
     <string name="match_request_7">Darse cuenta de la unidad</string>
     <string name="match_supply_7">Darse cuenta de la unidad</string>
+    <string name="show_info">Mostrar Introducción</string>
+    <string name="hide_info">Esconder Introducción</string>
 </resources>

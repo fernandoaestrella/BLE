@@ -113,4 +113,6 @@
     <string name="match_supply_6">अंधकार को दूर करें</string>
     <string name="match_request_7">एकता का एहसास करें</string>
     <string name="match_supply_7">एकता का एहसास करें</string>
+    <string name="show_info">जानकारी दिखाएँ</string>
+    <string name="hide_info">जानकारी छिपाएँ</string>
 </resources>

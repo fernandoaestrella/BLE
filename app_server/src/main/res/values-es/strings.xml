@@ -2,21 +2,19 @@
 <resources>
     <string name="app_name">(Anunciante) Revela tus deseos más profundos</string>
     <string name="characteristics">Características</string>
-    <string name="intro">¡Bienvenido! Todos tenemos diferentes necesidades que queremos satisfacer. Esta es una aplicación para ayudarte a cumplirlas más fácilmente con las personas que te rodean y que quizás no hayas considerado que podrían ayudarte, o a las que tú podrías ayudar. Por favor, indica qué puedes ofrecer y en qué necesitas ayuda, a continuación. Tómate un momento para realmente mirar dentro de ti qué necesitas y qué puedes ofrecer de cada nivel.
-Si necesitas un nivel suministrado, toca la casilla de la izquierda.
-Si puedes suministrar la necesidad de un nivel, toca la casilla de la derecha.</string>
+    <string name="intro">¡Bienvenido/a!\nTodos tenemos diferentes necesidades que queremos satisfacer. Esta es una aplicación para ayudarte a cumplirlas más fácilmente con las personas que te rodean y que quizás no hayas considerado que podrían ayudarte, o que tú podrías ayudar. Por favor, indica qué puedes ofrecer y en qué necesitas ayuda, a continuación. Tómate un momento para realmente mirar dentro de ti qué necesitas y qué puedes ofrecer de cada nivel.\nSi necesitas un nivel suministrado, toca la casilla de la izquierda.\nSi puedes suministrar la necesidad de un nivel, toca la casilla de la derecha.</string>
     <string name="user_description">La siguiente información servirá para identificarte en una multitud. No pienses demasiado en cómo responder, simplemente responde para que alguien pueda identificarte visualmente rápidamente. Responde en orden, ya que las preguntas cambian según la primera respuesta. Si la respuesta es "sí", marca la casilla. Si es "no", deja la casilla desmarcada.</string>
     <string name="call_to_action">Ahora envíalo al mundo y espera a que alguien se te acerque.
 (deberían estar usando la aplicación receptora)
 Si realizas algún cambio en tu información después de haber comenzado a anunciar, detén el anuncio y vuelve a anunciar.</string>
-    <string name="about">Acerca de esta aplicación
+    <string name="about">Acerca de esta aplicación\n\n
 
-Esperamos que esta aplicación te recuerde la magia que ya existe en el mundo. Al usarla, te invitamos a permitirte:
-    - Recibir ayuda de alguien que quizás no hayas considerado que podría enriquecer tu vida.
-    - Ver tu vida en muchas más dimensiones que solo la supervivencia y el placer.
-    - Cumplir necesidades diferentes a las que ya has cubierto (es decir, no cumplir continuamente las mismas).
-    - Ser claro acerca de tus deseos más profundos en lugar de ser empujado por expectativas de otros.
-    - Desdibujar las líneas entre dar y recibir ayuda, lo que puede ayudarte a descubrir una realidad más profunda que la aparente separación que experimentamos. En otras palabras, mantente abierto a lo que puedas recibir cuando sientas que estás dando, y ábrirte a notar el sabor que toma tu vida cuando te sientes agradecido por la ayuda que recibes.
+Esperamos que esta aplicación te recuerde la magia que ya existe en el mundo. Al usarla, te invitamos a permitirte:\n
+    - Recibir ayuda de alguien que quizás no hayas considerado que podría enriquecer tu vida.\n
+    - Ver tu vida en muchas más dimensiones que solo la supervivencia y el placer.\n
+    - Cumplir necesidades diferentes a las que ya has cubierto (es decir, no cumplir continuamente las mismas).\n
+    - Ser claro acerca de tus deseos más profundos en lugar de ser empujado por expectativas de otros.\n
+    - Desdibujar las líneas entre dar y recibir ayuda, lo que puede ayudarte a descubrir una realidad más profunda que la aparente separación que experimentamos. En otras palabras, mantente abierto a lo que puedas recibir cuando sientas que estás dando, y ábrirte a notar el sabor que toma tu vida cuando te sientes agradecido por la ayuda que recibes.\n
     ¡Disfruta!</string>
     <string name="match_request_1">Solicitar necesidad de supervivencia</string>
     <string name="match_supply_1">Suplir necesidad de supervivencia</string>
@@ -43,7 +41,7 @@ Esperamos que esta aplicación te recuerde la magia que ya existe en el mundo. A
     <string name="user_description_question_6">¿Qué color de tu ropa ocupa más espacio POR ENCIMA de tus caderas? (elige el color más cercano) (elige uno de los colores más comunes si ocupan aproximadamente el mismo espacio)</string>
     <string name="user_description_question_6_options">ninguno (¡oooh sí!), blanco, negro, gris, marrón, rojo, verde, azul, morado, naranja, amarillo</string>
     <string name="user_description_question_7">¿Qué color de tu ropa ocupa más espacio POR DEBAJO de tus caderas? (elige el color más cercano) (elige uno de los colores más comunes si ocupan aproximadamente el mismo espacio)</string>
-    <string name="user_description_question_7_options">ninguno (¡uau! ¡increíble!), blanco, negro, gris, marrón, azul, ninguno de los anteriores (es decir, un color diferente)</string>
+    <string name="user_description_question_7_options">ninguno (¡uau! ¡increíble!), blanco, negro, gris, marrón, azul, ninguno de los anteriores (un color diferente)</string>
     <string name="button">Botón</string>
     <string name="stop">Detener anuncio</string>
     <string name="advertise">Anunciar tus datos</string>
@@ -53,4 +51,8 @@ Esperamos que esta aplicación te recuerde la magia que ya existe en el mundo. A
     <string name="state_on">ENCENDIDO</string>
     <string name="state_off">APAGADO</string>
     <string name="user_state_intro">El campo debajo de este párrafo tiene un código que muestra cómo este software está representando los datos que has introducido (tus solicitudes, ofertas y la descripción de cómo te ves). Está dentro de un campo de texto, para que puedas copiarlo fácilmente. Simplemente mantén presionado el dedo sobre el código y selecciona "Copiar". También puedes escribirlo. Si deseas escanear para encontrar coincidencias (recibir datos), en lugar de anunciar tus datos (emitir tus datos), copia el texto de abajo, introdúcelo en la aplicación de escaneo que acompaña esta, y deja que escanee. Debemos apuntar a que aproximadamente la mitad de la gente esté anunciando y la otra mitad escaneando en cualquier momento dado. Esto se hará más fácil de usar en futuras versiones de esta aplicación. Solo una persona que escanea puede recibir datos de personas que anuncian, por lo que las personas pueden alternar entre escanear y anunciar después de un tiempo. Los datos de abajo solo se actualizan cuando comienzas a anunciar, por lo que puedes anunciar brevemente si deseas actualizarlos. Si ves este carácter "0", es el número cero, no la letra O.</string>
+    <string name="intro_title">Introducción</string>
+    <string name="hide_title">"Esconder "</string>
+    <string name="show_title">"Mostrar "</string>
+    <string name="about_title">\"Acerca de esta aplicación\"</string>
 </resources>
