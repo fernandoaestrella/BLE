@@ -48,15 +48,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.nordicsemi.android.kotlin.ble.ui.scanner.repository.ScanningState
 import no.nordicsemi.android.kotlin.ble.core.scanner.BleScanResults
 import no.nordicsemi.android.kotlin.ble.ui.scanner.R
 import no.nordicsemi.android.kotlin.ble.ui.scanner.main.viewmodel.ScannerViewModel
 import kotlin.math.pow
-
-val needsList = listOf("Provide Survival Need", "Suggest Game", "Help Someone Succeed", "Listen to someone", "Uncover a Hidden Truth", "Dispel Darkness", "Realize Oneness")
-
 
 @Suppress("FunctionName")
 internal fun LazyListScope.DeviceListItems(
@@ -154,9 +152,11 @@ fun byteArrayToBinaryString(byteArray: ByteArray): String {
 //    return byteArray.joinToString("") { it.toString(2).padStart(8, '0') }
 }
 
+@Composable
 internal fun describeMatches(otherUserDataByteArray: ByteArray, viewModel: ScannerViewModel): String {
     val myUserDataBinaryString = byteArrayToBinaryString(viewModel.getUserData(0))
     val otherUserDataBinaryString = byteArrayToBinaryString(otherUserDataByteArray)
+    val needsList = listOf(stringResource(R.string.match_supply_1), stringResource(R.string.match_supply_2), stringResource(R.string.match_supply_3), stringResource(R.string.match_supply_4), stringResource(R.string.match_supply_5), stringResource(R.string.match_supply_6), stringResource(R.string.match_supply_7))
     var matchAnalysis = ""
     var bitIndex = 0
 
@@ -167,13 +167,17 @@ internal fun describeMatches(otherUserDataByteArray: ByteArray, viewModel: Scann
             if (bitIndex % 2 == 0) {
                 // If this user's bit is 1 and the other user's next bit is 1. This means this user is requesting something that the other user can provide
                 if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex + 1] == '1') {
-                    matchAnalysis += "They can " + needsList[bitIndex / 2] + " for you! "
+                    matchAnalysis += stringResource(R.string.they_can) + needsList[bitIndex / 2] + stringResource(
+                        R.string.for_you
+                    )
                 }
                 // Else, if we are looking at a bit placed in an odd position (1, 3, 5, 7). This means this user can provide something the other user is requesting
             } else {
                 // If this user's bit is 1 and the other user's previous bit is 1
                 if (myUserDataBinaryString[bitIndex] == '1' && otherUserDataBinaryString[bitIndex - 1] == '1') {
-                    matchAnalysis += "You can " + needsList[bitIndex / 2] + " for them! "
+                    matchAnalysis += stringResource(R.string.you_can) + needsList[bitIndex / 2] + stringResource(
+                        R.string.for_them
+                    )
                 }
             }
         }
@@ -242,11 +246,13 @@ internal fun MatchDescription(
 
     Column(modifier = Modifier.background(color)) {
         Text(
-            text = "With this user, you have this many matches: $matchCount out of 14",
+            text = stringResource(R.string.number_of_matches_with_other_user) + "$matchCount" + stringResource(
+                R.string.out_of_14
+            ),
             color = textColor
         )
         Text(
-            text = "This user looks like this:\n",
+            text = stringResource(R.string.this_user_looks_like_this),
             color = textColor
         )
         outputVisualUserDescription(otherUserDataByteArray = hexStringToByteArray(
@@ -263,7 +269,7 @@ internal fun MatchDescription(
         if (matchCount > 0) {
             // Describe matches
             Text(
-                text = "You match in the following manner:\n" + describeMatches(
+                text = stringResource(R.string.match_intro) + describeMatches(
                     hexStringToByteArray(otherUserDataString),
                     viewModel
                 ), color = textColor
@@ -454,6 +460,7 @@ private fun outputVisualUserDescription(otherUserDataByteArray: ByteArray): Unit
     }
 }
 
+@Composable
 fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     var outputString = ""
     var otherUserLooksLikeMan = false
@@ -461,16 +468,15 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     val bitArray = byteArrayToBitArray(otherUserDataByteArray)
     var bitIndex = 0
 
-    Log.d("outputUserDescription", "bitArray: $bitArray")
     for (bit in bitArray) {
         when (bitIndex) {
             14 -> {
                 // If this user's bit is 1
                 if (bit) {
                     otherUserLooksLikeMan = true
-                    outputString += "Man"
+                    outputString += stringResource(R.string.man)
                 } else {
-                    outputString += "Woman"
+                    outputString += stringResource(R.string.woman)
                 }
 
                 outputString += "\n"
@@ -480,17 +486,17 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
                 if (otherUserLooksLikeMan) {
                     // If the other user's bit is true
                     if (bit) {
-                        outputString += "Taller than 5 feet 9 inches (175 cm)"
+                        outputString += stringResource(R.string.male_tall)
                     } else {
-                        outputString += "Shorter than 5 feet 9 inches (175 cm)"
+                        outputString += stringResource(R.string.male_short)
                     }
                     // Else if the other user looks like a woman
                 } else {
                     // If the other user's bit is true
                     if (bit) {
-                        outputString += "Taller than 5 feet 4 inches (162 cm)"
+                        outputString += stringResource(R.string.female_tall)
                     } else {
-                        outputString += "Shorter than 5 feet 4 inches (162 cm)"
+                        outputString += stringResource(R.string.female_short)
                     }
                 }
 
@@ -500,16 +506,16 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
                 if (otherUserLooksLikeMan) {
                     // If the other user's bit is 1
                     if (bit) {
-                        outputString += "Older than 30.3 years"
+                        outputString += stringResource(R.string.male_old)
                     } else {
-                        outputString += "Younger than 30.3 years"
+                        outputString += stringResource(R.string.male_young)
                     }
                     // Else if the other user looks like a woman
                 } else {
                     if (bit) {
-                        outputString += "Older than 31.8 years"
+                        outputString += stringResource(R.string.female_old)
                     } else {
-                        outputString += "Younger than 31.8 years"
+                        outputString += stringResource(R.string.female_young)
                     }
                 }
 
@@ -518,16 +524,16 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
             17 -> {
                 if (otherUserLooksLikeMan) {
                     if (bit) {
-                        outputString += "Has facial hair"
+                        outputString += stringResource(R.string.male_has_facial_hair)
                     } else {
-                        outputString += "Does not have facial hair"
+                        outputString += stringResource(R.string.male_does_not_have_facial_hair)
                     }
                     // Else if the other user looks like a woman
                 } else {
                     if (bit) {
-                        outputString += "Hair reaches below shoulder"
+                        outputString += stringResource(R.string.female_long_hair)
                     } else {
-                        outputString += "Hair does not reach below shoulder"
+                        outputString += stringResource(R.string.female_short_hair)
                     }
                 }
 
@@ -535,9 +541,9 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
             }
             18 -> {
                 if (bit) {
-                    outputString += "Wearing glasses"
+                    outputString += stringResource(R.string.wearing_glasses)
                 } else {
-                    outputString += "Not wearing glasses"
+                    outputString += stringResource(R.string.not_wearing_glasses)
                 }
 
                 outputString += "\n"
@@ -552,21 +558,21 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     //    Convert bit array to integer
     var otherUserTopColorInt = convertBitArrayToInt(otherUserTopColorBitArray)
 
-    outputString += "Top Color: "
+    outputString += stringResource(R.string.top_color)
 //    Convert integer to color
     when (otherUserTopColorInt) {
-        0 -> outputString += "None\n"
-        1 -> outputString += "White\n"
-        2 -> outputString += "Black\n"
-        3 -> outputString += "Gray\n"
-        4 -> outputString += "Brown\n"
-        5 -> outputString += "Red\n"
-        6 -> outputString += "Green\n"
-        7 -> outputString += "Blue\n"
-        8 -> outputString += "Purple\n"
-        9 -> outputString += "Orange\n"
-        10 -> outputString += "Yellow\n"
-        else -> outputString += "Wrong code. Make sure to copy a code from the companion advertiser app\n"
+        0 -> outputString += stringResource(R.string.none)
+        1 -> outputString += stringResource(R.string.white)
+        2 -> outputString += stringResource(R.string.black)
+        3 -> outputString += stringResource(R.string.gray)
+        4 -> outputString += stringResource(R.string.brown)
+        5 -> outputString += stringResource(R.string.red)
+        6 -> outputString += stringResource(R.string.green)
+        7 -> outputString += stringResource(R.string.blue)
+        8 -> outputString += stringResource(R.string.purple)
+        9 -> outputString += stringResource(R.string.orange)
+        10 -> outputString += stringResource(R.string.yellow)
+        else -> outputString += stringResource(R.string.invalid_code)
     }
 
     // Represent next 3 bit as a boolean array
@@ -575,17 +581,17 @@ fun outputUserDescription(otherUserDataByteArray: ByteArray): String {
     // Convert bit array to integer
     var otherUserBottomColorInt = convertBitArrayToInt(otherUserBottomColorBitArray)
 
-    outputString += "Bottom Color: "
+    outputString += stringResource(R.string.bottom_color)
     // Convert integer to color
     when (otherUserBottomColorInt) {
-        0 -> outputString += "None\n"
-        1 -> outputString += "White\n"
-        2 -> outputString += "Black\n"
-        3 -> outputString += "Gray\n"
-        4 -> outputString += "Brown\n"
-        5 -> outputString += "Blue\n"
-        6 -> outputString += "Undefined\n"
-        else -> outputString += "Wrong code. Make sure to copy a code from the companion advertiser app\n"
+        0 -> outputString += stringResource(R.string.none)
+        1 -> outputString += stringResource(R.string.white)
+        2 -> outputString += stringResource(R.string.black)
+        3 -> outputString += stringResource(R.string.gray)
+        4 -> outputString += stringResource(R.string.brown)
+        5 -> outputString += stringResource(R.string.blue)
+        6 -> outputString += stringResource(R.string.undefined)
+        else -> outputString += stringResource(R.string.invalid_code)
     }
 
 //    Log.d("outputUserDescription", "outputString: $outputString")

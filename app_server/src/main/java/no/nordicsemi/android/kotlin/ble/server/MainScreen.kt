@@ -107,7 +107,9 @@ fun Spoiler(
             Button(
                 onClick = { onExpandedChange(!expanded) }
             ) {
-                Text(text = if (expanded) "Hide $title" else "Show $title")
+                Text(text = if (expanded) stringResource(R.string.hide_title) + "$title" else stringResource(
+                    R.string.show_title
+                ) + "$title")
             }
             if (expanded) {
                 Text(text = text)
@@ -147,7 +149,7 @@ fun MainScreen() {
 
                         Spoiler(
                             text = stringResource(id = R.string.intro),
-                            title = "Intro",
+                            title = stringResource(R.string.intro_title),
                             expanded = expandedIntro,
 //                        onExpandedChange = { expandedIntro = it }
                             onExpandedChange = { setExpandedIntro(it) }
@@ -376,14 +378,18 @@ fun MainScreen() {
                         if (state.isAdvertising) {
                             Button(
                                 onClick = { viewModel.stopAdvertise() },
-                                modifier = Modifier.padding(horizontal = 8.dp).fillMaxWidth()
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                                    .fillMaxWidth()
                             ) {
                                 Text(stringResource(id = R.string.stop))
                             }
                         } else {
                             Button(
                                 onClick = { viewModel.advertise() },
-                                modifier = Modifier.padding(horizontal = 8.dp).fillMaxWidth()
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                                    .fillMaxWidth()
                             ) {
                                 Text(stringResource(id = R.string.advertise))
                             }
@@ -405,7 +411,7 @@ fun MainScreen() {
 
                         Spoiler(
                             text = stringResource(id = R.string.about),
-                            title = "About",
+                            title = stringResource(R.string.about_title),
                             expanded = expandedAbout,
 //                        onExpandedChange = { expandedIntro = it }
                             onExpandedChange = { setExpandedAbout(it) }
