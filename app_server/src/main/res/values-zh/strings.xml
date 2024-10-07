@@ -53,4 +53,8 @@
     <string name="state_on">开启</string>
     <string name="state_off">关闭</string>
     <string name="user_state_intro">下面段落中的字段包含一个代码，显示了此软件如何表示您输入的数据（您的请求、优惠以及外貌描述）。它位于文本输入字段中，以便您可以轻松复制它。只需按住手指在代码上，然后选择“复制”。您也可以手动输入它。如果您想扫描匹配（接收匹配），而不是发布您的数据（输出您的数据），请复制下面的文本，将其输入到配套的扫描应用程序中，并让它扫描。我们应该努力使大约一半的人在任何给定时间进行广告，而另一半进行扫描。这将在该应用程序的未来版本中变得更加容易使用。只有扫描的人才能从广告的人那里收到匹配，因此人们可以在一段时间后交替扫描和广告。下面的数据仅在您开始广告时更新，因此如果您想更新它，可以立即广告。如果您看到这个字符“0”，它是数字零，而不是字母O。</string>
+    <string name="intro_title">" 简介"</string>
+    <string name="hide_title">隐藏</string>
+    <string name="show_title">展示</string>
+    <string name="about_title">关于</string>
 </resources>
