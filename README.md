@@ -1,198 +1,30 @@
-Files modified
-BleScanResultAggregator.kt
-BleAdvertiserOreo.kt
-DeviceListItems.kt
+Forked from https://github.com/NordicSemiconductor/Kotlin-BLE-Library
 
-# Kotlin BLE Library for Android
+Feel a deeper union 
+with the people around you 
 
-The library simplifies usage of Android Bluetooth Low Energy on Android. It is a wrapper around
-native API and uses Kotlin Coroutines for asynchronous operations. The usage is designed to be more
-natural according to the BLE specification.
+by: 
+1. remembering what you really care for
+2. crystallizing it with the magic of mobile technology
+3. transmitting it to those near you
 
-## BLE Scanner
+After that, you will either:
+- Be approached by one who can help you fulfill that vision
+- Know who can help you fulfill that vision, by looking at the window to the universe that is your smart device. Go find them!
 
-This module contains a scanner class which provides the list of available Bluetooth LE devices. Each 
-device is kept in an aggregator which keeps devices in map together with their scan records. Scanning
-works as long as a Flow has an attached consumer. After the Flow is closed the scanning stops.
+So that you:
+- receive help from people you may not have considered that could enrich your life 
+- see your life in many more dimensions than just survival and pleasure, and try to supply deeper needs accordingly,
+- can be clear about your deeper desires instead of being pushed by others’ expectations, 
+- blur the lines between giving and receiving help, which may help uncover a deeper reality than the apparent separation we experience.
 
-```kotlin
-    //Create aggregator which will concat scan records with a device
-    val aggregator = BleScanResultAggregator()
-    BleScanner(context).scan()
-        .map { aggregator.aggregateDevices(it) } //Add new device and return an aggregated list
-        .onEach { _devices.value = it } //Propagated state to UI
-        .launchIn(viewModelScope) //Scanning will stop after we leave the screen
-```
+This pair of free apps in development use Bluetooth to send information to mobile devices near yours without needing to pair them beforehand, via a newer version of the protocol called Bluetooth Low Energy which is most probably already in your device. It is currently only available for Android devices, but an iOS version is coming.
 
-### Dependency
-```Groovy
-implementation 'no.nordicsemi.android.kotlin.ble:scanner:1.1.0'
-```
+You can get a working, test version from the Google Drive reachable via this short URL:
+https://bit.ly/deep_union
 
-## BLE Client
-This module is responsible for handling connection between the phone and the BLE device. It uses
-Kotlin Coroutines instead of JAVA callbacks to handle asynchronous requests.
+A deeper explanation: https://bit.ly/3zQ6pcc
 
-Below example is based on [the Blinky profile](https://github.com/NordicSemiconductor/Android-nRF-Blinky).
+Screenshots: https://bit.ly/4eSkHb3
 
-Connection to the Blinky DK may look like that:
-```kotlin
-import no.nordicsemi.android.kotlin.ble.client.main.callback.ClientBleGatt
-
-viewModelScope.launch {
-    //Connect a Bluetooth LE device. This is a suspend function which waits until device is in connected state.
-    val connection = ClientBleGatt.connect(context, blinkyDevice, viewModelScope, options) //blinkyDevice from scanner
-
-    //Discover services on the Bluetooth LE Device. This is a suspend function which waits until device discovery is finished.
-    val services = connection.discoverServices()
-
-    //Remember needed service and characteristics which are used to communicate with the DK.
-    val service = services.findService(BlinkySpecifications.UUID_SERVICE_DEVICE)!!
-    ledCharacteristic = service.findCharacteristic(BlinkySpecifications.UUID_LED_CHAR)!!
-    buttonCharacteristic = service.findCharacteristic(BlinkySpecifications.UUID_BUTTON_CHAR)!!
-
-    //Observe button characteristic which detects when a button is pressed
-    //getNotifications() is a suspend function which waits until notification is enabled.
-    buttonCharacteristic.getNotifications().onEach {
-        //_state is a MutableStateFlow which propagates data to UI.
-        _state.value = _state.value.copy(isButtonPressed = BlinkyButtonParser.isButtonPressed(it))
-    }.launchIn(viewModelScope)
-    
-    //Check the initial state of the Led. Read() is a suspend function which waits until the value is read from the DK.
-    val isLedOn = BlinkyLedParser.isLedOn(ledCharacteristic.read())
-    _state.value = _state.value.copy(isLedOn = isLedOn)
-}
-```
-
-Turning on/off a LED light can looks like that:
-```kotlin
-viewModelScope.launch {
-    if (state.value.isLedOn) {
-        //Write is a suspend function which waits for the operation to finish.
-        ledCharacteristic.write(DataByteArray.from(0x00))
-        //No exception means that writing was a success. We can update the UI.
-        _state.value = _state.value.copy(isLedOn = false)
-    } else {
-        //Write is a suspend function which waits for the operation to finish.
-        ledCharacteristic.write(DataByteArray.from(0x01))
-        //No exception means that writing was a success. We can update the UI.
-        _state.value = _state.value.copy(isLedOn = true)
-    }
-}
-```
-
-### Dependency
-```Groovy
-implementation 'no.nordicsemi.android.kotlin.ble:client:1.1.0'
-```
-
-## BLE Advertiser
-The library is used to advertise the server.
-
-```kotlin
-    val advertiser = BleAdvertiser.create(context)
-    val advertiserConfig = BleAdvertisingConfig(
-        settings = BleAdvertisingSettings(
-            deviceName = "My Server" // Advertise a device name
-        ),
-        advertiseData = BleAdvertisingData(
-            ParcelUuid(BlinkySpecifications.UUID_SERVICE_DEVICE) //Advertise main service uuid.
-        )
-    )
-
-    viewModelScope.launch {
-        advertiser.advertise(advertiserConfig) //Start advertising
-            .cancellable()
-            .catch { it.printStackTrace() }
-            .collect { //Observe advertiser lifecycle events
-                if (it is OnAdvertisingSetStarted) { //Handle advertising start event
-                    _state.value = _state.value.copy(isAdvertising = true)
-                }
-                if (it is OnAdvertisingSetStopped) { //Handle advertising stop event
-                    _state.value = _state.value.copy(isAdvertising = false)
-                }
-            }
-    }
-```
-
-### Dependency
-```Groovy
-implementation 'no.nordicsemi.android.kotlin.ble:advertiser:1.1.0'
-```
-
-## BLE Server
-The library is used to create a Bluetooth LE server. 
-
-### Declaring a server definition
-```kotlin
-    viewModelScope.launch {
-        //Define led characteristic
-        val ledCharacteristic = BleServerGattCharacteristicConfig(
-            BlinkySpecifications.UUID_LED_CHAR,
-            listOf(BleGattProperty.PROPERTY_READ, BleGattProperty.PROPERTY_WRITE),
-            listOf(BleGattPermission.PERMISSION_READ, BleGattPermission.PERMISSION_WRITE)
-        )
-
-        //Define button characteristic
-        val buttonCharacteristic = BleServerGattCharacteristicConfig(
-            BlinkySpecifications.UUID_BUTTON_CHAR,
-            listOf(BleGattProperty.PROPERTY_READ, BleGattProperty.PROPERTY_NOTIFY),
-            listOf(BleGattPermission.PERMISSION_READ, BleGattPermission.PERMISSION_WRITE)
-        )
-
-        //Put led and button characteristics inside a service
-        val serviceConfig = BleServerGattServiceConfig(
-            BlinkySpecifications.UUID_SERVICE_DEVICE,
-            BleGattServerServiceType.SERVICE_TYPE_PRIMARY,
-            listOf(ledCharacteristic, buttonCharacteristic)
-        )
-
-        val server = BleGattServer.create(context, viewModelScope, serviceConfig)
-    }
-```
-
-### Observing server incoming connections
-```kotlin
-    server.connectionEvents
-        .mapNotNull { it as? ServerConnectionEvent.DeviceConnected }
-        .map { it.connection }
-        .onEach {
-            it.services.findService(BlinkySpecifications.UUID_SERVICE_DEVICE)?.let {
-                setUpServices(it)
-            }
-        }
-        .launchIn(viewModelScope)
-```
-
-### Setting up characteristic behaviour
-```kotlin
-    private fun setUpServices(services: BleGattServerService) {
-        val ledCharacteristic = services.findCharacteristic(BlinkySpecifications.UUID_LED_CHAR)!!
-        val buttonCharacteristic = services.findCharacteristic(BlinkySpecifications.UUID_BUTTON_CHAR)!!
-
-        ledCharacteristic.value.onEach {
-            _state.value = _state.value.copy(isLedOn = it != DataByteArray.from(0x00))
-        }.launchIn(viewModelScope)
-
-        buttonCharacteristic.value.onEach {
-            _state.value = _state.value.copy(isButtonPressed = it != DataByteArray.from(0x00))
-        }.launchIn(viewModelScope)
-
-        this.ledCharacteristic = ledCharacteristic
-        this.buttonCharacteristic = buttonCharacteristic
-    }
-
-    fun onButtonPressedChanged(isButtonPressed: Boolean) = viewModelScope.launch {
-        val value = if (isButtonPressed) {
-            DataByteArray.from(0x01)
-        } else {
-            DataByteArray.from(0x00)
-        }
-        buttonCharacteristic.setValueAndNotifyClient(value)
-    }
-```
-
-### Dependency
-```Groovy
-implementation 'no.nordicsemi.android.kotlin.ble:server:1.1.0'
-```
+Made with a ton of excitement, by me 💗.
